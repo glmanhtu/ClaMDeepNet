@@ -42,9 +42,9 @@ caffe_train_model = workspace("caffe_model/caffenet_train.prototxt")
 # Will create after render
 caffe_solver = workspace("caffe_model/caffenet_solver.prototxt")
 
-solver_mode = "GPU"
-if "SOLVER_CPU" in os.environ:
-    solver_mode = "CPU"
+solver_mode = constant.CAFFE_SOLVER
+if "CAFFE_SOLVER" in os.environ:
+    solver_mode = os.environ['CAFFE_SOLVER']
 
 py_render_template("template/caffenet_train.template", caffe_train_model, mean_file=mean_proto,
                    train_lmdb=train_lmdb_path, validation_lmdb=validation_lmdb_path,
