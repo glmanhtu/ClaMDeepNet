@@ -1,0 +1,7 @@
+source "https://supermarket.getchef.com"
+
+cookbook 'poise-python', '~> 1.6.0'
+cookbook 'apt'
+cookbook 'build-essential'
+cookbook 'yum-epel'
+cookbook 'chocolatey'

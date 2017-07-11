@@ -1,0 +1,7 @@
+Berksfile.lock
+cookbooks/*
+*.log
+.chef
+.vagrant
+data/*
+!data/.gitkeep
