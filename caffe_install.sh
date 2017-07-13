@@ -1,9 +1,7 @@
 # Add Nvidia's cuda repository
-if [ ! -f "/tmp/cudnn-8.0-linux-x64-v6.0.tgz" ] ; then
-  exit 1;
-fi
-wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_6.5-14_amd64.deb
-sudo dpkg -i cuda-repo-ubuntu1404_6.5-14_amd64.deb
+#if [ ! -f "/tmp/cudnn-8.0-linux-x64-v6.0.tgz" ] ; then
+#  exit 1;
+#fi
 
 sudo apt-get update
 # Note that we do upgrade and not dist-upgrade so that we don't install
@@ -14,7 +12,7 @@ sudo apt-get install -y opencl-headers build-essential protobuf-compiler \
     libprotoc-dev libboost-all-dev libleveldb-dev hdf5-tools libhdf5-serial-dev \
     libopencv-core-dev  libopencv-highgui-dev libsnappy-dev \
     libatlas-base-dev cmake libstdc++6-4.8-dbg libgoogle-glog0v5 libgoogle-glog-dev \
-    libgflags-dev liblmdb-dev git python-pip gfortran libopencv-dev
+    libgflags-dev liblmdb-dev git python-pip gfortran libopencv-dev python-opencv
 sudo apt-get clean
 
 # Nvidia's driver depends on the drm module, but that's not included in the default
@@ -27,7 +25,6 @@ sudo apt-get clean
 #sudo apt-get install -y linux-headers-virtual linux-source linux-image-extra-virtual
 sudo apt-get install -y linux-image-extra-`uname -r` linux-headers-`uname -r` linux-image-`uname -r`
 
-sudo apt-get install -y cuda
 sudo apt-get clean
 
 # Optionally, download your own cudnn; requires registration.  
@@ -54,7 +51,6 @@ if [ -f "../cudnn-8.0-linux-x64-v6.0.tgz" ] ; then
   sed -i '/^# USE_CUDNN := 1/s/^# //' Makefile.config
 fi
 sed -i '/^# WITH_PYTHON_LAYER := 1/s/^# //' Makefile.config
-sed -i 's/\/usr\/local\/cuda/\/usr\/local\/cuda-8.0/g' Makefile.config
 sed -i 's/\/usr\/local\/include/\/usr\/local\/include \/usr\/include\/hdf5\/serial/g' Makefile.config
 sed -i '/^PYTHON_INCLUDE/a    /usr/local/lib/python2.7/dist-packages/numpy/core/include/ \\' Makefile.config
 
