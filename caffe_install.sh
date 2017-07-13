@@ -2,8 +2,8 @@
 if [ ! -f "/tmp/cudnn-8.0-linux-x64-v6.0.tgz" ] ; then
   exit 1;
 fi
-wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_8.0.61-1_amd64.deb
-sudo dpkg -i cuda-repo-ubuntu1604_8.0.61-1_amd64.deb
+wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_6.5-14_amd64.deb
+sudo dpkg -i cuda-repo-ubuntu1404_6.5-14_amd64.deb
 
 sudo apt-get update
 # Note that we do upgrade and not dist-upgrade so that we don't install
