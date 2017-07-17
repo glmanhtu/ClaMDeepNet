@@ -5,9 +5,20 @@ import string
 from datetime import timedelta
 from functools import update_wrapper
 
-from flask import Flask, request, jsonify, current_app, make_response, render_template
+from flask import Flask, request, jsonify, current_app, make_response, render_template, send_file
 
 from utils.make_predictions import *
+import sys
+import subprocess
+import pandas as pd
+
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pylab as plt
+from utils import pycaffe
+import shutil
+
+plt.style.use('ggplot')
 
 
 def crossdomain(origin=None, methods=None, headers=None, max_age=21600,
@@ -62,16 +73,10 @@ def crossdomain(origin=None, methods=None, headers=None, max_age=21600,
         return update_wrapper(wrapped_function, f)
     return decorator
 
-set_workspace("data/pagoda")
-mean_proto = workspace("data/mean.binaryproto")
-caffe_deploy = workspace("caffe_model/caffenet_deploy.prototxt")
-
-py_render_template("template/caffenet_deploy.template", caffe_deploy)
-
-mean_data = read_mean_data(mean_proto)
-net = read_model_and_weight(caffe_deploy, workspace("caffe_model/snapshot_iter_15000.caffemodel"))
-transformer = image_transformers(net, mean_data)
-
+set_workspace("data/heobs")
+caffe_log = workspace("caffe_model/caffe_train.log")
+image_path = workspace("caffe_model/caffe_curve.png")
+caffe = pycaffe.Caffe()
 app = Flask(__name__, template_folder="web")
 
 app.config['UPLOAD_FOLDER'] = 'uploads/'
@@ -87,22 +92,60 @@ def allowed_file(filename):
 
 @app.route('/')
 def index():
-    return render_template('visualize.html')
+    return render_template('imageview.html')
 
 
-@app.route('/predict', methods = ['POST'])
+@app.route('/curve', methods = ['GET'])
 @crossdomain(origin='*')
-def upload_file():
-    if request.method == 'POST':
-        file = request.files['file']
-        if file and allowed_file(file.filename):
-            file_name = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
-            file_name = file_name + "." + file.filename.rsplit('.', 1)[1]
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], file_name)
-            file.save(file_path)
-            predict = single_making_prediction(file_path, transformer, net)
-            os.remove(file_path)
-            return jsonify(predict.tolist())
+def curve():
+    # Get directory where the model logs is saved, and move to it
+    model_log_dir_path = os.path.dirname(caffe_log)
+    os.chdir(model_log_dir_path)
+
+    '''
+    Generating training and test logs
+    '''
+    # Parsing training/validation logs
+    command = caffe.caffe_home() + 'tools/extra/parse_log.sh ' + caffe_log
+    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
+    process.wait()
+    # Read training and test logs
+    train_log_path = caffe_log + '.train'
+    test_log_path = caffe_log + '.test'
+    train_log = pd.read_csv(train_log_path, delim_whitespace=True)
+    test_log = pd.read_csv(test_log_path, delim_whitespace=True)
+
+    '''
+    Making learning curve
+    '''
+    fig, ax1 = plt.subplots()
+
+    # Plotting training and test losses
+    train_loss, = ax1.plot(train_log['#Iters'], train_log['TrainingLoss'], color='red', alpha=.5)
+    test_loss, = ax1.plot(test_log['#Iters'], test_log['TestLoss'], linewidth=2, color='green')
+    ax1.set_ylim(ymin=0, ymax=1)
+    ax1.set_xlabel('Iterations', fontsize=15)
+    ax1.set_ylabel('Loss', fontsize=15)
+    ax1.tick_params(labelsize=15)
+    # Plotting test accuracy
+    ax2 = ax1.twinx()
+    test_accuracy, = ax2.plot(test_log['#Iters'], test_log['TestAccuracy'], linewidth=2, color='blue')
+    ax2.set_ylim(ymin=0, ymax=1)
+    ax2.set_ylabel('Accuracy', fontsize=15)
+    ax2.tick_params(labelsize=15)
+    # Adding legend
+    plt.legend([train_loss, test_loss, test_accuracy], ['Training Loss', 'Test Loss', 'Test Accuracy'],
+               bbox_to_anchor=(1, 0.8))
+    plt.title('Training Curve', fontsize=18)
+    # Saving learning curve
+    plt.savefig(image_path)
+
+    '''
+    Deleting training and test logs
+    '''
+    shutil.rmtree(train_log_path)
+    shutil.rmtree(test_log_path)
+    return send_file(image_path, mimetype='image/png')
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=8080, debug=True)
+    app.run(host="0.0.0.0", port=8081, debug=True)
