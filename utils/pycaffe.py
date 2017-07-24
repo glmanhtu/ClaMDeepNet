@@ -33,7 +33,7 @@ class Caffe(object):
                 print "Downloaded model"
             command = [caffe_bin, "train", "--solver=" + solver, "--weights", trained_model_path, ">", log, "&"]
         else:
-            command = [caffe_bin, "train", "--solver=" + solver, ">", log, "&"]
+            command = [caffe_bin, "train", "--solver=" + solver, "2>&1 | tee", log]
 
         print ("Execute following command to start train")
 
