@@ -26,8 +26,9 @@ def read_model_and_weight(model_deploy_file, model_weight_file):
 def image_transformers(net, mean_data):
 
     transformer = caffe.io.Transformer({'data': net.blobs['data'].data.shape})
-    transformer.set_mean('data', mean_data)
-    transformer.set_transpose('data', (2, 0, 1))
+    if mean_data is not None:
+        transformer.set_mean('data', mean_data)
+        transformer.set_transpose('data', (2, 0, 1))
     return transformer
 
 

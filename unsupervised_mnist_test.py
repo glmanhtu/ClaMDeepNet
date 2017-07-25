@@ -7,7 +7,8 @@ google_download = DownloadGoogleDrive()
 
 set_workspace("data/pagoda")
 
-test_zip = GoogleFile('0B60FAQcEiqEyWUJ2dUhmUDllb1k', 'pagoda_data_test.zip', workspace('data/pagoda_data_test.zip'))
+test_zip = GoogleFile('0BzL8pCLanAIARUFPNTNqa1lQekk',
+                       'mnist_train_data.zip', workspace('data/mnist_train_data.zip'))
 
 print "\n\n------------------------PREPARE PHRASE----------------------------\n\n"
 
@@ -25,12 +26,12 @@ mean_proto = workspace("data/mean.binaryproto")
 
 caffe_deploy = workspace("caffe_model/caffenet_deploy.prototxt")
 
-py_render_template("template/caffenet_deploy.template", caffe_deploy)
+py_render_template("template/caffenet_deploy.template", caffe_deploy,
+                   num_output=Constant.NUMBER_OUTPUT)
 
-mean_data = read_mean_data(mean_proto)
-net = read_model_and_weight(caffe_deploy, workspace("caffe_model/snapshot_iter_15000.caffemodel"))
-transformer = image_transformers(net, mean_data)
-prediction = making_predictions(workspace("data/pagoda_data_test"), transformer, net)
+net = read_model_and_weight(caffe_deploy, "/usr/local/src/dec/dec/init.caffemodel")
+transformer = image_transformers(net, None)
+prediction = making_predictions(workspace("data/heobs_sample_dataset"), transformer, net)
 
 export_to_csv(prediction, workspace("result/test_result.csv"))
 
