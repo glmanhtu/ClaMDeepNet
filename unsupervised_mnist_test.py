@@ -5,7 +5,7 @@ from utils.make_predictions import *
 
 google_download = DownloadGoogleDrive()
 
-set_workspace("data/pagoda")
+set_workspace("data/unsupervised_mnist")
 
 test_zip = GoogleFile('0BzL8pCLanAIARUFPNTNqa1lQekk',
                        'mnist_train_data.zip', workspace('data/mnist_train_data.zip'))
