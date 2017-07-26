@@ -20,7 +20,7 @@ def read_mean_data(mean_file):
 
 
 def read_model_and_weight(model_deploy_file, model_weight_file):
-    return caffe.Net(model_deploy_file, model_weight_file, caffe.TEST)
+    return caffe.Net(model_deploy_file, caffe.TEST, weights=model_weight_file)
 
 
 def image_transformers(net, mean_data):
@@ -28,7 +28,7 @@ def image_transformers(net, mean_data):
     transformer = caffe.io.Transformer({'data': net.blobs['data'].data.shape})
     if mean_data is not None:
         transformer.set_mean('data', mean_data)
-        transformer.set_transpose('data', (2, 0, 1))
+    transformer.set_transpose('data', (2, 0, 1))
     return transformer
 
 

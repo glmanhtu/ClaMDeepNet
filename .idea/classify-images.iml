@@ -9,6 +9,7 @@
       <excludeFolder url="file://$MODULE_DIR$/data/images/sample/other" />
       <excludeFolder url="file://$MODULE_DIR$/data/images/sample/scenery" />
       <excludeFolder url="file://$MODULE_DIR$/data/images/sample/unknown" />
+      <excludeFolder url="file://$MODULE_DIR$/dependencies" />
     </content>
     <orderEntry type="jdk" jdkName="Python 2.7.12 (/usr/bin/python2.7)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

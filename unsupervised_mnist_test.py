@@ -29,9 +29,9 @@ caffe_deploy = workspace("caffe_model/caffenet_deploy.prototxt")
 py_render_template("template/caffenet_deploy.template", caffe_deploy,
                    num_output=Constant.NUMBER_OUTPUT)
 
-net = read_model_and_weight(caffe_deploy, "/usr/local/src/dec/dec/init.caffemodel")
+net = read_model_and_weight(caffe_deploy, "/workspace/init.caffemodel")
 transformer = image_transformers(net, None)
-prediction = making_predictions(workspace("data/heobs_sample_dataset"), transformer, net)
+prediction = making_predictions(workspace("data/trainingSet"), transformer, net)
 
 export_to_csv(prediction, workspace("result/test_result.csv"))
 

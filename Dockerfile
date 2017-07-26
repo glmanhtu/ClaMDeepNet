@@ -44,7 +44,7 @@ RUN git clone --depth 1 https://github.com/BVLC/caffe.git . && \
     sed -i '/^PYTHON_INCLUDE/a    /usr/local/lib/python2.7/dist-packages/numpy/core/include/ \\' Makefile.config && \
     mkdir build && cd build && \
     cmake -DUSE_NCCL=1 .. && \
-    make -j"$(nproc)"
+    make -j"$(nproc)" all
 
 ENV PYCAFFE_ROOT $CAFFE_ROOT/python
 ENV PYTHONPATH $PYCAFFE_ROOT:$PYTHONPATH
