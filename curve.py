@@ -1,4 +1,6 @@
 #!flask/bin/python
+import matplotlib
+matplotlib.use('Agg')
 import random
 import string
 
@@ -12,8 +14,6 @@ import sys
 import subprocess
 import pandas as pd
 
-import matplotlib
-matplotlib.use('Agg')
 import matplotlib.pylab as plt
 from utils import pycaffe
 import shutil
@@ -73,17 +73,17 @@ def crossdomain(origin=None, methods=None, headers=None, max_age=21600,
         return update_wrapper(wrapped_function, f)
     return decorator
 
-set_workspace("data/heobs")
-caffe_log = workspace("caffe_model/caffe_train.log")
-image_path = workspace("caffe_model/caffe_curve.png")
+set_workspace(os.path.join("workspace", "heobs_sample"))
+caffe_log = os.path.realpath(workspace("caffe_model/caffe_train.log"))
+image_path = os.path.realpath(workspace("caffe_model/caffe_curve.png"))
 caffe = pycaffe.Caffe()
-app = Flask(__name__, template_folder="web")
+app = Flask(__name__, template_folder="web/template")
 
 app.config['UPLOAD_FOLDER'] = 'uploads/'
 if not os.path.isdir(app.config['UPLOAD_FOLDER']):
     os.makedirs(app.config['UPLOAD_FOLDER'])
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg'}
-
+model_log_dir_path = os.path.realpath(os.path.dirname(caffe_log))
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -99,14 +99,14 @@ def index():
 @crossdomain(origin='*')
 def curve():
     # Get directory where the model logs is saved, and move to it
-    model_log_dir_path = os.path.dirname(caffe_log)
+
     os.chdir(model_log_dir_path)
 
     '''
     Generating training and test logs
     '''
     # Parsing training/validation logs
-    command = caffe.caffe_home() + 'tools/extra/parse_log.sh ' + caffe_log
+    command = caffe.caffe_home() + '/tools/extra/parse_log.sh ' + caffe_log
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
     process.wait()
     # Read training and test logs
@@ -143,8 +143,8 @@ def curve():
     '''
     Deleting training and test logs
     '''
-    shutil.rmtree(train_log_path)
-    shutil.rmtree(test_log_path)
+    os.remove(train_log_path)
+    os.remove(test_log_path)
     return send_file(image_path, mimetype='image/png')
 
 if __name__ == '__main__':
