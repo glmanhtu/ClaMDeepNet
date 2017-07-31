@@ -77,17 +77,17 @@
 
 \section*{Abstract}
 In this project, we use Deep Learning method to automatic classify images from \href{https://heobs.org}{https://heobs.org} into 4 classes, include:
-\begin{itemize}
-\item Heritage
-\item Beings
-\item Scenery/Landscape
-\item Other
-\end{itemize}
+\begin{description}
+\item[Heritage] \hfill \\ A place of cultural, historical, or natural significance for a group or society.
+\item[Beings] \hfill \\ Any form of life, such as a plant or a living creature, whether human or other animal.
+\item[Scenery] \hfill \\ Any form of landscapes which show little or no human activity and are created in the pursuit of a pure, unsullied depiction of nature, also known as scenery.
+\item[Other] \hfill \\ Any other type of image that doesn't represent a photograph, such as painting, illustration, any object.	
+\end{description}
 
 \section{Introduction}
-\section{Preparing images}
+\section{Preparing dataset}
 \subsection{Fetch all images}
-The entire image dataset described on the text file "photos.txt" line by line. Each line include the image id and image description. 
+The entire image dataset described on the text file "photos.txt" line by line. Each line includes the image id and image description. 
 \begin{verbatim}
 	 5a36f382-dbdf-11e6-95fd-d746d863c3eb | Những người ăn xin  | vie
 	 5a36f382-dbdf-11e6-95fd-d746d863c3eb | Mendiants  | fra
@@ -96,43 +96,68 @@ The entire image dataset described on the text file "photos.txt" line by line. E
 	 400286c8-dbe1-11e6-bb4d-ff975c68de04 | Ngân hàng Đông Dương  | vie
 	 400286c8-dbe1-11e6-bb4d-ff975c68de04 | La Banque de l’Indochine  | fra
 \end{verbatim}
-In order to get the image dataset, we have to fetch each images one by one by join the image id with heobs cdn url \href{https://cdn.heobs.org/photo/}{https://cdn.heobs.org/photo/}. For example, with the first line in the record above, we have the following URL: 
+In order to get the image dataset, we have to fetch each image one by one by join the image id with heobs cdn url \href{https://cdn.heobs.org/photo/}{https://cdn.heobs.org/photo/}. For example, with the first line in the record above, we have the following URL: 
 \begin{verbatim}
  https://cdn.heobs.org/photo/5a36f382-dbdf-11e6-95fd-d746d863c3eb
 \end{verbatim}
-Finally, we write a smaill python script to automatic read this text file \& download images one by one.
+We wrote a small python script to automatic read this text file \& download images one by one.
+Totally, we have 144564 images in our dataset.
 
-\subsection{Remove dupplicate images}
-In the "photos.txt", some image have two languages and then, it consume two lines. As the record above, we have 6 lines but 
+\subsection{Remove duplicate images}
+In the "photos.txt", some image has two languages and then, it consumes two lines. As the record above, we have six lines, but actually, a half of them was duplicated. \newline
+Because of the duplicate images doesn't help deep learning anything otherwise consume more time to train. So, to reject those images, before fetching each image, we check if this image id already exists or not. \newline
+After removed duplicate, we have 142459 images left.
+\subsection{Remove broken images}
+After downloaded \& look around all images, we found that it has a lot of broken images, which can't be displayable. So, we write a small script to filter all of those broken images automatically. \newline
+Finally, we have 89850 images left in our dataset.
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=1\textwidth]{images/sample.jpg}
-\caption{Sample pagoda images from our training dataset}
-\label{fig:samplepagoda}
-\end{figure}
-Our training set contains 500 images of pagoda, while the test dataset contains 20 images. The average size for these images is around 350x500.
+\section{Unsuppervised Deep Learning}
+Because of when classifying images by hand, it has some special case when one image may refer to more than one class. Thus, we need machine help us to make decisions by comparing two images are the same class or not. We also want to separate images of one class into multi unknown sub-classes. So, by using Unsupervision Deep Learning, we want to let the machine to classify a set of images unlabeled into some unknown classes. \newline
+After some research, we found the Unsupervised Deep Embedding for Clustering Analysis\cite{dec} paper, which propose a new method that simultaneously learns feature representations and cluster assignments using deep neural networks to classify unlabeled images.
+\section{Supervised Deep Learning}
+Supervised deep learning requires us to provide a training dataset, which includes a list of images labeled. However, our image dataset is not, and we can't classify the entire dataset by hand. So, we propose the following method, which includes three steps:
+\begin{itemize}
+\item Train a Convolution Neural Network (CNN) model with a small dataset based on the original dataset, which labeled by hand.
+\item Use the CNN model trained above to classify the entire original dataset
+\item Review \& Train a CNN model with the original dataset.
+\end{itemize}
 
-\section{Our solution}
-\subsection{Hardware}
-We hire Amazon Web Services, create G2 instance:
-\begin{center}
-\begin{tabular}{| c | c | c | c | c |}
-\hline
- Model & GPUs & vCPU & Mem (GiB) & SSD Storage (GB) \\ 
-\hline
- g2.2xlarge & 1 & 8 & 15 & 1 x 60  \\
-\hline
-\end{tabular}
-\end{center}
+\subsection{Train a CNN model with a small dataset}
 
-\subsection{Method using}
+\subsubsection{Preparing small dataset based on original dataset}
+We created this dataset by random 1000 images from the original dataset and classify them by hand into four classes: 
+\begin{itemize}
+\item Heritage
+\item Beings
+\item Scenery
+\item Other
+\end{itemize}
+\subsubsection{The caffe model for this CNN}
+Our model is reuse from \href{https://github.com/BVLC/caffe/tree/master/models/bvlc\_reference\_caffenet}{bvlc\_reference\_caffenet} model, which is a replication of AlexNet with a few modifications. The original bvlc reference caffenet was de-
+signed for a classification problem with 1000 classes. However, we just need to classify into 4 classes. So, we change num output of the last
+InnerProduct layer from 1000 to 4.
+
+\subsubsection{The slover definition}
+Our model using Stochastic Gradient Descent solver method. We run our model with 4000 iterators, drop leaning rate every 500 iterators and take a snapshot every 500 iterators.
+\begin{verbatim}
+ net: "caffe_model/caffenet_train.prototxt"
+ test_iter: 500
+ test_interval: 500
+ base_lr: 0.001
+ lr_policy: "step"
+ gamma: 0.1
+ stepsize: 500
+ display: 50
+ max_iter: 4000
+ momentum: 0.9
+ weight_decay: 0.0005
+ snapshot: 1000
+ snapshot_prefix: "caffe_model/snapshot"
+ solver_mode: GPU
+\end{verbatim}
 
 \section{Result and Analysis}
 
-
-
-
-\bibliographystyle{plain}
+\bibliographystyle{ieeetr}
 \bibliography{bibfile}
 \end{document}
