@@ -4,6 +4,8 @@
 \contentsline {subsection}{\numberline {2.2}Remove duplicate images}{2}{subsection.2.2}
 \contentsline {subsection}{\numberline {2.3}Remove broken images}{3}{subsection.2.3}
 \contentsline {section}{\numberline {3}Unsuppervised Deep Learning}{3}{section.3}
+\contentsline {subsection}{\numberline {3.1}Trying to run the implement code}{3}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Preparing we own image dataset}{3}{subsection.3.2}
 \contentsline {section}{\numberline {4}Supervised Deep Learning}{3}{section.4}
 \contentsline {subsection}{\numberline {4.1}Train a CNN model with a small dataset}{3}{subsection.4.1}
 \contentsline {subsubsection}{\numberline {4.1.1}Preparing small dataset based on original dataset}{3}{subsubsection.4.1.1}

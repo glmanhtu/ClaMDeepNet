@@ -113,7 +113,12 @@ Finally, we have 89850 images left in our dataset.
 
 \section{Unsuppervised Deep Learning}
 Because of when classifying images by hand, it has some special case when one image may refer to more than one class. Thus, we need machine help us to make decisions by comparing two images are the same class or not. We also want to separate images of one class into multi unknown sub-classes. So, by using Unsupervision Deep Learning, we want to let the machine to classify a set of images unlabeled into some unknown classes. \newline
-After some research, we found the Unsupervised Deep Embedding for Clustering Analysis\cite{dec} paper, which propose a new method that simultaneously learns feature representations and cluster assignments using deep neural networks to classify unlabeled images.
+After some research, we found the Unsupervised Deep Embedding for Clustering Analysis\cite{dec} paper, which propose a new method that simultaneously learns feature representations and cluster assignments using deep neural networks to classify unlabeled images. They also provide the implement code at \href{https://github.com/piiswrong/dec}{https://github.com/piiswrong/dec}
+
+\subsection{Trying to run the implement code}
+We already tried to run this implement code with the latest Caffe version (Jul 2017), but it doesn't work because this Caffe model required some deprecated parameters. However, because of the code delivery with Caffe and Docker, so, we continue to try with Docker and this Caffe version.
+\subsection{Preparing we own image dataset}
+
 \section{Supervised Deep Learning}
 Supervised deep learning requires us to provide a training dataset, which includes a list of images labeled. However, our image dataset is not, and we can't classify the entire dataset by hand. So, we propose the following method, which includes three steps:
 \begin{itemize}
