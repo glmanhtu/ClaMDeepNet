@@ -1,7 +1,7 @@
 class Constant(object):
 
-    IMAGE_WIDTH = 227
-    IMAGE_HEIGHT = 227
+    IMAGE_WIDTH = 107
+    IMAGE_HEIGHT = 65
 
     IMAGE_NAME_SEPARATE_CHARACTER = "_"
 
