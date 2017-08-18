@@ -50,7 +50,10 @@ class CreateLmdb(object):
         img = cv2.imread(img_path, cv2.IMREAD_COLOR)
         img = transform_img(img, img_width=Constant.IMAGE_WIDTH, img_height=Constant.IMAGE_HEIGHT)
         img_class = os.path.basename(img_path).split(Constant.IMAGE_NAME_SEPARATE_CHARACTER)[0]
-        label = classes.index(img_class)
+        if img_class not in classes:
+            label = 99999
+        else:
+            label = classes.index(img_class)
         datum = self.make_datum(img, label)
         in_txn.put('{:0>5d}'.format(in_idx), datum.SerializeToString())
 
