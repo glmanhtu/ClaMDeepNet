@@ -9,8 +9,8 @@ google_download = DownloadGoogleDrive()
 
 set_workspace(os.path.join("workspace", "heobs_sample"))
 
-train_zip = GoogleFile('0BzL8pCLanAIAUk5MMjd1QnMxQ00',
-                       'heobs_sample_dataset_resized.zip', workspace('data/heobs_sample_dataset.zip'))
+train_zip = GoogleFile('0BzL8pCLanAIAbnlocXcxRFJYeU0',
+                       'heobs_sample_dataset_same_res.zip', workspace('data/heobs_sample_dataset.zip'))
 
 print "\n\n------------------------PREPARE PHRASE----------------------------\n\n"
 

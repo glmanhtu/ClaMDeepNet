@@ -5,10 +5,10 @@ from utils.make_predictions import *
 
 google_download = DownloadGoogleDrive()
 
-set_workspace("data/pagoda")
+set_workspace(os.path.join("workspace", "heobs_sample"))
 
-test_zip = GoogleFile('0BzL8pCLanAIANjNyRTNrWDNjeXc',
-                       'heobs_sample_dataset.zip', workspace('data/heobs_sample_dataset.zip'))
+test_zip = GoogleFile('0BzL8pCLanAIAbnlocXcxRFJYeU0',
+                       'heobs_sample_dataset_same_res.zip', workspace('data/heobs_sample_dataset.zip'))
 
 print "\n\n------------------------PREPARE PHRASE----------------------------\n\n"
 

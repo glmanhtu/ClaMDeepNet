@@ -483,8 +483,7 @@ line 48. 		with, height = im.shape[:2]
 \end{verbatim}
 Finally, it works. The accuracy result is 35.7\% (35.9\% in the paper). This accuracy too low because it has more than a half of STL dataset are unlabeled. 
 \subsection{Preparing we own image dataset}
-
-
+Not implement yet
 
 
 
@@ -511,7 +510,7 @@ Supervised deep learning requires us to provide a training dataset, which includ
 
 \subsection{Train a CNN model with a test dataset}
 
-\subsubsection{Preparing small dataset based on original dataset}
+\subsubsection{Preparing test dataset based on original dataset}
 We created this dataset by random 1000 images from the original dataset and classify them by hand into four classes: 
 \begin{itemize}
 \item Heritage
@@ -519,9 +518,43 @@ We created this dataset by random 1000 images from the original dataset and clas
 \item Scenery
 \item Other
 \end{itemize}
+
+Because in our dataset contain a lot of images, which have different resolution. So, we've to resize them all to the smallest resolution. The following script mainly to find \& resize all images 
+\begin{lstlisting}
+def get_lowest_resolution(image_dir):
+    min_width, min_height = 9999, 9999
+    for root, dirs, files in os.walk(images_dir):
+        for f in files:
+            image = os.path.join(root, f)
+            width, height = Image.open(image).size
+            min_width = lower(min_width, width)
+            min_height = lower(min_height, height)
+    return min_width, min_height
+
+
+def lower(first, last):
+    if first < last:
+        return first
+    return last
+
+if __name__ == '__main__':
+    images_dir = sys.argv[1]
+    if os.path.isdir(images_dir):
+        images_dir = os.path.abspath(images_dir)
+        w, h = get_lowest_resolution(images_dir)
+        for root, dirs, files in os.walk(images_dir):
+            for f in files:
+                image = os.path.join(root, f)
+                print image
+                im = Image.open(image).resize((w, h), Image.BICUBIC)
+                im.save(image)
+
+    else:
+        raise Exception("Please specific image url")
+\end{lstlisting}
+
 \subsubsection{The caffe model for this CNN}
-Our model is reuse from \href{https://github.com/BVLC/caffe/tree/master/models/bvlc\_reference\_caffenet}{bvlc\_reference\_caffenet} model, which is a replication of AlexNet with a few modifications. The original bvlc reference caffenet was de-
-signed for a classification problem with 1000 classes. However, we just need to classify into 4 classes. So, we change num output of the last
+Our model is reuse from \href{https://github.com/BVLC/caffe/tree/master/models/bvlc\_reference\_caffenet}{bvlc\_reference\_caffenet} model, which is a replication of AlexNet with a few modifications. The original bvlc reference caffenet was designed for a classification problem with 1000 classes. However, we just need to classify into 4 classes. So, we change num output of the last
 InnerProduct layer from 1000 to 4.
 
 \subsubsection{The slover definition}
@@ -542,6 +575,31 @@ Our model using Stochastic Gradient Descent solver method. We run our model with
  snapshot_prefix: "caffe_model/snapshot"
  solver_mode: GPU
 \end{verbatim}
+
+\subsubsection{Acquire and analytics the test result}
+
+After train the model with the test dataset, we obtain the result with very high loss \& low accuracy
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/train_first_time}
+\caption{Train result}
+\end{figure}
+We tried to change the gamma parameter to 0.01, 0.001, 0.0001 but the result still the same. Trying to find the problem.
+
+\subsubsection{Resolution problem}
+Below is the summary of images dataset resolution. We assume that the image has resolution different no more than 10 pixels is the same solution.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/resolution_summary}
+\caption{Test Dataset resolution summary}
+\end{figure}
+
+As the result above, we have many different resolutions. We can't just resize all of them into the smallest. So, we keep the images, which have resolution (width, height) from (200, 120) to (200, 165) and discard the others.
+Finally, we resize all images left to smallest resolution (200, 120)
+
+However, fixed this problem doesn't help us to reduce the loss when training the model. The lost still high, so we try to find another way to improve it.
 
 \section{Result and Analysis}
 
