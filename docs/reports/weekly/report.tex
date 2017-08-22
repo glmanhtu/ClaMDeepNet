@@ -518,7 +518,20 @@ We created this dataset by random 1000 images from the original dataset and clas
 \item Scenery
 \item Other
 \end{itemize}
+Below is the summary of each class in our dataset:
 
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{| c | c | c | c | c | c | c | c | c | c | c |}
+\hline
+ & Being & Heritage & Scenery & Other\\
+\hline
+count & 209 & 389 & 139 & 263\\
+\hline
+\end{tabular}
+\caption {Test dataset summary}
+\end{center}
+\end{table}
 Because in our dataset contain a lot of images, which have different resolution. So, we've to resize them all to the smallest resolution. The following script mainly to find \& resize all images 
 \begin{lstlisting}
 def get_lowest_resolution(image_dir):
@@ -598,8 +611,118 @@ Below is the summary of images dataset resolution. We assume that the image has 
 
 As the result above, we have many different resolutions. We can't just resize all of them into the smallest. So, we keep the images, which have resolution (width, height) from (200, 120) to (200, 165) and discard the others.
 Finally, we resize all images left to smallest resolution (200, 120)
+Below is the summary of each class in our dataset:
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{| c | c | c | c | c | c | c | c | c | c | c |}
+\hline
+ & Being & Heritage & Scenery & Other\\
+\hline
+count & 140 & 160 & 127 & 189\\
+
+\hline
+\end{tabular}
+\caption {Test dataset summary}
+\end{center}
+\end{table}
 
 However, fixed this problem doesn't help us to reduce the loss when training the model. The lost still high, so we try to find another way to improve it.
+
+\section{Train our model with only one class}
+We have four classes includes being, heritage, scenery and other. We want to give a try to test and see how our model work when we train the model with just one class and ask whether this image belongs to this class or not.
+
+\subsection{Train only being class}
+With only being class, our dataset include: 
+\begin{itemize}
+\item 140 images - being class
+\item 476 images - "all other" class
+\end{itemize}
+
+\subsubsection{Training progress}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/train_only_being}
+\caption{Being - training progress}
+\end{figure}
+
+\subsubsection{Training result}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/being}
+\caption{Being - training result}
+\end{figure}
+
+
+\subsection{Train only heritage class}
+With only heritage class, our dataset include: 
+\begin{itemize}
+\item 160 images - heritage class
+\item 456 images - "all other" class
+\end{itemize}
+
+\subsubsection{Training progress}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/train_only_heritage}
+\caption{Heritage - training progress}
+\end{figure}
+
+\subsubsection{Training result}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/heritage}
+\caption{Heritage - training result}
+\end{figure}
+
+\subsection{Train only scenery class}
+With only scenery class, our dataset include: 
+\begin{itemize}
+\item 127 images - scenery class
+\item 489 images - "all other" class
+\end{itemize}
+
+\subsubsection{Training progress}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/train_only_scenery}
+\caption{Scenery - training progress}
+\end{figure}
+
+\subsubsection{Training result}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/scenery}
+\caption{Scenery - training result}
+\end{figure}
+
+\subsection{Train only other class}
+With only other class, our dataset include: 
+\begin{itemize}
+\item 189 images - other class
+\item 427 images - "all other" class
+\end{itemize}
+
+\subsubsection{Training progress}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/train_only_other}
+\caption{Other - training progress}
+\end{figure}
+
+\subsubsection{Training result}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/other}
+\caption{Other - training result}
+\end{figure}
 
 \section{Result and Analysis}
 
