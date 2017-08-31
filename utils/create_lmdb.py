@@ -30,10 +30,10 @@ class CreateLmdb(object):
 
         with in_db.begin(write=True) as in_txn:
             for in_idx, img_path in enumerate(train_data):
+                print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
                 if self.divide(in_idx, len(train_data), percent_classes) != 0:
                     continue
                 self.save_lmdb(in_txn, in_idx, img_path, classes)
-                print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
         in_db.close()
 
         print '\nCreating validation_lmdb'
@@ -41,19 +41,20 @@ class CreateLmdb(object):
         in_db = lmdb.open(validation_lmdb_path, map_size=int(1e12))
         with in_db.begin(write=True) as in_txn:
             for in_idx, img_path in enumerate(train_data):
+                print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
                 if self.divide(in_idx, len(train_data), percent_classes) != 1:
                     continue
                 self.save_lmdb(in_txn, in_idx, img_path, classes)
-                print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
         in_db.close()
 
         print '\nCreating test data folder'
 
+        os.makedirs(test_dir)
         for in_idx, img_path in enumerate(train_data):
+            print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
             if self.divide(in_idx, len(train_data), percent_classes) != 2:
                 continue
             copyfile(img_path, os.path.join(test_dir, os.path.basename(img_path)))
-            print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
 
         print '\nFinished processing all images'
 
