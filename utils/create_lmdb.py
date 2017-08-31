@@ -52,7 +52,7 @@ class CreateLmdb(object):
         for in_idx, img_path in enumerate(train_data):
             if self.divide(in_idx, len(train_data), percent_classes) != 2:
                 continue
-            copyfile(os.path.join(train_path, img_path), os.path.join(test_dir, img_path))
+            copyfile(img_path, os.path.join(test_dir, os.path.basename(img_path)))
             print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
 
         print '\nFinished processing all images'
