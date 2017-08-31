@@ -6,7 +6,7 @@ from caffe.proto import caffe_pb2
 from utils import *
 from constants import Constant
 from shutil import copyfile
-
+import errno
 
 caffe.set_mode_gpu()
 
@@ -62,6 +62,12 @@ def single_making_prediction(img_path, transformer, net):
 def export_data(prediction, dataset_dir, export_dir):
     for i in range(len(prediction[0])):
         destination_file = os.path.join(export_dir, str(prediction[1][i]), str(prediction[0][i]) + ".jpg")
+        if not os.path.exists(os.path.dirname(destination_file)):
+            try:
+                os.makedirs(os.path.dirname(destination_file))
+            except OSError as exc:  # Guard against race condition
+                if exc.errno != errno.EEXIST:
+                    raise
         source_file = os.path.join(dataset_dir, str(prediction[0][i]) + ".jpg")
         copyfile(source_file, destination_file)
 
