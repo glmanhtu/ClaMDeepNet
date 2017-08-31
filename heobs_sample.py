@@ -25,10 +25,11 @@ print "Finish"
 
 train_lmdb_path = workspace("data/train_lmdb")
 validation_lmdb_path = workspace("data/validation_lmdb")
+test_path = workspace("data/test")
 
 lmdb = CreateLmdb()
 classes = ["being", "heritage", "other", "scenery"]
-lmdb.create_lmdb(workspace("data/heobs_sample_dataset_without_other"), train_lmdb_path, validation_lmdb_path, classes)
+lmdb.create_lmdb(workspace("data/heobs_sample_dataset_without_other"), train_lmdb_path, validation_lmdb_path, classes, test_path)
 
 mean_proto = workspace("data/mean.binaryproto")
 
