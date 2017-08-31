@@ -61,8 +61,8 @@ def single_making_prediction(img_path, transformer, net):
 
 def export_data(prediction, dataset_dir, export_dir):
     for i in range(len(prediction[0])):
-        destination_file = os.path.join(export_dir, prediction[1][i], prediction[0][i] + ".jpg")
-        source_file = os.path.join(dataset_dir, prediction[0][i] + ".jpg")
+        destination_file = os.path.join(export_dir, str(prediction[1][i]), str(prediction[0][i]) + ".jpg")
+        source_file = os.path.join(dataset_dir, str(prediction[0][i]) + ".jpg")
         copyfile(source_file, destination_file)
 
 
