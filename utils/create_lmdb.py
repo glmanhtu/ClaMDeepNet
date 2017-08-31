@@ -62,9 +62,9 @@ class CreateLmdb(object):
         img = transform_img(img, img_width=Constant.IMAGE_WIDTH, img_height=Constant.IMAGE_HEIGHT)
         img_class = os.path.basename(img_path).split(Constant.IMAGE_NAME_SEPARATE_CHARACTER)[0]
         if img_class not in classes:
-            label = 0
-        else:
             label = 1
+        else:
+            label = 0
         datum = self.make_datum(img, label)
         in_txn.put('{:0>5d}'.format(in_idx), datum.SerializeToString())
 
