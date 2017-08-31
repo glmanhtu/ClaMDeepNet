@@ -108,7 +108,7 @@ def get_result():
 
 @app.route('/data/result.zip', methods=['GET'])
 @crossdomain(origin='*')
-def get_result():
+def get_data_result():
     tmp_archive = zip_utils.zip_path(result_data_path)
     file_dir = os.path.dirname(tmp_archive)
     file_name = os.path.basename(tmp_archive)

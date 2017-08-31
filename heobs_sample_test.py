@@ -7,8 +7,8 @@ google_download = DownloadGoogleDrive()
 
 set_workspace(os.path.join("workspace", "heobs_sample"))
 
-test_zip = GoogleFile('0BzL8pCLanAIAbnlocXcxRFJYeU0',
-                       'heobs_sample_dataset_same_res.zip', workspace('data/heobs_sample_dataset.zip'))
+test_zip = GoogleFile('0BzL8pCLanAIAcDZqTzlXTWlCc0U',
+                       'heobs_sample_dataset_without_other.zip', workspace('data/heobs_sample_dataset_without_other.zip'))
 
 print "\n\n------------------------PREPARE PHRASE----------------------------\n\n"
 
@@ -32,9 +32,9 @@ py_render_template("template/caffenet_deploy.template", caffe_deploy,
 mean_data = read_mean_data(mean_proto)
 net = read_model_and_weight(caffe_deploy, workspace("caffe_model/snapshot_iter_4000.caffemodel"))
 transformer = image_transformers(net, mean_data)
-prediction = making_predictions(workspace("data/heobs_sample_dataset"), transformer, net)
+prediction = making_predictions(workspace("data/heobs_sample_dataset_without_other"), transformer, net)
 
 export_to_csv(prediction, workspace("result/test_result.csv"))
-export_data(prediction, workspace("data/heobs_sample_dataset"), workspace("result/data"))
+export_data(prediction, workspace("data/heobs_sample_dataset_without_other"), workspace("result/data"))
 
 print "\n\n-------------------------FINISH------------------------------------\n\n"
