@@ -8,14 +8,17 @@ from caffe.proto import caffe_pb2
 
 from percent_visualize import print_progress
 from utils import *
+from shutil import copyfile
 
 
 class CreateLmdb(object):
 
-    def create_lmdb(self, train_path, train_lmdb_path, validation_lmdb_path, classes):
+    def create_lmdb(self, train_path, train_lmdb_path, validation_lmdb_path, classes, test_dir):
         execute('rm -rf  ' + validation_lmdb_path)
         execute('rm -rf  ' + train_lmdb_path)
         train_data = [img for img in glob.glob(train_path + "/*jpg")]
+
+        percent_classes = (70, 20, 10)
 
         print 'Creating train_lmdb'
 
@@ -27,7 +30,7 @@ class CreateLmdb(object):
 
         with in_db.begin(write=True) as in_txn:
             for in_idx, img_path in enumerate(train_data):
-                if in_idx % 6 == 0:
+                if self.divide(in_idx, len(train_data), percent_classes) != 0:
                     continue
                 self.save_lmdb(in_txn, in_idx, img_path, classes)
                 print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
@@ -38,11 +41,19 @@ class CreateLmdb(object):
         in_db = lmdb.open(validation_lmdb_path, map_size=int(1e12))
         with in_db.begin(write=True) as in_txn:
             for in_idx, img_path in enumerate(train_data):
-                if in_idx % 6 != 0:
+                if self.divide(in_idx, len(train_data), percent_classes) != 1:
                     continue
                 self.save_lmdb(in_txn, in_idx, img_path, classes)
                 print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
         in_db.close()
+
+        print '\nCreating test data folder'
+
+        for in_idx, img_path in enumerate(train_data):
+            if self.divide(in_idx, len(train_data), percent_classes) != 2:
+                continue
+            copyfile(os.path.join(train_path, img_path), os.path.join(test_dir, img_path))
+            print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
 
         print '\nFinished processing all images'
 
@@ -51,11 +62,22 @@ class CreateLmdb(object):
         img = transform_img(img, img_width=Constant.IMAGE_WIDTH, img_height=Constant.IMAGE_HEIGHT)
         img_class = os.path.basename(img_path).split(Constant.IMAGE_NAME_SEPARATE_CHARACTER)[0]
         if img_class not in classes:
-            label = 99999
+            label = 0
         else:
-            label = classes.index(img_class)
+            label = 1
         datum = self.make_datum(img, label)
         in_txn.put('{:0>5d}'.format(in_idx), datum.SerializeToString())
+
+    def divide(self, index, total, percent_classes):
+        actual_percent = []
+        for idx, percent in enumerate(percent_classes):
+            actual_percent.append(percent)
+            if idx > 0:
+                actual_percent[idx] += actual_percent[idx - 1]
+        for idx, percent in enumerate(actual_percent):
+            if index / float(total) <= percent / 100.0:
+                return idx
+
 
     def make_datum(self, img, label):
         # image is numpy.ndarray format. BGR instead of RGB
