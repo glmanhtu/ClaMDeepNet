@@ -35,5 +35,6 @@ transformer = image_transformers(net, mean_data)
 prediction = making_predictions(workspace("data/heobs_sample_dataset"), transformer, net)
 
 export_to_csv(prediction, workspace("result/test_result.csv"))
+export_data(prediction, workspace("data/heobs_sample_dataset"), workspace("result/data"))
 
 print "\n\n-------------------------FINISH------------------------------------\n\n"

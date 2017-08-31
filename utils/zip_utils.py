@@ -1,5 +1,6 @@
 import zipfile
 from percent_visualize import print_progress
+import os
 
 
 def unzip_with_progress(file_path, path):
@@ -13,3 +14,13 @@ def unzip_with_progress(file_path, path):
         extracted_size += contain_file.file_size
         print_progress(extracted_size, uncompress_size, "Progress:", "Complete", 2, 50)
         zf.extract(contain_file, path)
+
+
+def zip_path(dir_path):
+    path = '/tmp/archive.zip'
+    zipf = zipfile.ZipFile(path, 'w', zipfile.ZIP_DEFLATED)
+    for root, dirs, files in os.walk(dir_path):
+        for file in files:
+            zipf.write(os.path.join(root, file))
+    zipf.close()
+    return path

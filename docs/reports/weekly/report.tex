@@ -481,9 +481,72 @@ by the following line:
 \begin{verbatim}
 line 48. 		with, height = im.shape[:2]
 \end{verbatim}
-Finally, it works. The accuracy result is 35.7\% (35.9\% in the paper). This accuracy too low because it has more than a half of STL dataset are unlabeled. 
+Finally, it works. The accuracy result is 35.7\% (35.9\% in the paper).
 \subsection{Preparing we own image dataset}
-Not implement yet
+Below is the code we using to generate \& save data into LevelDB:
+\begin{lstlisting}
+import sys
+import os
+import Image
+import numpy as np
+import cv2
+import cv
+from joblib import Parallel, delayed
+import features
+import dec
+
+def load_data(images_dir):
+    ims = [read(os.path.join(images_dir, filename)) for filename in os.listdir(images_dir)]
+    X = np.array(ims, dtype='uint8')
+    n_jobs = 10
+    cmap_size = (6, 10)
+    N = X.shape[0]
+
+    H = np.asarray(Parallel(n_jobs=n_jobs)(delayed(features.hog)(X[i]) for i in xrange(N)))
+
+    H = H.reshape((H.shape[0], H.size / N))
+
+    X_small = np.asarray(Parallel(n_jobs=n_jobs)(delayed(cv2.resize)(X[i], cmap_size) for i in xrange(N)))
+    crcb = np.asarray(Parallel(n_jobs=n_jobs)(delayed(cv2.cvtColor)(X_small[i], cv.CV_RGB2YCrCb) for i in xrange(N)))
+    crcb = crcb[:, :, :, 1:]
+    crcb = crcb.reshape((crcb.shape[0], crcb.size / N))
+
+    feature = np.concatenate(((H - 0.2) * 10.0, (crcb - 128.0) / 10.0), axis=1)
+    print feature.shape
+
+    return feature, X[:, :, :, [2, 1, 0]]
+
+
+def load_label(images_dir, classes, determine):
+    return np.array([classes.index(filename.split(determine)[0]) for filename in os.listdir(images_dir)], dtype='uint8')
+
+
+def load_named_label(images_dir):
+    return np.array([filename for filename in os.listdir(images_dir)], dtype='str')
+
+if __name__ == '__main__':
+    classes = ["heritage", "being", "scenery", "other"]
+    images_dir = sys.argv[1]
+    read = lambda imname: np.asarray(Image.open(imname).convert("RGB"))
+    if os.path.isdir(images_dir):
+        X_train, img_train = load_data(images_dir)
+        Y = load_label(images_dir, classes, "_")
+        labeled = load_named_label(images_dir)
+        p = np.random.permutation(X_train.shape[0])
+        X_total = X_train[p]
+        Y_total = Y[p]
+        labeled_total = labeled[p]
+        np.save("custom_named_label", labeled_total)
+        img_total = img_train[p]
+        dec.write_db(X_total, Y_total, 'custom_total')
+        dec.write_db(img_total, Y_total, 'custom_img')
+        N = X_total.shape[0] * 4 / 5
+        dec.write_db(X_total[:N], Y_total[:N], 'custom_train')
+        dec.write_db(X_total[N:], Y_total[N:], 'custom_test')
+    else:
+        raise Exception("Please specific image url")
+
+\end{lstlisting}
 
 
 
@@ -722,6 +785,32 @@ With only other class, our dataset include:
 \centering
 \includegraphics[width=1\textwidth]{images/other}
 \caption{Other - training result}
+\end{figure}
+
+\section{Omit other class}
+Because the other class, actually don't have any specialty. It just a place to keep all images, which don't belong to any other classes. So, It'll be a mistake if we continue to force our neural network to recognize it. 
+
+\subsection{Train only being class}
+With only being class, our dataset include: 
+\begin{itemize}
+\item 140 images - being class
+\item 287 images - "all other" class
+\end{itemize}
+
+\subsubsection{Training progress}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/train_omit_other_only_being}
+\caption{Being - training progress}
+\end{figure}
+
+\subsubsection{Training result}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/omit_other_only_being}
+\caption{Being - training result}
 \end{figure}
 
 \section{Result and Analysis}
