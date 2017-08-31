@@ -36,4 +36,8 @@
 \BOOKMARK [2][-]{subsection.5.4}{Train\040only\040other\040class}{section.5}% 36
 \BOOKMARK [3][-]{subsubsection.5.4.1}{Training\040progress}{subsection.5.4}% 37
 \BOOKMARK [3][-]{subsubsection.5.4.2}{Training\040result}{subsection.5.4}% 38
-\BOOKMARK [1][-]{section.6}{Result\040and\040Analysis}{}% 39
+\BOOKMARK [1][-]{section.6}{Omit\040other\040class}{}% 39
+\BOOKMARK [2][-]{subsection.6.1}{Train\040only\040being\040class}{section.6}% 40
+\BOOKMARK [3][-]{subsubsection.6.1.1}{Training\040progress}{subsection.6.1}% 41
+\BOOKMARK [3][-]{subsubsection.6.1.2}{Training\040result}{subsection.6.1}% 42
+\BOOKMARK [1][-]{section.7}{Result\040and\040Analysis}{}% 43

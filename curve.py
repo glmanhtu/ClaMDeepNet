@@ -7,7 +7,7 @@ import string
 from datetime import timedelta
 from functools import update_wrapper
 
-from flask import Flask, request, jsonify, current_app, make_response, render_template, send_file
+from flask import Flask, request, jsonify, current_app, make_response, render_template, send_file, send_from_directory
 
 from utils.make_predictions import *
 import sys
@@ -17,6 +17,7 @@ import pandas as pd
 import matplotlib.pylab as plt
 from utils import pycaffe
 import shutil
+from utils import zip_utils
 
 plt.style.use('ggplot')
 
@@ -76,6 +77,8 @@ def crossdomain(origin=None, methods=None, headers=None, max_age=21600,
 set_workspace(os.path.join("workspace", "heobs_sample"))
 caffe_log = os.path.realpath(workspace("caffe_model/caffe_train.log"))
 image_path = os.path.realpath(workspace("caffe_model/caffe_curve.png"))
+result_path = os.path.realpath(workspace("result/test_result.csv"))
+result_data_path = os.path.realpath(workspace("result/data"))
 caffe = pycaffe.Caffe()
 app = Flask(__name__, template_folder="web/template")
 
@@ -93,6 +96,23 @@ def allowed_file(filename):
 @app.route('/')
 def index():
     return render_template('imageview.html')
+
+
+@app.route('/result.csv', methods=['GET'])
+@crossdomain(origin='*')
+def get_result():
+    file_dir = os.path.dirname(result_path)
+    file_name = os.path.basename(result_path)
+    return send_from_directory(file_dir, file_name)
+
+
+@app.route('/data/result.zip', methods=['GET'])
+@crossdomain(origin='*')
+def get_result():
+    tmp_archive = zip_utils.zip_path(result_data_path)
+    file_dir = os.path.dirname(tmp_archive)
+    file_name = os.path.basename(tmp_archive)
+    return send_from_directory(file_dir, file_name)
 
 
 @app.route('/curve', methods = ['GET'])

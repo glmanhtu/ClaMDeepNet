@@ -5,6 +5,7 @@ import numpy as np
 from caffe.proto import caffe_pb2
 from utils import *
 from constants import Constant
+from shutil import copyfile
 
 
 caffe.set_mode_gpu()
@@ -56,6 +57,13 @@ def single_making_prediction(img_path, transformer, net):
     net.blobs['data'].data[...] = transformer.preprocess('data', img)
     out = net.forward()
     return out['prob']
+
+
+def export_data(prediction, dataset_dir, export_dir):
+    for i in range(len(prediction[0])):
+        destination_file = os.path.join(export_dir, prediction[1][i], prediction[0][i] + ".jpg")
+        source_file = os.path.join(dataset_dir, prediction[0][i] + ".jpg")
+        copyfile(source_file, destination_file)
 
 
 def export_to_csv(prediction, export_file):
