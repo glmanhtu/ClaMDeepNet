@@ -50,6 +50,7 @@ class CreateLmdb(object):
         print '\nCreating test data folder'
 
         rmtree(test_dir)
+        os.os.makedirs(test_dir)
         for in_idx, img_path in enumerate(train_data):
             if self.divide(in_idx, len(train_data), percent_classes) != 2:
                 continue
