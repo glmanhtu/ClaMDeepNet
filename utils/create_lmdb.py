@@ -8,7 +8,7 @@ from caffe.proto import caffe_pb2
 
 from percent_visualize import print_progress
 from utils import *
-from shutil import copyfile
+from shutil import copyfile, rmtree
 
 
 class CreateLmdb(object):
@@ -49,6 +49,7 @@ class CreateLmdb(object):
 
         print '\nCreating test data folder'
 
+        rmtree(test_dir)
         for in_idx, img_path in enumerate(train_data):
             if self.divide(in_idx, len(train_data), percent_classes) != 2:
                 continue
