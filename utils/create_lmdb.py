@@ -18,7 +18,7 @@ class CreateLmdb(object):
         execute('rm -rf  ' + train_lmdb_path)
         train_data = [img for img in glob.glob(train_path + "/*jpg")]
 
-        percent_classes = (70, 20, 10)
+        percent_classes = (80, 10, 10)
 
         print 'Creating train_lmdb'
 
@@ -62,10 +62,7 @@ class CreateLmdb(object):
         img = cv2.imread(img_path, cv2.IMREAD_COLOR)
         img = transform_img(img, img_width=Constant.IMAGE_WIDTH, img_height=Constant.IMAGE_HEIGHT)
         img_class = os.path.basename(img_path).split(Constant.IMAGE_NAME_SEPARATE_CHARACTER)[0]
-        if img_class not in classes:
-            label = 1
-        else:
-            label = 0
+        label = classes.index(img_class)
         datum = self.make_datum(img, label)
         in_txn.put('{:0>5d}'.format(in_idx), datum.SerializeToString())
 

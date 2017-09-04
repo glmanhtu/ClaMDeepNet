@@ -9,8 +9,8 @@ google_download = DownloadGoogleDrive()
 
 set_workspace(os.path.join("workspace", "heobs_sample"))
 
-train_zip = GoogleFile('0BzL8pCLanAIAcDZqTzlXTWlCc0U',
-                       'heobs_sample_dataset_without_other.zip', workspace('data/heobs_sample_dataset_without_other.zip'))
+train_zip = GoogleFile('0BzL8pCLanAIAd0hBV2NUVHpmckE',
+                       'heobs_large_dataset.zip', workspace('data/heobs_large_dataset.zip'))
 
 print "\n\n------------------------PREPARE PHRASE----------------------------\n\n"
 
@@ -28,8 +28,8 @@ validation_lmdb_path = workspace("data/validation_lmdb")
 test_path = workspace("data/test")
 
 lmdb = CreateLmdb()
-classes = ["being"]
-lmdb.create_lmdb(workspace("data/heobs_sample_dataset_without_other"), train_lmdb_path, validation_lmdb_path, classes, test_path)
+classes = ["being", "heritage", "scenery"]
+lmdb.create_lmdb(workspace("data/heobs_large_dataset"), train_lmdb_path, validation_lmdb_path, classes, test_path)
 
 mean_proto = workspace("data/mean.binaryproto")
 

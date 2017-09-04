@@ -7,18 +7,18 @@ google_download = DownloadGoogleDrive()
 
 set_workspace(os.path.join("workspace", "heobs_sample"))
 
-test_zip = GoogleFile('0BzL8pCLanAIAcDZqTzlXTWlCc0U',
-                       'heobs_sample_dataset_without_other.zip', workspace('data/heobs_sample_dataset_without_other.zip'))
-
-print "\n\n------------------------PREPARE PHRASE----------------------------\n\n"
-
-print "Starting download test file"
-google_download.download_file_from_google_drive(test_zip)
-print "Finish"
-
-print "Extracting test zip file"
-unzip_with_progress(test_zip.file_path, workspace("data"))
-print "Finish"
+# test_zip = GoogleFile('0BzL8pCLanAIAd0hBV2NUVHpmckE',
+#                        'heobs_large_dataset.zip', workspace('data/heobs_large_dataset.zip'))
+#
+# print "\n\n------------------------PREPARE PHRASE----------------------------\n\n"
+#
+# print "Starting download test file"
+# google_download.download_file_from_google_drive(test_zip)
+# print "Finish"
+#
+# print "Extracting test zip file"
+# unzip_with_progress(test_zip.file_path, workspace("data"))
+# print "Finish"
 
 print "\n\n------------------------TESTING PHRASE-----------------------------\n\n"
 
@@ -30,11 +30,11 @@ py_render_template("template/caffenet_deploy.template", caffe_deploy,
                    num_output=Constant.NUMBER_OUTPUT)
 
 mean_data = read_mean_data(mean_proto)
-net = read_model_and_weight(caffe_deploy, workspace("caffe_model/snapshot_iter_4000.caffemodel"))
+net = read_model_and_weight(caffe_deploy, workspace("caffe_model/snapshot_iter_10000.caffemodel"))
 transformer = image_transformers(net, mean_data)
-prediction = making_predictions(workspace("data/heobs_sample_dataset_without_other"), transformer, net)
+prediction = making_predictions(workspace("data/test"), transformer, net)
 
 export_to_csv(prediction, workspace("result/test_result.csv"))
-export_data(prediction, workspace("data/heobs_sample_dataset_without_other"), workspace("result/data"))
+export_data(prediction, workspace("data/test"), workspace("result/data"))
 
 print "\n\n-------------------------FINISH------------------------------------\n\n"

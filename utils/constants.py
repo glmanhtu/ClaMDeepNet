@@ -1,11 +1,11 @@
 class Constant(object):
 
-    IMAGE_WIDTH = 107
-    IMAGE_HEIGHT = 65
+    IMAGE_WIDTH = 200
+    IMAGE_HEIGHT = 120
 
     IMAGE_NAME_SEPARATE_CHARACTER = "_"
 
-    NUMBER_OUTPUT = 4
+    NUMBER_OUTPUT = 3
 
     # Location of caffe root
     # You also can change this value by set environment CAFFE_ROOT

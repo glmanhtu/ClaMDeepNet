@@ -26,6 +26,7 @@ def filter_big_different_res(common_res, image_dir):
             image = os.path.join(root, f)
             img_size = Image.open(image).size
             if has_big_different(common_res['resolution'], img_size):
+                print "removed %s" % image
                 os.remove(image)
 
 
@@ -43,7 +44,7 @@ if __name__ == '__main__':
     images_dir = sys.argv[1]
     if os.path.isdir(images_dir):
         images_dir = os.path.abspath(images_dir)
-        common_res = get_common_resolution(images_dir)
+        #common_res = get_common_resolution(images_dir)
         most_common_res = {'resolution' : (200, 142), 'count' : 1 }
         filter_big_different_res(most_common_res, images_dir)
 
