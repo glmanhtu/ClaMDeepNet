@@ -45,7 +45,7 @@ def making_predictions(test_img_path, transformer, net):
         pred_probas = single_making_prediction(img_path, transformer, net)
 
         test_ids = test_ids + [img_path.split('/')[-1][:-4]]
-        if pred_probas[pred_probas.argmax()] < 0.5:
+        if pred_probas[0][pred_probas.argmax()] < 0.5:
             predictions = predictions + [len(pred_probas)]
         else:
             predictions = predictions + [pred_probas.argmax()]
