@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/Debian) (preloaded format=xelatex 2017.8.25)  4 SEP 2017 14:34
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/Debian) (preloaded format=xelatex 2017.8.25)  4 SEP 2017 16:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -786,42 +786,45 @@ File: images/mnist_test_result.png Graphic file (type QTm)
  <use  "images/mnist_test_result.png" > [8] [9] [10]
 File: images/mnist_test_result_2.png Graphic file (type QTm)
 
-<use  "images/mnist_test_result_2.png" > [11] [12] [13] [14]
+<use  "images/mnist_test_result_2.png" > [11] [12]
+File: images/unsupervised_large_dataset_result.png Graphic file (type QTm)
+
+<use  "images/unsupervised_large_dataset_result.png" > [13] [14] [15]
 File: images/train_first_time.png Graphic file (type QTm)
 
-<use  "images/train_first_time.png" > [15]
+<use  "images/train_first_time.png" >
 File: images/resolution_summary.png Graphic file (type QTm)
-
-<use  "images/resolution_summary.png" > [16]
+ <use  "images/resolution_summary.png" >
+[16] [17]
 File: images/train_only_being.png Graphic file (type QTm)
-
-<use  "images/train_only_being.png" > [17]
+ <use  "images/train_only_being.png" >
 File: images/being.png Graphic file (type QTm)
- <use  "images/being.png" > [18]
+ <use  "images/being.png" >
+[18]
 File: images/train_only_heritage.png Graphic file (type QTm)
-
-<use  "images/train_only_heritage.png" >
+ <use  "images/train_only_heritage.png" > [19]
 File: images/heritage.png Graphic file (type QTm)
- <use  "images/heritage.png" > [19]
-File: images/train_only_scenery.png Graphic file (type QTm)
 
-<use  "images/train_only_scenery.png" > [20]
+<use  "images/heritage.png" > [20]
+File: images/train_only_scenery.png Graphic file (type QTm)
+ <use  "images/train_only_scenery.png" >
 File: images/scenery.png Graphic file (type QTm)
- <use  "images/scenery.png" >
-[21]
+
+<use  "images/scenery.png" > [21]
 File: images/train_only_other.png Graphic file (type QTm)
  <use  "images/train_only_other.png" >
+[22]
 File: images/other.png Graphic file (type QTm)
- <use  "images/other.png" > [22]
+ <use  "images/other.png" > [23]
 File: images/train_omit_other_only_being.png Graphic file (type QTm)
 
-<use  "images/train_omit_other_only_being.png" > [23]
+<use  "images/train_omit_other_only_being.png" >
 File: images/omit_other_only_being.png Graphic file (type QTm)
 
 <use  "images/omit_other_only_being.png" > [24]
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 822.
+(hyperref)                than one, level fixed on input line 825.
 
 File: images/only_being_43_images.png Graphic file (type QTm)
 <use  "images/only_being_43_images.png" > [25]
@@ -833,27 +836,33 @@ File: images/train_large_dataset.png Graphic file (type QTm)
 <use  "images/train_large_dataset.png" > [27]
 File: images/result_large_dataset.png Graphic file (type QTm)
 
-<use  "images/result_large_dataset.png" > [28] (./report.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 877.
- [29]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 877.
+<use  "images/result_large_dataset.png" > [28]
+File: images/train_large_dataset_gamma_0_01.png Graphic file (type QTm)
+
+<use  "images/train_large_dataset_gamma_0_01.png" > [29]
+File: images/test_large_dataset_gamma_0_01.png Graphic file (type QTm)
+
+<use  "images/test_large_dataset_gamma_0_01.png" > [30] (./report.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 897.
+ [31]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 897.
 
 (./report.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 877.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 877.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 897.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 897.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 877.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 897.
  ) 
 Here is how much of TeX's memory you used:
- 22567 strings out of 493638
- 402221 string characters out of 6146796
- 476974 words of memory out of 5000000
- 25792 multiletter control sequences out of 15000+600000
+ 22574 strings out of 493638
+ 402466 string characters out of 6146796
+ 475974 words of memory out of 5000000
+ 25796 multiletter control sequences out of 15000+600000
  7525 words of font info for 51 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
  48i,12n,61p,10402b,1734s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on report.pdf (30 pages).
+Output written on report.pdf (32 pages).

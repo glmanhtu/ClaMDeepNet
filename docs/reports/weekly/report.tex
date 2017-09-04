@@ -549,12 +549,15 @@ if __name__ == '__main__':
 \end{lstlisting}
 
 
+\subsection{Train with our dataset}
 
+After train with our dataset, we get accurency 68.74\%
 
-
-
-
-
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/unsupervised_large_dataset_result}
+\caption{Unsupervised train result}
+\end{figure}
 
 
 
@@ -869,6 +872,23 @@ We train our new dataset with 3 classes
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{images/result_large_dataset}
+\caption{Test result}
+\end{figure}
+
+
+\subsection{Reduce Gamma from 0.1 to 0.01}
+
+\subsubsection{Training progress}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/train_large_dataset_gamma_0_01}
+\caption{Train process}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/test_large_dataset_gamma_0_01}
 \caption{Test result}
 \end{figure}
 
