@@ -72,6 +72,19 @@ def export_data(prediction, dataset_dir, export_dir):
         copyfile(source_file, destination_file)
 
 
+def show_result(classes, prediction):
+    result = []
+    for i in range(len(classes)):
+        result[i] = []
+        for j in range(len(classes)):
+            result[i][j] = 0
+    for i in range(len(prediction[0])):
+        actual = classes.index(prediction[0][i].split(Constant.IMAGE_NAME_SEPARATE_CHARACTER)[0])
+        predict = prediction[1][i]
+        result[actual][predict] += 1
+    print result
+
+
 def export_to_csv(prediction, export_file):
     with open(export_file, "w") as f:
         f.write("id,label\n")

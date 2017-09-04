@@ -813,7 +813,58 @@ With only being class, our dataset include:
 \caption{Being - training result}
 \end{figure}
 
-\section{Result and Analysis}
+This result seem to be good. But we're using the dataset, which used to train to test the model. So, it doesn't seem to the correct way to test. Therefore, we split our dataset into three small one. First (80\%) for training, second (10\%) for validate and lately, (10\%) for test.
+
+\section{Test result}
+
+After split our dataset, we have 43 images left for test.
+
+\subsubsection{Training progress}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/only_being_43_images}
+\caption{Being - training progress}
+\end{figure}
+
+\subsubsection{Training result}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/test_43_image_result}
+\caption{Being - training result}
+\end{figure}
+
+It's seem to we dont have enough images for both train \& test purpose. 
+
+\section{Improve our dataset}
+
+Because of lacking images so, we increase the size of our dataset by look back the original unlabeled images and get more images from them. We filter all images has too different size and then, we have 55477 images left. After that, we  look through all images and pick all images, which we sure it belong to the class that we are looking for. Finally, we have 4245 images include:
+ 
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{| c | c | c | c | c | c | c | c | c | c | c |}
+\hline
+ & Being & Heritage & Scenery\\
+\hline
+count & 1471 & 1832 & 942 \\
+\hline
+\end{tabular}
+\caption {Test dataset summary}
+\end{center}
+\end{table}
+
+\subsection{Training result}
+
+We train our new dataset with 3 classes
+
+\subsubsection{Training progress}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/train_large_dataset}
+\caption{Train process}
+\end{figure}
 
 \bibliographystyle{ieeetr}
 \bibliography{bibfile}
