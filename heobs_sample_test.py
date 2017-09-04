@@ -30,7 +30,7 @@ py_render_template("template/caffenet_deploy.template", caffe_deploy,
                    num_output=Constant.NUMBER_OUTPUT)
 classes = ["being", "heritage", "scenery"]
 mean_data = read_mean_data(mean_proto)
-net = read_model_and_weight(caffe_deploy, workspace("caffe_model/snapshot_iter_10000.caffemodel"))
+net = read_model_and_weight(caffe_deploy, workspace("caffe_model/snapshot_iter_4000.caffemodel"))
 transformer = image_transformers(net, mean_data)
 prediction = making_predictions(workspace("data/test"), transformer, net)
 
