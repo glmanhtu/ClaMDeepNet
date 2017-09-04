@@ -45,7 +45,10 @@ def making_predictions(test_img_path, transformer, net):
         pred_probas = single_making_prediction(img_path, transformer, net)
 
         test_ids = test_ids + [img_path.split('/')[-1][:-4]]
-        predictions = predictions + [pred_probas.argmax()]
+        if pred_probas[pred_probas.argmax()] < 0.5:
+            predictions = predictions + [len(pred_probas)]
+        else:
+            predictions = predictions + [pred_probas.argmax()]
         index = index + 1
     return [test_ids, predictions]
 
@@ -75,9 +78,9 @@ def export_data(prediction, dataset_dir, export_dir):
 def show_result(classes, prediction):
     result = []
     for i in range(len(classes)):
-        result[i] = []
-        for j in range(len(classes)):
-            result[i][j] = 0
+        result.append([])
+        for j in range(len(classes) + 1):
+            result[i].append(0)
     for i in range(len(prediction[0])):
         actual = classes.index(prediction[0][i].split(Constant.IMAGE_NAME_SEPARATE_CHARACTER)[0])
         predict = prediction[1][i]
