@@ -865,13 +865,13 @@ We train our new dataset with 3 classes
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\textwidth]{images/train_large_dataset}
+\includegraphics[width=1\textwidth]{images/70_10_20_train_large_dataset}
 \caption{Train process}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\textwidth]{images/result_large_dataset}
+\includegraphics[width=1\textwidth]{images/70_10_20_result_large_dataset}
 \caption{Test result}
 \end{figure}
 
@@ -889,6 +889,53 @@ We train our new dataset with 3 classes
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{images/test_large_dataset_gamma_0_01}
+\caption{Test result}
+\end{figure}
+
+With 70\% train, 10\% validate and 20\% test
+
+\subsubsection{Training progress}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/train_large_dataset}
+\caption{Train process}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/result_large_dataset}
+\caption{Test result}
+\end{figure}
+
+\subsection{Train with dataset come from unsupervised}
+We using unsupervised to classify our images into 3 class. After that, we enter each class folder, remove all images, which not belong to current class. 
+
+\subsubsection{Training progress}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/train_dataset_from_unsupervised}
+\caption{Train process}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/result_dataset_from_unsupervised}
+\caption{Test result}
+\end{figure}
+
+With 70\% train, 10\% validate and 20\% test
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/70_10_20_train_dataset_from_unsupervised}
+\caption{Train process}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/70_10_20_result_dataset_from_unsupervised}
 \caption{Test result}
 \end{figure}
 
