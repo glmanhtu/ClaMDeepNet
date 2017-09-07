@@ -79,6 +79,8 @@ caffe_log = os.path.realpath(workspace("caffe_model/caffe_train.log"))
 image_path = os.path.realpath(workspace("caffe_model/caffe_curve.png"))
 result_path = os.path.realpath(workspace("result/test_result.csv"))
 result_data_path = os.path.realpath(workspace("result/data"))
+caffe_model = os.path.realpath(workspace("caffe_model/caffenet_train.prototxt"))
+caffe_model_img = os.path.realpath(workspace("caffe_model/caffenet_train.png"))
 caffe = pycaffe.Caffe()
 app = Flask(__name__, template_folder="web/template")
 
@@ -114,6 +116,14 @@ def get_data_result():
     file_name = os.path.basename(tmp_archive)
     return send_from_directory(file_dir, file_name)
 
+
+@app.route('/model', methods=['GET'])
+@crossdomain(origin='*')
+def get_model():
+    command = caffe.caffe_home() + '/python/draw_net.py ' + caffe_model + ' ' + caffe_model_img
+    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
+    process.wait()
+    return send_file(caffe_model_img, mimetype='image/png')
 
 @app.route('/curve', methods = ['GET'])
 @crossdomain(origin='*')
