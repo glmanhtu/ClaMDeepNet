@@ -56,8 +56,9 @@
 \contentsline {subsection}{\numberline {9.1}Data layer}{36}{subsection.9.1}
 \contentsline {subsection}{\numberline {9.2}Convolution layer}{37}{subsection.9.2}
 \contentsline {subsection}{\numberline {9.3}ReLU (Rectified Linear Units) layer}{38}{subsection.9.3}
-\contentsline {subsection}{\numberline {9.4}Pooling layer}{38}{subsection.9.4}
-\contentsline {subsection}{\numberline {9.5}LRN (Local Response Normalization) layer}{38}{subsection.9.5}
-\contentsline {subsection}{\numberline {9.6}InnerProduct layer}{38}{subsection.9.6}
-\contentsline {subsection}{\numberline {9.7}Accuracy layer}{39}{subsection.9.7}
-\contentsline {subsection}{\numberline {9.8}SoftmaxWithLoss layer}{39}{subsection.9.8}
+\contentsline {subsection}{\numberline {9.4}Dropout}{38}{subsection.9.4}
+\contentsline {subsection}{\numberline {9.5}Pooling layer}{38}{subsection.9.5}
+\contentsline {subsection}{\numberline {9.6}LRN (Local Response Normalization) layer}{38}{subsection.9.6}
+\contentsline {subsection}{\numberline {9.7}InnerProduct layer}{38}{subsection.9.7}
+\contentsline {subsection}{\numberline {9.8}Accuracy layer}{39}{subsection.9.8}
+\contentsline {subsection}{\numberline {9.9}SoftmaxWithLoss layer}{39}{subsection.9.9}

@@ -56,8 +56,9 @@
 \BOOKMARK [2][-]{subsection.9.1}{Data\040layer}{section.9}% 56
 \BOOKMARK [2][-]{subsection.9.2}{Convolution\040layer}{section.9}% 57
 \BOOKMARK [2][-]{subsection.9.3}{ReLU\040\(Rectified\040Linear\040Units\)\040layer}{section.9}% 58
-\BOOKMARK [2][-]{subsection.9.4}{Pooling\040layer}{section.9}% 59
-\BOOKMARK [2][-]{subsection.9.5}{LRN\040\(Local\040Response\040Normalization\)\040layer}{section.9}% 60
-\BOOKMARK [2][-]{subsection.9.6}{InnerProduct\040layer}{section.9}% 61
-\BOOKMARK [2][-]{subsection.9.7}{Accuracy\040layer}{section.9}% 62
-\BOOKMARK [2][-]{subsection.9.8}{SoftmaxWithLoss\040layer}{section.9}% 63
+\BOOKMARK [2][-]{subsection.9.4}{Dropout}{section.9}% 59
+\BOOKMARK [2][-]{subsection.9.5}{Pooling\040layer}{section.9}% 60
+\BOOKMARK [2][-]{subsection.9.6}{LRN\040\(Local\040Response\040Normalization\)\040layer}{section.9}% 61
+\BOOKMARK [2][-]{subsection.9.7}{InnerProduct\040layer}{section.9}% 62
+\BOOKMARK [2][-]{subsection.9.8}{Accuracy\040layer}{section.9}% 63
+\BOOKMARK [2][-]{subsection.9.9}{SoftmaxWithLoss\040layer}{section.9}% 64

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/Debian) (preloaded format=xelatex 2017.8.25)  19 SEP 2017 16:35
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/Debian) (preloaded format=xelatex 2017.8.25)  20 SEP 2017 12:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -930,17 +930,17 @@ File: images/result_dataset_from_unsuppress_unsupervised.png Graphic file (type
 
 <use  "images/result_dataset_from_unsuppress_unsupervised.png" > [35] [36]
 [37] [38] (./report.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1092.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1101.
  [39]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1092.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1101.
  (./report.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1092.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1092.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1101.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1101.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1092.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1101.
  ) 
 Here is how much of TeX's memory you used:
  23309 strings out of 493638

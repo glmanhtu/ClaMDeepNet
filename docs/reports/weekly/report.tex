@@ -1034,6 +1034,15 @@ The Convolution layer convolves the input image with a set of learnable filters,
 \subsection{ReLU (Rectified Linear Units) layer}
 The ReLU layer applies the function f(x) = max(0, x) to all of the values in the input volume. In basic terms, this layer just changes all the negative activations to 0.This layer increases the nonlinear properties of the model and the overall network without affecting the receptive fields of the conv layer.
 
+\subsection{Dropout}
+During training only, sets a random portion of $x$ to 0, adjusting the rest of the vector magnitude accordingly.
+\begin{itemize}
+	\item dropout\_param
+	\begin{itemize}
+		\item dropout\_ratio: . Sets the probability $ p $ that any given unit is dropped.
+	\end{itemize}
+\end{itemize}
+
 \subsection{Pooling layer}
 This layer basically takes a filter (normally of size 2x2) and a stride of the same length. It then applies it to the input volume and outputs the maximum number in every subregion that the filter convolves around.
 \begin{itemize}
