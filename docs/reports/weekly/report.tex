@@ -2,6 +2,8 @@
 \usepackage{fontspec}
 \usepackage[margin=1in,left=1.5in,includefoot]{geometry}
 \usepackage{listings}
+\usepackage{amsmath}
+\usepackage{commath}
 \usepackage{color}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
@@ -559,13 +561,6 @@ After train with our dataset, we get accurency 68.74\%
 \caption{Unsupervised train result}
 \end{figure}
 
-
-
-
-
-
-
-
 \section{Supervised Deep Learning}
 Supervised deep learning requires us to provide a training dataset, which includes a list of images labeled. However, our image dataset is not, and we can't classify the entire dataset by hand. So, we propose the following method, which includes three steps:
 \begin{itemize}
@@ -953,6 +948,144 @@ Without suppress incorrect images
 \caption{Test result}
 \end{figure}
 
+\section{Caffe net layer description}
+\subsection{Data layer}
+This layer read images from training dataset, validating dataset as input of CNN
+\begin{itemize}
+	\item transform\_param
+	\begin{itemize}
+		\item mirror: when the sample is picked from the dataset, it'll be randomly flipped 
+			\begin{itemize}
+				\item value: true
+				\item possible value: true | false
+			\end{itemize}
+		\item crop\_size: crop all images to specific resolution
+			\begin{itemize}
+				\item value: unset
+				\item possible value: number
+			\end{itemize}
+		\item mean\_file: Location of mean file, which we computed before
+	\end{itemize}
+	\item data\_param
+	\begin{itemize}
+		\item source: Location of data source
+		\item batch\_size: Number of sample images will be pick at each iterator to compute the (stochastic) gradient of the parameters in SGD
+			\begin{itemize}
+				\item value: 256 (train) \& 50 (validate)
+				\item possible value: number (depend on GPU)
+			\end{itemize}
+		\item backend: Type of database (LevelDB or LMDB)
+			\begin{itemize}
+				\item value: LMDB
+				\item possible value: LMDB | LevelDB
+			\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Convolution layer}
+The Convolution layer convolves the input image with a set of learnable filters, each producing one feature map in the output image.
+
+\begin{itemize}
+	\item param (for the weight)
+	\begin{itemize}
+		\item lr\_mult: this value indicates what to multiply the learning rate (from slover) by for a particular layer
+			\begin{itemize}
+				\item value: 1
+				\item possible value: number \\ \textit{ This is useful if you want to update some layers with a smaller learning rate (e.g. when finetuning some layers while training others from scratch) or if you do not want to update the weights for one layer (perhaps you keep all the conv layers the same and just retrain fully connected layers)}.
+			\end{itemize}
+		\item decay\_mult: this value indicates what to multiply the weight decay (from slover) by for a particular layer
+			\begin{itemize}
+				\item value: 1
+				\item possible value: number
+			\end{itemize}
+	\end{itemize}
+	\item param (for the bias)
+	\begin{itemize}
+		\item lr\_mult: 
+			\begin{itemize}
+				\item value: 2
+				\item possible value: number
+			\end{itemize}
+		\item decay\_mult:
+			\begin{itemize}
+				\item value: 0
+				\item possible value: number
+			\end{itemize}
+	\end{itemize}
+	\item convolution\_param
+	\begin{itemize}
+		\item num\_output: number of learnable filters
+		\item kernel\_size: size (resolution) of learnable filter
+		\item stride: controls how the filter convolves around the input volume
+		\item padding: pads the input volume with zeros around the border
+	\end{itemize}
+	\item weight\_filter
+	\begin{itemize}
+		\item type: algorithm type name
+		\item std
+	\end{itemize}
+	\item bias\_filter
+	\begin{itemize}
+		\item type: algorithm type name
+		\item std
+	\end{itemize}
+\end{itemize}
+
+\subsection{ReLU (Rectified Linear Units) layer}
+The ReLU layer applies the function f(x) = max(0, x) to all of the values in the input volume. In basic terms, this layer just changes all the negative activations to 0.This layer increases the nonlinear properties of the model and the overall network without affecting the receptive fields of the conv layer.
+
+\subsection{Pooling layer}
+This layer basically takes a filter (normally of size 2x2) and a stride of the same length. It then applies it to the input volume and outputs the maximum number in every subregion that the filter convolves around.
+\begin{itemize}
+	\item pooling\_param
+	\begin{itemize}
+		\item pool: type of pooling
+		\item kernel\_size: size (resolution) of pooling filter
+		\item stride: controls how the filter slide around the input volume
+	\end{itemize}
+\end{itemize}
+
+\subsection{LRN (Local Response Normalization) layer}
+
+\begin{itemize}
+	\item lrn\_param
+	\begin{itemize}
+		\item local\_size:  the number of channels to sum over (for cross channel LRN) or the side length of the square region to sum over (for within channel LRN)
+		\item alpha: the scaling parameter
+		\item beta: the exponent
+		\item norm\_region [default ACROSS\_CHANNELS]: whether to sum over adjacent channels (ACROSS\_CHANNELS) or nearby spatial locations (WITHIN\_CHANNEL)
+	\end{itemize}
+\end{itemize}
+
+\subsection{InnerProduct layer}
+This layer basically takes an input volume and outputs an N dimensional vector where N is the number of classes that the program has to choose from
+\begin{itemize}
+	\item param
+	\begin{itemize}
+		\item lr\_mult: this value indicates what to multiply the learning rate (from slover) by for a particular layer
+		\item decay\_mult: this value indicates what to multiply the weight decay (from slover) by for a particular layer
+	\end{itemize}
+	\item inner\_product\_param
+	\begin{itemize}
+		\item num\_output: The number of outputs for the layer
+		\item weight\_filter
+	\begin{itemize}
+		\item type: algorithm type name
+		\item std
+	\end{itemize}
+	\item bias\_filter
+	\begin{itemize}
+		\item type: algorithm type name
+		\item std
+	\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Accuracy layer}
+Accuracy scores the output as the accuracy of output with respect to target – it is not actually a loss and has no backward step.
+
+\subsection{SoftmaxWithLoss layer}
+The softmax loss layer computes the multinomial logistic loss of the softmax of its inputs. It’s conceptually identical to a softmax layer followed by a multinomial logistic loss layer, but provides a more numerically stable gradient.
 
 \bibliographystyle{ieeetr}
 \bibliography{bibfile}

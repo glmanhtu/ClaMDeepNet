@@ -52,3 +52,12 @@
 \BOOKMARK [3][-]{subsubsection.8.2.2}{Training\040progress}{subsection.8.2}% 52
 \BOOKMARK [2][-]{subsection.8.3}{Train\040with\040dataset\040come\040from\040unsupervised}{section.8}% 53
 \BOOKMARK [3][-]{subsubsection.8.3.1}{Training\040progress}{subsection.8.3}% 54
+\BOOKMARK [1][-]{section.9}{Caffe\040net\040layer\040description}{}% 55
+\BOOKMARK [2][-]{subsection.9.1}{Data\040layer}{section.9}% 56
+\BOOKMARK [2][-]{subsection.9.2}{Convolution\040layer}{section.9}% 57
+\BOOKMARK [2][-]{subsection.9.3}{ReLU\040\(Rectified\040Linear\040Units\)\040layer}{section.9}% 58
+\BOOKMARK [2][-]{subsection.9.4}{Pooling\040layer}{section.9}% 59
+\BOOKMARK [2][-]{subsection.9.5}{LRN\040\(Local\040Response\040Normalization\)\040layer}{section.9}% 60
+\BOOKMARK [2][-]{subsection.9.6}{InnerProduct\040layer}{section.9}% 61
+\BOOKMARK [2][-]{subsection.9.7}{Accuracy\040layer}{section.9}% 62
+\BOOKMARK [2][-]{subsection.9.8}{SoftmaxWithLoss\040layer}{section.9}% 63
