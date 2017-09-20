@@ -3,13 +3,12 @@
 \usepackage[margin=1in,left=1.5in,includefoot]{geometry}
 \usepackage{listings}
 \usepackage{amsmath}
-\usepackage{commath}
 \usepackage{color}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
-\setmainfont[Ligatures=TeX]{Linux Libertine O}
+
 % Graphic
 \usepackage{graphicx}
 \usepackage{float}
@@ -962,7 +961,6 @@ This layer read images from training dataset, validating dataset as input of CNN
 		\item crop\_size: crop all images to specific resolution
 			\begin{itemize}
 				\item value: unset
-				\item possible value: number
 			\end{itemize}
 		\item mean\_file: Location of mean file, which we computed before
 	\end{itemize}
@@ -972,7 +970,7 @@ This layer read images from training dataset, validating dataset as input of CNN
 		\item batch\_size: Number of sample images will be pick at each iterator to compute the (stochastic) gradient of the parameters in SGD
 			\begin{itemize}
 				\item value: 256 (train) \& 50 (validate)
-				\item possible value: number (depend on GPU)
+				\item note: depend on GPU
 			\end{itemize}
 		\item backend: Type of database (LevelDB or LMDB)
 			\begin{itemize}
@@ -991,12 +989,11 @@ The Convolution layer convolves the input image with a set of learnable filters,
 		\item lr\_mult: this value indicates what to multiply the learning rate (from slover) by for a particular layer
 			\begin{itemize}
 				\item value: 1
-				\item possible value: number \\ \textit{ This is useful if you want to update some layers with a smaller learning rate (e.g. when finetuning some layers while training others from scratch) or if you do not want to update the weights for one layer (perhaps you keep all the conv layers the same and just retrain fully connected layers)}.
+				\item note: \textit{This is useful if we want to update some layers with a smaller learning rate (e.g. when finetuning some layers while training others from scratch) or if we do not want to update the weights for one layer (perhaps we keep all the conv layers the same and just retrain fully connected layers)}.
 			\end{itemize}
 		\item decay\_mult: this value indicates what to multiply the weight decay (from slover) by for a particular layer
 			\begin{itemize}
 				\item value: 1
-				\item possible value: number
 			\end{itemize}
 	\end{itemize}
 	\item param (for the bias)
@@ -1004,30 +1001,58 @@ The Convolution layer convolves the input image with a set of learnable filters,
 		\item lr\_mult: 
 			\begin{itemize}
 				\item value: 2
-				\item possible value: number
 			\end{itemize}
 		\item decay\_mult:
 			\begin{itemize}
 				\item value: 0
-				\item possible value: number
 			\end{itemize}
 	\end{itemize}
 	\item convolution\_param
 	\begin{itemize}
 		\item num\_output: number of learnable filters
+		\begin{itemize}
+			\item value [96, 256, 384, 384, 256]
+		\end{itemize}
 		\item kernel\_size: size (resolution) of learnable filter
+		\begin{itemize}
+			\item value: [11, 5, 3, 3, 3]
+		\end{itemize}
 		\item stride: controls how the filter convolves around the input volume
-		\item padding: pads the input volume with zeros around the border
+			\begin{itemize}
+				\item value: [4, 1, 1, 1, 1]
+			\end{itemize}
+		\item pad: pads the input volume with zeros around the border
+		\begin{itemize}
+			\item value: [0, 2, 1, 1, 1]
+		\end{itemize}
+		\item group: [default 1]. If g > 1, we restrict the connectivity of each filter to a subset of the input. Specifically, the input and output channels are separated into g groups, and the iith output group channels will be only connected to the iith input group channels.
+		\begin{itemize}
+			\item value: [1, 2, 1, 2, 2 ]
+		\end{itemize}
 	\end{itemize}
-	\item weight\_filter
+	\item weight\_filler: \textit{initialize the filters}
 	\begin{itemize}
-		\item type: algorithm type name
-		\item std
+		\item type: algorithm type
+		\begin{itemize}
+			\item value: gaussian
+			\item possible value: [gaussian, constant, positive\_unitball, uniform, xavier, msra, bilinear]
+		\end{itemize}
+		\item other options for each type above
+		\begin{itemize}
+			\item std: 0.01
+		\end{itemize}
 	\end{itemize}
-	\item bias\_filter
+	\item bias\_filler
 	\begin{itemize}
-		\item type: algorithm type name
-		\item std
+		\item type: algorithm type
+		\begin{itemize}
+			\item value: constant
+			\item possible value: [gaussian, constant, positive\_unitball, uniform, xavier, msra, bilinear]
+		\end{itemize}
+		\item other options for each type above
+		\begin{itemize}
+			\item value: 1
+		\end{itemize}
 	\end{itemize}
 \end{itemize}
 
@@ -1039,7 +1064,7 @@ During training only, sets a random portion of $x$ to 0, adjusting the rest of t
 \begin{itemize}
 	\item dropout\_param
 	\begin{itemize}
-		\item dropout\_ratio: . Sets the probability $ p $ that any given unit is dropped.
+		\item dropout\_ratio:  the probability that any given unit is dropped.
 	\end{itemize}
 \end{itemize}
 
