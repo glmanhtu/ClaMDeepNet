@@ -955,12 +955,12 @@ This layer read images from training dataset, validating dataset as input of CNN
 	\begin{itemize}
 		\item mirror: when the sample is picked from the dataset, it'll be randomly flipped 
 			\begin{itemize}
-				\item value: true
+				\item activated value: true
 				\item possible value: true | false
 			\end{itemize}
 		\item crop\_size: crop all images to specific resolution
 			\begin{itemize}
-				\item value: unset
+				\item activated value: unset
 			\end{itemize}
 		\item mean\_file: Location of mean file, which we computed before
 	\end{itemize}
@@ -969,42 +969,44 @@ This layer read images from training dataset, validating dataset as input of CNN
 		\item source: Location of data source
 		\item batch\_size: Number of sample images will be pick at each iterator to compute the (stochastic) gradient of the parameters in SGD
 			\begin{itemize}
-				\item value: 256 (train) \& 50 (validate)
+				\item activated value: 256 (train) \& 50 (validate)
 				\item note: depend on GPU
 			\end{itemize}
 		\item backend: Type of database (LevelDB or LMDB)
 			\begin{itemize}
-				\item value: LMDB
+				\item activated value: LMDB
 				\item possible value: LMDB | LevelDB
 			\end{itemize}
 	\end{itemize}
 \end{itemize}
 
 \subsection{Convolution layer}
-The Convolution layer convolves the input image with a set of learnable filters, each producing one feature map in the output image.
+The convolutional layer is the core building block of a CNN. The layer's parameters consist of a set of learnable filters (or kernels), which have a small receptive field, but extend through the full depth of the input volume. During the forward pass, each filter is convolved across the width and height of the input volume, computing the dot product between the entries of the filter and the input and producing a 2-dimensional activation map of that filter. As a result, the network learns filters that activate when it detects some specific type of feature at some spatial position in the input.
+
+Stacking the activation maps for all filters along the depth dimension forms the full output volume of the convolution layer. Every entry in the output volume can thus also be interpreted as an output of a neuron that looks at a small region in the input and shares parameters with neurons in the same activation map.
 
 \begin{itemize}
 	\item param (for the weight)
 	\begin{itemize}
 		\item lr\_mult: this value indicates what to multiply the learning rate (from slover) by for a particular layer
 			\begin{itemize}
-				\item value: 1
+				\item activated value: 1
 				\item note: \textit{This is useful if we want to update some layers with a smaller learning rate (e.g. when finetuning some layers while training others from scratch) or if we do not want to update the weights for one layer (perhaps we keep all the conv layers the same and just retrain fully connected layers)}.
 			\end{itemize}
 		\item decay\_mult: this value indicates what to multiply the weight decay (from slover) by for a particular layer
 			\begin{itemize}
-				\item value: 1
+				\item activated value: 1
 			\end{itemize}
 	\end{itemize}
 	\item param (for the bias)
 	\begin{itemize}
 		\item lr\_mult: 
 			\begin{itemize}
-				\item value: 2
+				\item activated value: 2
 			\end{itemize}
 		\item decay\_mult:
 			\begin{itemize}
-				\item value: 0
+				\item activated value: 0
 			\end{itemize}
 	\end{itemize}
 	\item convolution\_param
@@ -1015,26 +1017,152 @@ The Convolution layer convolves the input image with a set of learnable filters,
 		\end{itemize}
 		\item kernel\_size: size (resolution) of learnable filter
 		\begin{itemize}
-			\item value: [11, 5, 3, 3, 3]
+			\item activated value: [11, 5, 3, 3, 3]
 		\end{itemize}
 		\item stride: controls how the filter convolves around the input volume
 			\begin{itemize}
-				\item value: [4, 1, 1, 1, 1]
+				\item activated value: [4, 1, 1, 1, 1]
 			\end{itemize}
 		\item pad: pads the input volume with zeros around the border
 		\begin{itemize}
-			\item value: [0, 2, 1, 1, 1]
+			\item activated value: [0, 2, 1, 1, 1]
 		\end{itemize}
 		\item group: [default 1]. If g > 1, we restrict the connectivity of each filter to a subset of the input. Specifically, the input and output channels are separated into g groups, and the iith output group channels will be only connected to the iith input group channels.
 		\begin{itemize}
-			\item value: [1, 2, 1, 2, 2 ]
+			\item activated value: [1, 2, 1, 2, 2 ]
+		\end{itemize}
+		\item weight\_filler: \textit{initialize the filters}
+		\begin{itemize}
+			\item type: algorithm type
+			\begin{itemize}
+				\item activated value: gaussian
+				\item possible value: [gaussian, constant, positive\_unitball, uniform, xavier, msra, bilinear]
+			\end{itemize}
+			\item other options for each type above
+			\begin{itemize}
+				\item std: 0.01
+			\end{itemize}
+		\end{itemize}
+		\item bias\_filler
+		\begin{itemize}
+			\item type: algorithm type
+			\begin{itemize}
+				\item activated value: constant
+				\item possible value: [gaussian, constant, positive\_unitball, uniform, xavier, msra, bilinear]
+			\end{itemize}
+			\item other options for each type above
+			\begin{itemize}
+				\item activated value: 1
+			\end{itemize}
 		\end{itemize}
 	\end{itemize}
-	\item weight\_filler: \textit{initialize the filters}
+\end{itemize}
+
+\subsection{ReLU (Rectified Linear Units) layer}
+The ReLU layer applies the function f(x) = max(0, x) to all of the values in the input volume. In basic terms, this layer just changes all the negative activations to 0.This layer increases the nonlinear properties of the model and the overall network without affecting the receptive fields of the convolution layer.
+
+\subsection{Dropout}
+During training only, sets a random portion of $x$ to 0, adjusting the rest of the vector magnitude accordingly.
+Because a fully connected layer occupies most of the parameters, it is prone to overfitting. One method to reduce overfitting is dropout. At each training stage, individual nodes are either "dropped out" of the net with probability $ 1-p$ or kept with probability $p$, so that a reduced network is left; incoming and outgoing edges to a dropped-out node are also removed. Only the reduced network is trained on the data in that stage. The removed nodes are then reinserted into the network with their original weights.
+\begin{itemize}
+	\item dropout\_param
+	\begin{itemize}
+		\item dropout\_ratio:  the probability that any given unit is dropped.
+		\begin{itemize}
+			\item activated value: 0.5
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Pooling layer}
+Another important concept of CNNs is pooling, which is a form of non-linear down-sampling. There are several non-linear functions to implement pooling among which max pooling is the most common. It partitions the input image into a set of non-overlapping rectangles and, for each such sub-region, outputs the maximum. The intuition is that the exact location of a feature is less important than its rough location relative to other features. The pooling layer serves to progressively reduce the spatial size of the representation, to reduce the number of parameters and amount of computation in the network, and hence to also control overfitting. It is common to periodically insert a pooling layer between successive convolutional layers in a CNN architecture. The pooling operation provides another form of translation invariance.
+
+The pooling layer operates independently on every depth slice of the input and resizes it spatially. The most common form is a pooling layer with filters of size 2x2 applied with a stride of 2 downsamples at every depth slice in the input by 2 along both width and height, discarding 75\% of the activations. In this case, every max operation is over 4 numbers. The depth dimension remains unchanged.
+
+In addition to max pooling, the pooling units can use other functions, such as average pooling or L2-norm pooling. Average pooling was often used historically but has recently fallen out of favor compared to max pooling, which works better in practice
+\begin{itemize}
+	\item pooling\_param
+	\begin{itemize}
+		\item pool: type of pooling
+		\begin{itemize}
+			\item activated value: MAX
+			\item possible value: [MAX, AVE, STOCHASTIC]
+		\end{itemize}
+		\item kernel\_size: size (resolution) of pooling filter
+		\begin{itemize}
+			\item activated value: 3
+		\end{itemize}
+		\item stride: controls how the filter slide around the input volume
+		\begin{itemize}
+			\item activated value: 2
+		\end{itemize}
+		\item pad: pads the input volume with zeros around the border
+		\begin{itemize}
+			\item activated value: 0
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsection{LRN (Local Response Normalization) layer}
+The local response normalization layer performs a kind of "lateral inhibition" by normalizing over local input regions. In ACROSS\_CHANNELS mode, the local regions extend across nearby channels, but have no spatial extent (i.e., they have shape local\_size x 1 x 1). In WITHIN\_CHANNEL mode, the local regions extend spatially, but are in separate channels (i.e., they have shape 1 x local\_size x local\_size). Each input value is divided by $(1 + (\alpha/n) \sum\nolimits_{i}x^2_{i})^\beta$, where n is the size of each local region, and the sum is taken over the region centered at that value (zero padding is added where necessary).
+\begin{itemize}
+	\item lrn\_param
+	\begin{itemize}
+		\item local\_size:  the number of channels to sum over (for cross channel LRN) or the side length of the square region to sum over (for within channel LRN)
+		\begin{itemize}
+			\item activated value: 5
+		\end{itemize}
+		\item alpha: the scaling parameter
+		\begin{itemize}
+			\item activated value: 0.0001
+		\end{itemize}
+		\item beta: the exponent
+		\begin{itemize}
+			\item activated value: 0.75
+		\end{itemize}
+		\item norm\_region: whether to sum over adjacent channels (ACROSS\_CHANNELS) or nearby spatial locations (WITHIN\_CHANNEL)
+		\begin{itemize}
+			\item activated value: ACROSS\_CHANNELS
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsection{InnerProduct layer}
+This layer basically takes an input volume and outputs an N dimensional vector where N is the number of classes that the program has to choose from. Neurons in a fully connected layer have connections to all activations in the previous layer, as seen in regular neural networks. Their activations can hence be computed with a matrix multiplication followed by a bias offset.
+\begin{itemize}
+	\item param (for the weight)
+	\begin{itemize}
+		\item lr\_mult: this value indicates what to multiply the learning rate (from slover) by for a particular layer
+			\begin{itemize}
+				\item activated value: 1
+			\end{itemize}
+		\item decay\_mult: this value indicates what to multiply the weight decay (from slover) by for a particular layer
+			\begin{itemize}
+				\item activated value: 1
+			\end{itemize}
+	\end{itemize}
+	\item param (for the bias)
+	\begin{itemize}
+		\item lr\_mult: 
+			\begin{itemize}
+				\item activated value: 2
+			\end{itemize}
+		\item decay\_mult:
+			\begin{itemize}
+				\item activated value: 0
+			\end{itemize}
+	\end{itemize}
+	\item inner\_product\_param
+	\begin{itemize}
+		\item num\_output: The number of outputs for the layer
+		\begin{itemize}
+			\item value: [4096, 4096, 3]
+		\end{itemize}
+		\item weight\_filler: \textit{initialize the filters}
 	\begin{itemize}
 		\item type: algorithm type
 		\begin{itemize}
-			\item value: gaussian
+			\item activated value: gaussian
 			\item possible value: [gaussian, constant, positive\_unitball, uniform, xavier, msra, bilinear]
 		\end{itemize}
 		\item other options for each type above
@@ -1046,71 +1174,13 @@ The Convolution layer convolves the input image with a set of learnable filters,
 	\begin{itemize}
 		\item type: algorithm type
 		\begin{itemize}
-			\item value: constant
+			\item activated value: constant
 			\item possible value: [gaussian, constant, positive\_unitball, uniform, xavier, msra, bilinear]
 		\end{itemize}
 		\item other options for each type above
 		\begin{itemize}
-			\item value: 1
+			\item activated value: 1
 		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
-\subsection{ReLU (Rectified Linear Units) layer}
-The ReLU layer applies the function f(x) = max(0, x) to all of the values in the input volume. In basic terms, this layer just changes all the negative activations to 0.This layer increases the nonlinear properties of the model and the overall network without affecting the receptive fields of the conv layer.
-
-\subsection{Dropout}
-During training only, sets a random portion of $x$ to 0, adjusting the rest of the vector magnitude accordingly.
-\begin{itemize}
-	\item dropout\_param
-	\begin{itemize}
-		\item dropout\_ratio:  the probability that any given unit is dropped.
-	\end{itemize}
-\end{itemize}
-
-\subsection{Pooling layer}
-This layer basically takes a filter (normally of size 2x2) and a stride of the same length. It then applies it to the input volume and outputs the maximum number in every subregion that the filter convolves around.
-\begin{itemize}
-	\item pooling\_param
-	\begin{itemize}
-		\item pool: type of pooling
-		\item kernel\_size: size (resolution) of pooling filter
-		\item stride: controls how the filter slide around the input volume
-	\end{itemize}
-\end{itemize}
-
-\subsection{LRN (Local Response Normalization) layer}
-
-\begin{itemize}
-	\item lrn\_param
-	\begin{itemize}
-		\item local\_size:  the number of channels to sum over (for cross channel LRN) or the side length of the square region to sum over (for within channel LRN)
-		\item alpha: the scaling parameter
-		\item beta: the exponent
-		\item norm\_region [default ACROSS\_CHANNELS]: whether to sum over adjacent channels (ACROSS\_CHANNELS) or nearby spatial locations (WITHIN\_CHANNEL)
-	\end{itemize}
-\end{itemize}
-
-\subsection{InnerProduct layer}
-This layer basically takes an input volume and outputs an N dimensional vector where N is the number of classes that the program has to choose from
-\begin{itemize}
-	\item param
-	\begin{itemize}
-		\item lr\_mult: this value indicates what to multiply the learning rate (from slover) by for a particular layer
-		\item decay\_mult: this value indicates what to multiply the weight decay (from slover) by for a particular layer
-	\end{itemize}
-	\item inner\_product\_param
-	\begin{itemize}
-		\item num\_output: The number of outputs for the layer
-		\item weight\_filter
-	\begin{itemize}
-		\item type: algorithm type name
-		\item std
-	\end{itemize}
-	\item bias\_filter
-	\begin{itemize}
-		\item type: algorithm type name
-		\item std
 	\end{itemize}
 	\end{itemize}
 \end{itemize}
