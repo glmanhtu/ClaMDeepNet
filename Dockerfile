@@ -35,6 +35,7 @@ RUN git clone --depth 1 https://github.com/NVIDIA/caffe.git . && \
     git clone https://github.com/NVIDIA/nccl.git && cd nccl && \
     make -j install && cd .. && \
     cp Makefile.config.example Makefile.config && \
+    sed -i -E 's/(CUDA_ARCH\s*:=)(-|\w|\s|=|,|\\)+/\1 -gencode=arch=compute_70,code=sm_70/' Makefile.config && \
     sed -i '/^# WITH_PYTHON_LAYER := 1/s/^# //' Makefile.config && \
     sed -i 's/\/usr\/local\/cuda/\/usr\/local\/cuda-8.0/g' Makefile.config && \
     sed -i '/^PYTHON_INCLUDE/a    /usr/local/lib/python2.7/dist-packages/numpy/core/include/ \\' Makefile.config && \
