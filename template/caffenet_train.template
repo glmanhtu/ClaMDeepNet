@@ -36,44 +36,6 @@ layer {
   }
 }
 layer {
-  name: "data"
-  type: "Data"
-  top: "data"
-  top: "label"
-  include {
-    phase: TRAIN
-  }
-  transform_param {
-    mirror: true
-    crop_size: 299
-    mean_file: "/home/smichalowski/DIGITS/digits/jobs/20160627-223013-e18a/mean.binaryproto"
-  }
-  data_param {
-    source: "/home/smichalowski/DIGITS/digits/jobs/20160627-223013-e18a/train_db"
-    batch_size: 22
-    backend: LMDB
-  }
-}
-layer {
-  name: "data"
-  type: "Data"
-  top: "data"
-  top: "label"
-  include {
-    phase: TEST
-  }
-  transform_param {
-    mirror: false
-    crop_size: 299
-    mean_file: "/home/smichalowski/DIGITS/digits/jobs/20160627-223013-e18a/mean.binaryproto"
-  }
-  data_param {
-    source: "/home/smichalowski/DIGITS/digits/jobs/20160627-223013-e18a/val_db"
-    batch_size: 5
-    backend: LMDB
-  }
-}
-layer {
   name: "conv_conv2d"
   type: "Convolution"
   bottom: "data"
