@@ -32,13 +32,14 @@ WORKDIR $CAFFE_ROOT
 RUN git clone --depth 1 https://github.com/NVIDIA/caffe.git . && \
     pip install --upgrade pip && \
     cd python && for req in $(cat requirements.txt) pydot; do pip install $req; done && cd .. && \
+    git clone https://github.com/NVIDIA/nccl.git && cd nccl && \
+    make -j install && cd .. && \
     cp Makefile.config.example Makefile.config && \
-    perl -i -p -e 's/(\s*)(-gencode[=\w,_ ]*\s*)\\(\s*)/ \2 /g' Makefile.config && \
     sed -i '/^# WITH_PYTHON_LAYER := 1/s/^# //' Makefile.config && \
     sed -i 's/\/usr\/local\/cuda/\/usr\/local\/cuda-8.0/g' Makefile.config && \
     sed -i '/^PYTHON_INCLUDE/a    /usr/local/lib/python2.7/dist-packages/numpy/core/include/ \\' Makefile.config && \
     mkdir build && cd build && \
-    cmake .. && \
+    cmake -DUSE_NCCL=1 .. && \
     make -j"$(nproc)" all
 
 ENV PYCAFFE_ROOT $CAFFE_ROOT/python
