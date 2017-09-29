@@ -34,8 +34,8 @@ RUN dpkg -i cuda-repo-ubuntu1604_8.0.61-1_amd64.deb
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y cuda && apt-get clean
 
-RUN dpkg -i /tmp/libcudnn6-dev_6.0.21-1+cuda8.0_amd64.deb
 RUN dpkg -i /tmp/libcudnn6_6.0.21-1+cuda8.0_amd64.deb
+RUN dpkg -i /tmp/libcudnn6-dev_6.0.21-1+cuda8.0_amd64.deb
 
 RUN sh -c "echo '/usr/local/cuda/lib64' > /etc/ld.so.conf.d/cuda_hack.conf"
 RUN ldconfig /usr/local/cuda/lib64
