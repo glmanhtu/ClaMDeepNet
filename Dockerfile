@@ -1,8 +1,6 @@
-FROM ubuntu:16.04
-LABEL maintainer caffe-maint@googlegroups.com
 
-COPY libcudnn6-dev_6.0.21-1+cuda8.0_amd64.deb /tmp/
-COPY libcudnn6_6.0.21-1+cuda8.0_amd64.deb /tmp
+FROM nvidia/cuda:8.0-cudnn7-devel-ubuntu16.04
+LABEL maintainer caffe-maint@googlegroups.com
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
@@ -23,22 +21,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         python-dev \
         python-numpy \
         python-pip \
-        tar \
-        wget \
         python-setuptools \
         python-scipy && \
     rm -rf /var/lib/apt/lists/*
-
-RUN wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_8.0.61-1_amd64.deb
-RUN dpkg -i cuda-repo-ubuntu1604_8.0.61-1_amd64.deb
-
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y cuda && apt-get clean
-
-RUN dpkg -i /tmp/libcudnn6_6.0.21-1+cuda8.0_amd64.deb
-RUN dpkg -i /tmp/libcudnn6-dev_6.0.21-1+cuda8.0_amd64.deb
-
-RUN sh -c "echo '/usr/local/cuda/lib64' > /etc/ld.so.conf.d/cuda_hack.conf"
-RUN ldconfig /usr/local/cuda/lib64
 
 ENV CAFFE_ROOT=/opt/caffe
 WORKDIR $CAFFE_ROOT
@@ -55,7 +40,9 @@ RUN git clone --branch caffe-0.16 --depth 1 https://github.com/NVIDIA/caffe.git 
     sed -i '/^PYTHON_INCLUDE/a    /usr/local/lib/python2.7/dist-packages/numpy/core/include/ \\' Makefile.config && \
     mkdir build && cd build && \
     cmake .. && \
-    make -j"$(nproc)"
+    make -j"$(nproc)" all
+    make -j"$(nproc)" test
+    make runtest
 
 ENV PYCAFFE_ROOT $CAFFE_ROOT/python
 ENV PYTHONPATH $PYCAFFE_ROOT:$PYTHONPATH
