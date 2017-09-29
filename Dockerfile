@@ -49,17 +49,13 @@ RUN git clone --branch caffe-0.16 --depth 1 https://github.com/NVIDIA/caffe.git 
     pip install --upgrade pip && \
     cd python && for req in $(cat requirements.txt) pydot; do pip install $req; done && cd .. && \
     cp Makefile.config.example Makefile.config && \
-    perl -i -p -e 's/(\s*)(-gencode[=\w,_ ]*\s*)\\(\s*)/ \2 /g' Makefile.config && \
-    sed -i -E 's/(CUDA_ARCH\s*:=)(-|\w|\s|=|,|\\)+/\1 -gencode=arch=compute_60,code=sm_60/' Makefile.config && \
     sed -i '/^# WITH_PYTHON_LAYER := 1/s/^# //' Makefile.config && \
     sed -i '/^# USE_CUDNN := 1/s/^# //' Makefile.config && \
     sed -i 's/\/usr\/local\/cuda/\/usr\/local\/cuda-8.0/g' Makefile.config && \
     sed -i '/^PYTHON_INCLUDE/a    /usr/local/lib/python2.7/dist-packages/numpy/core/include/ \\' Makefile.config && \
     mkdir build && cd build && \
     cmake .. && \
-    make -j"$(nproc)"  && \
-    make -j"$(nproc)" test && \
-    make runtest
+    make -j"$(nproc)"
 
 ENV PYCAFFE_ROOT $CAFFE_ROOT/python
 ENV PYTHONPATH $PYCAFFE_ROOT:$PYTHONPATH
