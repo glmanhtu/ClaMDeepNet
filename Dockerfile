@@ -3,9 +3,6 @@ LABEL maintainer caffe-maint@googlegroups.com
 
 COPY cudnn-8.0-linux-x64-v6.0.tgz /tmp/
 
-RUN wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_8.0.61-1_amd64.deb
-RUN dpkg -i cuda-repo-ubuntu1604_8.0.61-1_amd64.deb
-
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
         cmake \
@@ -30,6 +27,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         python-setuptools \
         python-scipy && \
     rm -rf /var/lib/apt/lists/*
+
+RUN wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_8.0.61-1_amd64.deb
+RUN dpkg -i cuda-repo-ubuntu1604_8.0.61-1_amd64.deb
 
 RUN apt-get install -y cuda && apt-get clean
 
