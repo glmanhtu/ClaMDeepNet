@@ -40,6 +40,8 @@ RUN git clone --branch caffe-0.15 --depth 1 https://github.com/NVIDIA/caffe.git 
     mkdir build && cd build && \
     cmake .. && \
     make -j"$(nproc)" all
+    make -j"$(nproc)" test
+    make runtest
 
 ENV PYCAFFE_ROOT $CAFFE_ROOT/python
 ENV PYTHONPATH $PYCAFFE_ROOT:$PYTHONPATH
