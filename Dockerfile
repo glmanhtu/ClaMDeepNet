@@ -39,8 +39,8 @@ RUN git clone --branch caffe-0.15 --depth 1 https://github.com/NVIDIA/caffe.git 
     sed -i '/^PYTHON_INCLUDE/a    /usr/local/lib/python2.7/dist-packages/numpy/core/include/ \\' Makefile.config && \
     mkdir build && cd build && \
     cmake .. && \
-    make -j"$(nproc)" all
-    make -j"$(nproc)" test
+    make -j"$(nproc)"  && \
+    make -j"$(nproc)" test && \
     make runtest
 
 ENV PYCAFFE_ROOT $CAFFE_ROOT/python
