@@ -37,7 +37,7 @@ RUN tar -xvf /tmp/cudnn-8.0-linux-x64-v6.0.tgz -C /tmp
 RUN cp -RP /tmp/cuda/lib64 /usr/local/cuda/lib64
 RUN cp -R /tmp/cuda/include /usr/local/cuda/include
 
-RUN sh -c "sudo echo '/usr/local/cuda/lib64' > /etc/ld.so.conf.d/cuda_hack.conf"
+RUN sh -c "echo '/usr/local/cuda/lib64' > /etc/ld.so.conf.d/cuda_hack.conf"
 RUN ldconfig /usr/local/cuda/lib64
 
 ENV CAFFE_ROOT=/opt/caffe
