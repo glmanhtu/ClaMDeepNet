@@ -5737,6 +5737,6 @@ layer {
     phase: TEST
   }
   accuracy_param {
-    top_k: 5
+    top_k: ${num_output}
   }
 }
