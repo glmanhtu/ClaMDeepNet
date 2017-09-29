@@ -1,7 +1,8 @@
 FROM ubuntu:16.04
 LABEL maintainer caffe-maint@googlegroups.com
 
-COPY cudnn-8.0-linux-x64-v6.0.tgz /tmp/
+COPY libcudnn6-dev_6.0.21-1+cuda8.0_amd64.deb /tmp/
+COPY libcudnn6_6.0.21-1+cuda8.0_amd64.deb /tmp
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
@@ -33,9 +34,8 @@ RUN dpkg -i cuda-repo-ubuntu1604_8.0.61-1_amd64.deb
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y cuda && apt-get clean
 
-RUN tar -xvf /tmp/cudnn-8.0-linux-x64-v6.0.tgz -C /tmp
-RUN cp -RP /tmp/cuda/lib64 /usr/local/cuda/lib64
-RUN cp -R /tmp/cuda/include /usr/local/cuda/include
+RUN dpkg -i /tmp/libcudnn6-dev_6.0.21-1+cuda8.0_amd64.deb
+RUN dpkg -i /tmp/libcudnn6_6.0.21-1+cuda8.0_amd64.deb
 
 RUN sh -c "echo '/usr/local/cuda/lib64' > /etc/ld.so.conf.d/cuda_hack.conf"
 RUN ldconfig /usr/local/cuda/lib64
@@ -49,6 +49,8 @@ RUN git clone --branch caffe-0.15 --depth 1 https://github.com/NVIDIA/caffe.git 
     pip install --upgrade pip && \
     cd python && for req in $(cat requirements.txt) pydot; do pip install $req; done && cd .. && \
     cp Makefile.config.example Makefile.config && \
+    perl -i -p -e 's/(\s*)(-gencode[=\w,_ ]*\s*)\\(\s*)/ \2 /g' Makefile.config && \
+    sed -i -E 's/(CUDA_ARCH\s*:=)(-|\w|\s|=|,|\\)+/\1 -gencode=arch=compute_60,code=sm_60/' Makefile.config && \
     sed -i '/^# WITH_PYTHON_LAYER := 1/s/^# //' Makefile.config && \
     sed -i '/^# USE_CUDNN := 1/s/^# //' Makefile.config && \
     sed -i 's/\/usr\/local\/cuda/\/usr\/local\/cuda-8.0/g' Makefile.config && \
