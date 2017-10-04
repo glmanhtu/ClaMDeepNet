@@ -1,0 +1,122 @@
+\documentclass[11pt]{article}
+\usepackage{fontspec}
+\usepackage[margin=1in,left=1.5in,includefoot]{geometry}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+% Graphic
+\usepackage{graphicx}
+\usepackage{float}
+
+% Hyperlinks
+\usepackage{hyperref}
+
+% Header and footer
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyfoot{}
+\fancyhead[LE,RO]{\bfseries\thepage}
+\setlength{\headheight}{15pt}
+
+% Quotes character
+\usepackage[utf8]{inputenc}
+
+% color python code
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+% color links
+\usepackage{color}  
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=black,  %choose some color if you want links to stand out
+    urlcolor=blue
+}
+
+\begin{document}
+\begin{titlepage}
+	\begin{center}
+\includegraphics[width=0.6\textwidth]{images/bordeaux.png}\\[1cm]
+
+
+{\large Report Requirement}\\[0.5cm]	
+	
+	\line(1,0){400}\\[0.2in]
+	\huge{\bfseries Deep Learning}\\
+	\line(1,0){400}\\[1.5cm]
+	
+	\noindent	
+	
+	\begin{minipage}[t]{0.4\textwidth}
+		\begin{flushleft} \large
+    	\emph{Author:}\\%
+    	Manh Tu \textsc{Vu}
+		\end{flushleft}
+	\end{minipage}
+	\begin{minipage}[t]{0.4\textwidth}
+  		\begin{flushright} \large
+    		\emph{Supervisor:} \\
+    		Marie\textsc{Beurton-Aimar}
+  		\end{flushright}
+	\end{minipage}
+	
+	\vfill
+
+% Bottom of the page
+{\large \today}
+	\end{center}
+\end{titlepage}
+
+% Front matter
+\pagenumbering{arabic}
+
+% Table content
+\tableofcontents
+\thispagestyle{empty}
+\clearpage
+
+% List of figures 
+%\listoffigures
+%\clearpage
+
+\section{Topic}
+In this project, we use Deep Learning method to automatic classify images from \href{https://heobs.org}{https://heobs.org} into 4 classes, include:
+\begin{description}
+\item[Heritage] \hfill \\ A place of cultural, historical, or natural significance for a group or society.
+\item[Beings] \hfill \\ Any form of life, such as a plant or a living creature, whether human or other animal.
+\item[Scenery] \hfill \\ Any form of landscapes which show little or no human activity and are created in the pursuit of a pure, unsullied depiction of nature, also known as scenery.
+\item[Other] \hfill \\ Any other type of image that doesn't represent a photograph, such as painting, illustration, any object.	
+\end{description}
+
+\section{State of the art}
+
+\section{Fuctional Requirements}
+
+\section{Non-functional Requirements}
+
+\section{Prototype}
+
+\bibliographystyle{ieeetr}
+\bibliography{bibfile}
+\end{document}
