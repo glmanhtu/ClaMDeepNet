@@ -31,7 +31,7 @@ class Caffe(object):
                 print "Downloading trained model"
                 download_file(constant.TRAINED_MODEL, trained_model_path)
                 print "Downloaded model"
-            command = [caffe_bin, "train", "--solver=" + solver, "--weights", trained_model_path, ">", log, "&"]
+            command = [caffe_bin, "train", "--solver=" + solver, "--weights", trained_model_path, "2>&1 | tee", log]
         else:
             command = [caffe_bin, "train", "--solver=" + solver, "2>&1 | tee", log]
 
