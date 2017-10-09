@@ -26,10 +26,10 @@ class Caffe(object):
         caffe_bin = self.caffe_home() + "/build/tools/caffe"
 
         if constant.TRAINED_MODEL != "":
-            trained_model_path = workspace("trained_models/trained_model.caffemodel")
+            trained_model_path = os.path.join(workspace("trained_models"), "trained_model.caffemodel")
             if not file_already_exists(trained_model_path):
                 print "Downloading trained model"
-                download_file(constant.TRAINED_MODEL, os.path.dirname(trained_model_path))
+                download_file(constant.TRAINED_MODEL, trained_model_path)
                 print "Downloaded model"
             command = [caffe_bin, "train", "--solver=" + solver, "--weights", trained_model_path, ">", log, "&"]
         else:

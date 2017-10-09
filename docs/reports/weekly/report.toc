@@ -47,21 +47,21 @@
 \contentsline {section}{\numberline {8}Improve our dataset}{27}{section.8}
 \contentsline {subsection}{\numberline {8.1}Training result}{27}{subsection.8.1}
 \contentsline {subsubsection}{\numberline {8.1.1}Training progress}{28}{subsubsection.8.1.1}
-\contentsline {subsection}{\numberline {8.2}Reduce Gamma from 0.1 to 0.01}{29}{subsection.8.2}
-\contentsline {subsubsection}{\numberline {8.2.1}Training progress}{29}{subsubsection.8.2.1}
-\contentsline {subsubsection}{\numberline {8.2.2}Training progress}{31}{subsubsection.8.2.2}
-\contentsline {subsection}{\numberline {8.3}Train with dataset come from unsupervised}{32}{subsection.8.3}
+\contentsline {subsection}{\numberline {8.2}Reduce Gamma from 0.1 to 0.01}{30}{subsection.8.2}
+\contentsline {subsubsection}{\numberline {8.2.1}Training progress}{30}{subsubsection.8.2.1}
+\contentsline {subsubsection}{\numberline {8.2.2}Training progress}{32}{subsubsection.8.2.2}
+\contentsline {subsection}{\numberline {8.3}Train with dataset come from unsupervised}{33}{subsection.8.3}
 \contentsline {subsubsection}{\numberline {8.3.1}Training progress}{33}{subsubsection.8.3.1}
 \contentsline {subsection}{\numberline {8.4}Adjust Pooling layer: kernel 5x5, stride 3}{37}{subsection.8.4}
 \contentsline {subsubsection}{\numberline {8.4.1}Training progress}{37}{subsubsection.8.4.1}
 \contentsline {section}{\numberline {9}Filler algorithms compatition}{38}{section.9}
 \contentsline {section}{\numberline {10}Caffe net layer description}{38}{section.10}
 \contentsline {subsection}{\numberline {10.1}Data layer}{38}{subsection.10.1}
-\contentsline {subsection}{\numberline {10.2}Convolution layer}{39}{subsection.10.2}
-\contentsline {subsection}{\numberline {10.3}ReLU (Rectified Linear Units) layer}{40}{subsection.10.3}
-\contentsline {subsection}{\numberline {10.4}Dropout}{40}{subsection.10.4}
-\contentsline {subsection}{\numberline {10.5}Pooling layer}{41}{subsection.10.5}
-\contentsline {subsection}{\numberline {10.6}LRN (Local Response Normalization) layer}{41}{subsection.10.6}
-\contentsline {subsection}{\numberline {10.7}InnerProduct layer}{42}{subsection.10.7}
-\contentsline {subsection}{\numberline {10.8}Accuracy layer}{43}{subsection.10.8}
-\contentsline {subsection}{\numberline {10.9}SoftmaxWithLoss layer}{43}{subsection.10.9}
+\contentsline {subsection}{\numberline {10.2}Convolution layer}{40}{subsection.10.2}
+\contentsline {subsection}{\numberline {10.3}ReLU (Rectified Linear Units) layer}{41}{subsection.10.3}
+\contentsline {subsection}{\numberline {10.4}Dropout}{41}{subsection.10.4}
+\contentsline {subsection}{\numberline {10.5}Pooling layer}{42}{subsection.10.5}
+\contentsline {subsection}{\numberline {10.6}LRN (Local Response Normalization) layer}{43}{subsection.10.6}
+\contentsline {subsection}{\numberline {10.7}InnerProduct layer}{44}{subsection.10.7}
+\contentsline {subsection}{\numberline {10.8}Accuracy layer}{45}{subsection.10.8}
+\contentsline {subsection}{\numberline {10.9}SoftmaxWithLoss layer}{45}{subsection.10.9}
