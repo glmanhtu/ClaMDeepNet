@@ -57,15 +57,18 @@
 \contentsline {section}{\numberline {9}Filler algorithms compatition}{39}{section.9}
 \contentsline {subsection}{\numberline {9.1}Fine tune from bvlc\_reference\_caffenet.caffemodel}{39}{subsection.9.1}
 \contentsline {subsubsection}{\numberline {9.1.1}Training progress}{39}{subsubsection.9.1.1}
-\contentsline {subsubsection}{\numberline {9.1.2}Training progress}{41}{subsubsection.9.1.2}
-\contentsline {section}{\numberline {10}Filler algorithms compatition}{42}{section.10}
-\contentsline {section}{\numberline {11}Caffe net layer description}{42}{section.11}
-\contentsline {subsection}{\numberline {11.1}Data layer}{42}{subsection.11.1}
-\contentsline {subsection}{\numberline {11.2}Convolution layer}{44}{subsection.11.2}
-\contentsline {subsection}{\numberline {11.3}ReLU (Rectified Linear Units) layer}{45}{subsection.11.3}
-\contentsline {subsection}{\numberline {11.4}Dropout}{45}{subsection.11.4}
-\contentsline {subsection}{\numberline {11.5}Pooling layer}{46}{subsection.11.5}
-\contentsline {subsection}{\numberline {11.6}LRN (Local Response Normalization) layer}{47}{subsection.11.6}
-\contentsline {subsection}{\numberline {11.7}InnerProduct layer}{48}{subsection.11.7}
-\contentsline {subsection}{\numberline {11.8}Accuracy layer}{49}{subsection.11.8}
-\contentsline {subsection}{\numberline {11.9}SoftmaxWithLoss layer}{49}{subsection.11.9}
+\contentsline {subsection}{\numberline {9.2}[googlenet model] Test with googlenet}{40}{subsection.9.2}
+\contentsline {subsubsection}{\numberline {9.2.1}Training progress}{40}{subsubsection.9.2.1}
+\contentsline {subsection}{\numberline {9.3}[googlenet model] Fine tune from bvlc\_googlenet.caffemodel}{41}{subsection.9.3}
+\contentsline {subsubsection}{\numberline {9.3.1}Training progress}{41}{subsubsection.9.3.1}
+\contentsline {section}{\numberline {10}Filler algorithms compatition}{41}{section.10}
+\contentsline {section}{\numberline {11}Caffe net layer description}{41}{section.11}
+\contentsline {subsection}{\numberline {11.1}Data layer}{41}{subsection.11.1}
+\contentsline {subsection}{\numberline {11.2}Convolution layer}{43}{subsection.11.2}
+\contentsline {subsection}{\numberline {11.3}ReLU (Rectified Linear Units) layer}{44}{subsection.11.3}
+\contentsline {subsection}{\numberline {11.4}Dropout}{44}{subsection.11.4}
+\contentsline {subsection}{\numberline {11.5}Pooling layer}{45}{subsection.11.5}
+\contentsline {subsection}{\numberline {11.6}LRN (Local Response Normalization) layer}{46}{subsection.11.6}
+\contentsline {subsection}{\numberline {11.7}InnerProduct layer}{47}{subsection.11.7}
+\contentsline {subsection}{\numberline {11.8}Accuracy layer}{48}{subsection.11.8}
+\contentsline {subsection}{\numberline {11.9}SoftmaxWithLoss layer}{48}{subsection.11.9}

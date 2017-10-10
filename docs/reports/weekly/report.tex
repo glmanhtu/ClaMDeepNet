@@ -971,28 +971,41 @@ Without suppress incorrect images
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\textwidth]{images/train_large_dataset_pooling_5x5_stride_3}
+\includegraphics[width=1\textwidth]{images/train_large_dataset_fine_tune}
 \caption{Train process}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\textwidth]{images/train_large_dataset_fine_tune}
+\includegraphics[width=1\textwidth]{images/result_large_dataset_fine_tune}
 \caption{Test result}
 \end{figure}
 
+\subsection{[googlenet model] Test with googlenet}
 
 \subsubsection{Training progress}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=1\textwidth]{images/train_large_dataset_pooling_5x5_stride_3}
-\caption{Train process}
-\end{figure}
+Train Loss: 0.272191
+Test Loss: 0.524059
+Acc: 0.823159
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\textwidth]{images/result_large_dataset_pooling_5x5_stride_3}
+\includegraphics[width=1\textwidth]{images/result_large_dataset_ggnet}
+\caption{Test result}
+\end{figure}
+
+\subsection{[googlenet model] Fine tune from bvlc\_googlenet.caffemodel}
+
+\subsubsection{Training progress}
+
+Train Loss: 0.000152441
+Test Loss: 0.129649
+Acc: 0.971682
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/result_large_dataset_ggnet_finetune}
 \caption{Test result}
 \end{figure}
 

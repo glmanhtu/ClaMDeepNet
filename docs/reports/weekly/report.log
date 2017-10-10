@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99996 (TeX Live 2016/Debian) (preloaded format=xelatex 2017.9.20)  9 OCT 2017 20:21
+This is XeTeX, Version 3.14159265-2.6-0.99996 (TeX Live 2016/Debian) (preloaded format=xelatex 2017.9.20)  10 OCT 2017 14:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -917,56 +917,52 @@ File: images/result_large_dataset_pooling_5x5_stride_3.png Graphic file (type Q
 Tm)
 
 <use  "images/result_large_dataset_pooling_5x5_stride_3.png" > [37]
-File: images/train_large_dataset_pooling_5x5_stride_3.png Graphic file (type QT
-m)
-
-<use  "images/train_large_dataset_pooling_5x5_stride_3.png" > [38]
 File: images/train_large_dataset_fine_tune.png Graphic file (type QTm)
 
-<use  "images/train_large_dataset_fine_tune.png" > [39]
-File: images/train_large_dataset_pooling_5x5_stride_3.png Graphic file (type QT
-m)
+<use  "images/train_large_dataset_fine_tune.png" > [38]
+File: images/result_large_dataset_fine_tune.png Graphic file (type QTm)
 
-<use  "images/train_large_dataset_pooling_5x5_stride_3.png" > [40]
-File: images/result_large_dataset_pooling_5x5_stride_3.png Graphic file (type Q
-Tm)
+<use  "images/result_large_dataset_fine_tune.png" > [39]
+File: images/result_large_dataset_ggnet.png Graphic file (type QTm)
 
-<use  "images/result_large_dataset_pooling_5x5_stride_3.png" > [41] [42]
-[43]
-Underfull \hbox (badness 10000) in paragraph at lines 1069--1103
+<use  "images/result_large_dataset_ggnet.png" >
+File: images/result_large_dataset_ggnet_finetune.png Graphic file (type QTm)
+
+<use  "images/result_large_dataset_ggnet_finetune.png" > [40] [41] [42]
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1116
 \TU/lmr/m/n/10.95 ters with neurons in the same activation map.
  []
 
-[44] [45] [46] [47]
-Overfull \hbox (2.1339pt too wide) in paragraph at lines 1315--1315
+[43] [44] [45] [46]
+Overfull \hbox (2.1339pt too wide) in paragraph at lines 1328--1328
 []  \TU/lmtt/m/n/10.95 inner_product_param {[] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1286--1317
+Underfull \hbox (badness 10000) in paragraph at lines 1299--1330
 \TU/lmr/m/n/10.95 bias offset.
  []
 
-[48] (./report.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1383.
- [49]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1383.
+[47] (./report.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1396.
+ [48]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1396.
  (./report.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1383.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1383.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1396.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1396.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1383.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1396.
  ) 
 Here is how much of TeX's memory you used:
- 20325 strings out of 495038
- 393660 string characters out of 6179117
+ 20334 strings out of 495038
+ 393930 string characters out of 6179117
  481273 words of memory out of 5000000
- 23923 multiletter control sequences out of 15000+600000
+ 23929 multiletter control sequences out of 15000+600000
  7549 words of font info for 44 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  35i,12n,45p,10402b,1750s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on report.pdf (50 pages).
+Output written on report.pdf (49 pages).
