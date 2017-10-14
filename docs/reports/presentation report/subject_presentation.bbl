@@ -1,0 +1,16 @@
+\begin{thebibliography}{1}
+
+\bibitem{scikitlearn.org}
+scikit learn.org, ``Scikit-learn algorithm cheat-sheet.''
+
+\bibitem{j.r.quinlan1985}
+J.~QUINLAN, ``Induction of decision trees,'' aug 1985.
+
+\bibitem{stever.gunn1998}
+S.~R. Gunn, ``Support vector machines for classification and regression,'' oct
+  1998.
+
+\bibitem{orenanavakfiry.levy2017}
+K.~Y.~L. Oren~Anava, ``k*-nearest neighbors: From global to local,'' jan 2017.
+
+\end{thebibliography}

@@ -1,4 +1,4 @@
-\documentclass[12pt,a4paper]{report}
+\documentclass[hidelinks,12pt,a4paper]{report}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -115,6 +115,29 @@ Today the members of the laboratory are grouped in six teams, each one combining
 \end{itemize}
 Within these team, research activities are conducted in partnership with Inria. Besides that, LaBRI also collaborate with many other laboratories and companies on French, European and the international.
 
+\chapter{Aglorithm to solve our problem}
+In this part, we will explain how we choose the aglorithms to solve our problem and describe what is each one.
+\section{Scikit-learn algorithm cheat-sheet\cite{scikitlearn.org}}
+Because it has many algorithms has able to classify images such as: Decision tree\cite{j.r.quinlan1985}, SVM\cite{stever.gunn1998}, K-nearest neighbors\cite{orenanavakfiry.levy2017}, etc. We need to find a right one to solve our problem. The Scikit-learn had made an algorithm cheat-sheet to help us to choose the right one:
+
+\begin{figure}[ht]
+	\includegraphics[width=\textwidth, center]{images/scikit-learn}
+	\caption{Scikit-learn algorithm cheat-sheet}
+	\label{fig:Scikit-learn}
+\end{figure}
+As the Fig \ref{fig:Scikit-learn} above, we'll use K-mean algorithm to classify our images. However, we can create a labeled dataset from our unlabeled images by hand. So, we can also use SGD Classifier to solve our problem.
+\\
+Finally, this lead us to two ways: one is use Supervised Classification with SGD is our main algorithm. The second is use Unsupervised Classification with K-mean is main algorithm.
+\section{General architecture}
+A convolutional network is a neural network that use convolutions. It is a multiplayer network (e. g. it uses several layers). In reality, those kind of network, are dividing in two part. The first one use convolutional layers - layers that use convolution patches to compute weights used in neurons. The second part, used to connect the first part to the output, is made of fully connected layers: every output of a layer is connected to every neurons of the next one without any distinctions.
+
+\begin{figure}[ht]
+	\includegraphics[scale=1, center]{images/Fig-1-An-Example-CNN-architecture-for-a-handwritten-digit-recognition-task}
+	\caption{An Example CNN architecture for a handwritten digit recognition task.}
+	\label{fig:CNN-architecture}
+\end{figure}
+The network architecture of an example CNN is depicted in Fig \ref{fig:CNN-architecture}. The processing starts with feature extraction layers and is finished by fully connected classification layers. Using different layers delivers robust recognition accuracy and is invariant to small geometric transformations of the input images. The robust recognition accuracy makes that CNN are successfully used for classification tasks on real world data
+
 \chapter{The internship project: Research in Deep Learning}
 
 The internship is intended to be a duration to apply the knowledge to the real environment. It shows the ability synthesis, evaluation and self-research of student. Besides, the student may study the experience from the real working environment. My internship is done under the
@@ -202,20 +225,6 @@ The method is use deep convolutional neural networks (CNNs or ConvNets) to tackl
 \endminipage
   \caption{Images from heobs.org}
 \end{figure}
-
-\chapter{Convolution Neural Network}
-In this part, we will talk about what is a convolutional neural network and then, we explain why we use it to solve our problem.
-\section{General architecture}
-A convolutional network is a neural network that use convolutions. It is a multiplayer network (e. g. it uses several layers). In reality, those kind of network, are dividing in two part. The first one use convolutional layers - layers that use convolution patches to compute weights used in neurons. The second part, used to connect the first part to the output, is made of fully connected layers: every output of a layer is connected to every neurons of the next one without any distinctions.
-
-\begin{figure}[ht]
-	\includegraphics[scale=1, center]{images/Fig-1-An-Example-CNN-architecture-for-a-handwritten-digit-recognition-task}
-	\caption{An Example CNN architecture for a handwritten digit recognition task.}
-	\label{fig:CNN-architecture}
-\end{figure}
-The network architecture of an example CNN is depicted in Fig \ref{fig:CNN-architecture}. The processing starts with feature extraction layers and is finished by fully connected classification layers. Using different layers delivers robust recognition accuracy and is invariant to small geometric transformations of the input images. The robust recognition accuracy makes that CNN are successfully used for classification tasks on real world data
-
-\section{Why CNN}
 
 \bibliographystyle{ieeetr}
 \bibliography{bibfile}
