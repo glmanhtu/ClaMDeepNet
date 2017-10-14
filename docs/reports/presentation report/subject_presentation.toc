@@ -1,0 +1,9 @@
+\contentsline {chapter}{\numberline {1}Introduction}{2}{chapter.1}
+\contentsline {chapter}{\numberline {2}Context}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}P\IeC {\^o}le Universitaire Fran\IeC {\c c}ais}{3}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}PUF-HCM}{3}{subsection.2.1.1}
+\contentsline {section}{\numberline {2.2}Laboratoire Bordelais de Recherche en Informatique}{4}{section.2.2}
+\contentsline {chapter}{\numberline {3}The internship project: Research in Deep Learning}{5}{chapter.3}
+\contentsline {chapter}{\numberline {4}Convolution Neural Network}{7}{chapter.4}
+\contentsline {section}{\numberline {4.1}General architecture}{7}{section.4.1}
+\contentsline {section}{\numberline {4.2}Why CNN}{7}{section.4.2}
