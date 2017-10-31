@@ -34,7 +34,7 @@ WORKDIR $CAFFE_ROOT
 # https://github.com/docker/hub-feedback/issues/460
 RUN git clone --depth 1 https://github.com/BVLC/caffe.git . && \
     pip install --upgrade pip && \
-    pip install flask
+    pip install flask && \
     cd python && for req in $(cat requirements.txt) pydot; do pip install $req; done && cd .. && \
     git clone https://github.com/NVIDIA/nccl.git && cd nccl && \
     perl -i -p -e 's/(\s*)(-gencode[=\w,]*\s*)\\(\s*)/ \2 /g' Makefile &&\
