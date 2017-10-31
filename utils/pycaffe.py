@@ -34,8 +34,5 @@ class Caffe(object):
             command = [caffe_bin, "train", "--solver=" + solver, "--weights", trained_model_path, "2>&1 | tee", log]
         else:
             command = [caffe_bin, "train", "--solver=" + solver, "2>&1 | tee", log]
-
-        print ("Execute following command to start train")
-
         execute_command(' '.join(command))
 
