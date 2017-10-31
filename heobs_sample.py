@@ -10,6 +10,8 @@ google_download = DownloadGoogleDrive()
 
 set_workspace(os.path.join("workspace", "heobs_sample"))
 
+shutil.rmtree(workspace(""))
+
 train_zip = GoogleFile('0BzL8pCLanAIAd0hBV2NUVHpmckE',
                        'heobs_large_dataset.zip', workspace('data/heobs_large_dataset.zip'))
 
