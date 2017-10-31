@@ -22,8 +22,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         python-numpy \
         python-pip \
         python-setuptools \
-        python-scipy && \
-        python-tk && \
+        python-scipy \
+        python-tk \
         bsdmainutils && \
     rm -rf /var/lib/apt/lists/*
 
