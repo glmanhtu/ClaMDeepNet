@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('tkAgg')
 from network.download_google_drive import DownloadGoogleDrive
 from network.google_file import GoogleFile
 from utils.zip_utils import unzip_with_progress
