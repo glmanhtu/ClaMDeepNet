@@ -23,6 +23,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         python-pip \
         python-setuptools \
         python-scipy && \
+        python-tk && \
+        bsdmainutils && \
     rm -rf /var/lib/apt/lists/*
 
 ENV CAFFE_ROOT=/opt/caffe
@@ -32,6 +34,7 @@ WORKDIR $CAFFE_ROOT
 # https://github.com/docker/hub-feedback/issues/460
 RUN git clone --depth 1 https://github.com/BVLC/caffe.git . && \
     pip install --upgrade pip && \
+    pip install flask
     cd python && for req in $(cat requirements.txt) pydot; do pip install $req; done && cd .. && \
     git clone https://github.com/NVIDIA/nccl.git && cd nccl && \
     perl -i -p -e 's/(\s*)(-gencode[=\w,]*\s*)\\(\s*)/ \2 /g' Makefile &&\
@@ -58,3 +61,5 @@ RUN pip install lmdb
 RUN apt-get install python-opencv
 
 WORKDIR /workspace
+RUN mkdir classify-images
+COPY . /workspace/classify-images/
