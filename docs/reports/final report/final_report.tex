@@ -48,7 +48,7 @@
 %{\large Final report}\\[0.5cm]	
 	
 	\line(1,0){400}\\[0.2in]
-	\huge{\bfseries Deep Learning}\\
+	\huge{\bfseries Deep Learning \\ Image Classification}\\
 	\line(1,0){400}\\[1.5cm]
 	\noindent	
 	\begin{minipage}{0.4\textwidth}
@@ -72,10 +72,35 @@
 	\end{center}
 \end{titlepage}
 
+\chapter*{Acknowledgements}
+
+First of all, I would like to express my deepest gratitude to my two supervisors, Mrs. Marie BEURTON-AIMAR and Mr. Van Linh LE for their agreements, guide, and support during the planning and developing of my internship.
+\\
+\\
+I would like to thank Mr Fabien BALDACCI for his generous help and comment during my work. I would like to thank the staffs, students in LaBRI, who helped, supported with the technique and providing me a professional working environment.
+\\
+\\
+I would also like to thank all the professors in the University of Bordeaux and the PUF-HCM, who imparted a lot of knowledge about learning and researching. Finally, I would like to thank my family and colleagues for their support and encouragement through my study.
+
+\clearpage
+
+\chapter*{Abstract}
+
+Deep Learning is a subfield of machine learning concerned with algorithms inspired by the structure and function of the brain called artificial neural networks.
+\\
+\\
+Image classification is a field that has many applications in life. It could be useful to categorize images, provide only images which the user are interesting, protect the children from unwanted contents such as violent or sexual. 
+\\
+\\
+Although it already has a lot of algorithms to solve the Image classification problem. However, those (algorithms) are hard to implement and just specific to some domains. With the advent of deep learning, this problem become more easier and obtained a high performance result\cite{o.a.b.penattik.nogueiraj.a.dossantos2015}.
+\\
+\\
+The goal of my internship at LaBRI is research \& implement the Deep learning in Image classification to classify images from \href{https://heobs.org}{heobs.org}. Try to do in different approach, compare them and finally, choose the one which give the best result.
 % Table content
 \tableofcontents
 \thispagestyle{empty}
 \clearpage
+
 \chapter{Introduction}
 Heritage Observatory project has for aim to identify cultural and historical heritages, constitute a specific database, provide a data archive free for all. This platform allows us to receive the breaking news about cultural or historical heritage sites located in regions of the world that we are interesting. In order to do that, the platform will collect a huge of images about the cultural and historical heritage. The problem appears when we want to categorize those images into a specific classes when the image have no label and we can't looking to each of those images and categorize it by hand. We need to find a way to let the computer do it for us.
 The aim of my internship is to implement a deep-learning algorithm to classify those images.

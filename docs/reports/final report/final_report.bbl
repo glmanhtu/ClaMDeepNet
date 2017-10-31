@@ -1,0 +1,32 @@
+\begin{thebibliography}{1}
+
+\bibitem{o.a.b.penattik.nogueiraj.a.dossantos2015}
+O.~Penatti, K.~Nogueira, and J.~dos Santos, ``Do deep features generalize from
+  everyday objects to remote sensing and aerial scenes domains?,'' {\em IEEE
+  Computer Vision and Pattern Recognition Workshops}, p.~44–51, aug 2015.
+
+\bibitem{scikitlearn.org}
+scikit learn.org, ``Scikit-learn algorithm cheat-sheet.''
+
+\bibitem{j.r.quinlan1985}
+J.~QUINLAN, ``Induction of decision trees,'' aug 1985.
+
+\bibitem{stever.gunn1998}
+S.~R. Gunn, ``Support vector machines for classification and regression,'' oct
+  1998.
+
+\bibitem{orenanavakfiry.levy2017}
+O.~Anava and K.~Y. Levy, ``k*-nearest neighbors: From global to local,'' jan
+  2017.
+
+\bibitem{placesdatabase}
+B.~Zhou, A.~Lapedriza, J.~Xiao, A.~Torralba, and A.~Oliva, ``Learning deep
+  features for scene recognition using places database,'' {\em NIPS
+  Proceedings}, 2014.
+
+\bibitem{landclassification}
+M.~Castelluccio, G.~Poggi, C.~Sansone, and L.~Verdoliva, ``Land use
+  classification in remote sensing images by convolutional neural networks,''
+  {\em arXiv}, aug 2015.
+
+\end{thebibliography}
