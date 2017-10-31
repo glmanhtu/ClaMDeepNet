@@ -180,7 +180,7 @@ def curve():
 
 
 def run_app():
-    app.run(host="0.0.0.0", port=8081, debug=True)
+    app.run(host="0.0.0.0", port=8081, debug=False)
 
 
 def run_thread_app():
