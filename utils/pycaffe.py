@@ -37,8 +37,5 @@ class Caffe(object):
 
         print ("Execute following command to start train")
 
-        print ' '.join(command)
-
-        print ("Execute following command if you want to see the progress")
-        print ("tail -f " + log)
+        execute_command(' '.join(command))
 

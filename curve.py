@@ -18,6 +18,7 @@ import matplotlib.pylab as plt
 from utils import pycaffe
 import shutil
 from utils import zip_utils
+import threading
 
 plt.style.use('ggplot')
 
@@ -177,5 +178,16 @@ def curve():
     os.remove(test_log_path)
     return send_file(image_path, mimetype='image/png')
 
-if __name__ == '__main__':
+
+def run_app():
     app.run(host="0.0.0.0", port=8081, debug=True)
+
+
+def run_thread_app():
+    t = threading.Thread(target=run_app)
+    t.setDaemon(True)
+    t.start()
+
+
+if __name__ == '__main__':
+    run_app()

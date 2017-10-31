@@ -4,6 +4,7 @@ from utils.zip_utils import unzip_with_progress
 from utils.create_lmdb import CreateLmdb
 from utils.pycaffe import Caffe
 from utils.make_predictions import *
+from curve import *
 
 google_download = DownloadGoogleDrive()
 
@@ -57,5 +58,7 @@ py_render_template("template/caffenet_solver.template", caffe_solver, caffe_trai
 caffe_log = workspace("caffe_model/caffe_train.log")
 
 print "\n\n------------------------TRAINING PHRASE-----------------------------\n\n"
+
+run_thread_app()
 
 caffe.train(caffe_solver, caffe_log)
