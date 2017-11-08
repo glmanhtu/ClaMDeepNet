@@ -37,7 +37,11 @@ class CreateLmdb(object):
 
         in_db = lmdb.open(train_lmdb_path, map_size=int(1e12))
 
-        for cz, imgs in enumerate(img_list):
+        img_count = 0
+
+        for clazz in img_list:
+
+            imgs = img_list[clazz]
 
             total_elements = len(imgs)
 
@@ -46,7 +50,8 @@ class CreateLmdb(object):
                     print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
                     if self.divide(in_idx, len(imgs), percent_classes) != 0:
                         continue
-                    self.save_lmdb(in_txn, in_idx, img_path, classes)
+                    self.save_lmdb(in_txn, img_count, img_path, classes)
+                    img_count += 1
             in_db.close()
 
             in_db = lmdb.open(validation_lmdb_path, map_size=int(1e12))
@@ -55,7 +60,8 @@ class CreateLmdb(object):
                     print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
                     if self.divide(in_idx, len(imgs), percent_classes) != 1:
                         continue
-                    self.save_lmdb(in_txn, in_idx, img_path, classes)
+                    self.save_lmdb(in_txn, img_count, img_path, classes)
+                    img_count += 1
             in_db.close()
 
             os.makedirs(test_dir)
