@@ -25,6 +25,8 @@ class CreateLmdb(object):
 
         for img in train_data:
             for clazz in classes:
+                if clazz not in img_list:
+                    img_list[clazz] = []
                 if clazz in img:
                     img_list[clazz].append(img)
                     break
