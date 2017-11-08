@@ -1,6 +1,6 @@
 #!flask/bin/python
 import matplotlib
-matplotlib.use('tkAgg')
+matplotlib.use('Agg')
 import random
 import string
 
