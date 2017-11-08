@@ -18,43 +18,50 @@ class CreateLmdb(object):
         execute('rm -rf  ' + train_lmdb_path)
         train_data = [img for img in glob.glob(train_path + "/*jpg")]
 
+        # Shuffle train_data
+        random.shuffle(train_data)
+
+        img_list = []
+
+        for img in train_data:
+            for clazz in classes:
+                if clazz in img:
+                    img_list[clazz] = img
+                    break
+
         percent_classes = (80, 10, 10)
 
         print 'Creating train_lmdb'
 
-        # Shuffle train_data
-        random.shuffle(train_data)
-
         in_db = lmdb.open(train_lmdb_path, map_size=int(1e12))
-        total_elements = len(train_data)
 
-        with in_db.begin(write=True) as in_txn:
-            for in_idx, img_path in enumerate(train_data):
+        for imgs in img_list:
+
+            total_elements = len(imgs)
+
+            with in_db.begin(write=True) as in_txn:
+                for in_idx, img_path in enumerate(imgs):
+                    print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
+                    if self.divide(in_idx, len(imgs), percent_classes) != 0:
+                        continue
+                    self.save_lmdb(in_txn, in_idx, img_path, classes)
+            in_db.close()
+
+            in_db = lmdb.open(validation_lmdb_path, map_size=int(1e12))
+            with in_db.begin(write=True) as in_txn:
+                for in_idx, img_path in enumerate(imgs):
+                    print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
+                    if self.divide(in_idx, len(imgs), percent_classes) != 1:
+                        continue
+                    self.save_lmdb(in_txn, in_idx, img_path, classes)
+            in_db.close()
+
+            os.makedirs(test_dir)
+            for in_idx, img_path in enumerate(imgs):
                 print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
-                if self.divide(in_idx, len(train_data), percent_classes) != 0:
+                if self.divide(in_idx, len(imgs), percent_classes) != 2:
                     continue
-                self.save_lmdb(in_txn, in_idx, img_path, classes)
-        in_db.close()
-
-        print '\nCreating validation_lmdb'
-
-        in_db = lmdb.open(validation_lmdb_path, map_size=int(1e12))
-        with in_db.begin(write=True) as in_txn:
-            for in_idx, img_path in enumerate(train_data):
-                print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
-                if self.divide(in_idx, len(train_data), percent_classes) != 1:
-                    continue
-                self.save_lmdb(in_txn, in_idx, img_path, classes)
-        in_db.close()
-
-        print '\nCreating test data folder'
-
-        os.makedirs(test_dir)
-        for in_idx, img_path in enumerate(train_data):
-            print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
-            if self.divide(in_idx, len(train_data), percent_classes) != 2:
-                continue
-            copyfile(img_path, os.path.join(test_dir, os.path.basename(img_path)))
+                copyfile(img_path, os.path.join(test_dir, os.path.basename(img_path)))
 
         print '\nFinished processing all images'
 
