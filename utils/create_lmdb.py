@@ -37,7 +37,7 @@ class CreateLmdb(object):
 
         in_db = lmdb.open(train_lmdb_path, map_size=int(1e12))
 
-        for imgs in img_list:
+        for cz, imgs in enumerate(img_list):
 
             total_elements = len(imgs)
 
