@@ -63,3 +63,5 @@ RUN apt-get install python-opencv
 WORKDIR /workspace
 RUN mkdir classify-images
 COPY . /workspace/classify-images/
+
+RUN pip install -U numpy
