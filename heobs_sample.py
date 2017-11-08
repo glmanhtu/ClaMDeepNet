@@ -52,10 +52,10 @@ solver_mode = constant.CAFFE_SOLVER
 if "CAFFE_SOLVER" in os.environ:
     solver_mode = os.environ['CAFFE_SOLVER']
 
-py_render_template("template/caffenet_train.template", caffe_train_model, mean_file=mean_proto,
+py_render_template("template/" + template() + "/caffenet_train.template", caffe_train_model, mean_file=mean_proto,
                    train_lmdb=train_lmdb_path, validation_lmdb=validation_lmdb_path,
                    num_output=Constant.NUMBER_OUTPUT)
-py_render_template("template/caffenet_solver.template", caffe_solver, caffe_train_model=caffe_train_model,
+py_render_template("template/" + template() + "/caffenet_solver.template", caffe_solver, caffe_train_model=caffe_train_model,
                    snapshot_prefix=workspace("caffe_model/snapshot"),
                    solver_mode=solver_mode)
 

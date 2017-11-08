@@ -25,6 +25,12 @@ def workspace(path):
     return dir_path
 
 
+def template():
+    if "CAFFE_TEMPLATE" in os.environ:
+        return os.environ['CAFFE_TEMPLATE']
+    return constant.CAFFE_TEMPLATE
+
+
 def file_already_exists(file_path):
     if os.path.isfile(file_path):
         checksum_file = file_path + ".checksum"

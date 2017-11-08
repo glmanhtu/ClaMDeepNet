@@ -3,6 +3,8 @@ class Constant(object):
     IMAGE_WIDTH = 200
     IMAGE_HEIGHT = 120
 
+    CAFFE_TEMPLATE = "default"
+
     IMAGE_NAME_SEPARATE_CHARACTER = "_"
 
     NUMBER_OUTPUT = 3

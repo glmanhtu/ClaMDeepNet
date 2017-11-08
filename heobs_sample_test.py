@@ -26,7 +26,7 @@ mean_proto = workspace("data/mean.binaryproto")
 
 caffe_deploy = workspace("caffe_model/caffenet_deploy.prototxt")
 
-py_render_template("template/caffenet_deploy.template", caffe_deploy,
+py_render_template("template/" + template() + "/caffenet_deploy.template", caffe_deploy,
                    num_output=Constant.NUMBER_OUTPUT)
 classes = ["being", "heritage", "scenery"]
 mean_data = read_mean_data(mean_proto)
