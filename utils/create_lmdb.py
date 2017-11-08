@@ -21,12 +21,12 @@ class CreateLmdb(object):
         # Shuffle train_data
         random.shuffle(train_data)
 
-        img_list = []
+        img_list = {}
 
         for img in train_data:
             for clazz in classes:
                 if clazz in img:
-                    img_list[clazz] = img
+                    img_list[clazz].append(img)
                     break
 
         percent_classes = (80, 10, 10)
