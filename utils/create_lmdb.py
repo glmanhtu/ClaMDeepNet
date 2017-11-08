@@ -39,6 +39,7 @@ class CreateLmdb(object):
 
         img_count = 0
 
+        os.makedirs(test_dir)
         for clazz in img_list:
 
             imgs = img_list[clazz]
@@ -61,7 +62,6 @@ class CreateLmdb(object):
                     self.save_lmdb(in_txn, img_count, img_path, classes)
                     img_count += 1
 
-            os.makedirs(test_dir)
             for in_idx, img_path in enumerate(imgs):
                 print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
                 if self.divide(in_idx, len(imgs), percent_classes) != 2:
