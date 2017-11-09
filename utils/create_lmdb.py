@@ -39,6 +39,7 @@ class CreateLmdb(object):
 
         in_db = lmdb.open(train_lmdb_path, map_size=int(1e12))
         with in_db.begin(write=True) as in_txn:
+            train_img_count = 0
             for clazz in img_list:
                 total_elements = len(img_list[clazz])
                 for in_idx, img_path in enumerate(img_list[clazz]):
@@ -46,11 +47,14 @@ class CreateLmdb(object):
                     if self.divide(in_idx, total_elements, percent_classes) != 0:
                         continue
                     self.save_lmdb(in_txn, img_count, img_path, classes)
+                    train_img_count += 1
                     img_count += 1
+            print '\n total images for train: ' + str(train_img_count)
         in_db.close()
 
         in_db = lmdb.open(validation_lmdb_path, map_size=int(1e12))
         with in_db.begin(write=True) as in_txn:
+            val_img_count = 0
             for clazz in img_list:
                 total_elements = len(img_list[clazz])
                 for in_idx, img_path in enumerate(img_list[clazz]):
@@ -59,9 +63,12 @@ class CreateLmdb(object):
                         continue
                     self.save_lmdb(in_txn, img_count, img_path, classes)
                     img_count += 1
+                    val_img_count += 1
+            print '\n total images for validate: ' + str(val_img_count)
         in_db.close()
 
         os.makedirs(test_dir)
+        test_img_count = 0
         for clazz in img_list:
             total_elements = len(img_list[clazz])
             for in_idx, img_path in enumerate(img_list[clazz]):
@@ -69,7 +76,9 @@ class CreateLmdb(object):
                 if self.divide(in_idx, total_elements, percent_classes) != 2:
                     continue
                 copyfile(img_path, os.path.join(test_dir, os.path.basename(img_path)))
+                test_img_count += 1
 
+        print '\n total images for test: ' + str(test_img_count)
         print '\nFinished processing all images'
 
     def save_lmdb(self, in_txn, in_idx, img_path, classes):
