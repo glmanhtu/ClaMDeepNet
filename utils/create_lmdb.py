@@ -37,30 +37,36 @@ class CreateLmdb(object):
 
         in_db = lmdb.open(train_lmdb_path, map_size=int(1e12))
         with in_db.begin(write=True) as in_txn:
-            train_img_count = 0
+            img_train = []
             for clazz in img_list:
                 total_elements = len(img_list[clazz])
                 for in_idx, img_path in enumerate(img_list[clazz]):
                     print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
                     if self.divide(in_idx, total_elements, percent_classes) != 0:
                         continue
-                    self.save_lmdb(in_txn, train_img_count, img_path, classes)
-                    train_img_count += 1
-            print '\n total images for train: ' + str(train_img_count)
+                    img_train.append(img_path)
+            random.shuffle(img_train)
+            for idx, img in enumerate(img_train):
+                self.save_lmdb(in_txn, idx, img, classes)
+
+            print '\n Total images for train: ' + str(len(img_train))
         in_db.close()
 
         in_db = lmdb.open(validation_lmdb_path, map_size=int(1e12))
         with in_db.begin(write=True) as in_txn:
-            val_img_count = 0
+            img_val = []
             for clazz in img_list:
                 total_elements = len(img_list[clazz])
                 for in_idx, img_path in enumerate(img_list[clazz]):
                     print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
                     if self.divide(in_idx, total_elements, percent_classes) != 1:
                         continue
-                    self.save_lmdb(in_txn, val_img_count, img_path, classes)
-                    val_img_count += 1
-            print '\n total images for validate: ' + str(val_img_count)
+                    img_val.append(img_path)
+            random.shuffle(img_val)
+            for idx, img in enumerate(img_val):
+                self.save_lmdb(in_txn, idx, img, classes)
+
+            print '\n Total images for validate: ' + str(len(img_val))
         in_db.close()
 
         os.makedirs(test_dir)
