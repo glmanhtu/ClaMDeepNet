@@ -35,8 +35,6 @@ class CreateLmdb(object):
 
         print 'Creating train_lmdb'
 
-        img_count = 0
-
         in_db = lmdb.open(train_lmdb_path, map_size=int(1e12))
         with in_db.begin(write=True) as in_txn:
             train_img_count = 0
@@ -46,9 +44,8 @@ class CreateLmdb(object):
                     print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
                     if self.divide(in_idx, total_elements, percent_classes) != 0:
                         continue
-                    self.save_lmdb(in_txn, img_count, img_path, classes)
+                    self.save_lmdb(in_txn, train_img_count, img_path, classes)
                     train_img_count += 1
-                    img_count += 1
             print '\n total images for train: ' + str(train_img_count)
         in_db.close()
 
@@ -61,8 +58,7 @@ class CreateLmdb(object):
                     print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
                     if self.divide(in_idx, total_elements, percent_classes) != 1:
                         continue
-                    self.save_lmdb(in_txn, img_count, img_path, classes)
-                    img_count += 1
+                    self.save_lmdb(in_txn, val_img_count, img_path, classes)
                     val_img_count += 1
             print '\n total images for validate: ' + str(val_img_count)
         in_db.close()
