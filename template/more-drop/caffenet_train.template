@@ -81,6 +81,16 @@ layer {
 }
 
 layer {
+  name: "drop/pool1"
+  type: "Dropout"
+  bottom: "pool1"
+  top: "pool1"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+
+layer {
   name: "norm1"
   type: "LRN"
   bottom: "pool1"
@@ -136,6 +146,17 @@ layer {
     stride: 2
   }
 }
+
+layer {
+  name: "drop/pool2"
+  type: "Dropout"
+  bottom: "pool2"
+  top: "pool2"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+
 
 layer {
   name: "norm2"
