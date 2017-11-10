@@ -12,6 +12,7 @@ constant = Constant()
 
 
 def set_workspace(ws):
+    ws = os.path.abspath(ws)
     constant.set_workspace(ws)
     if not os.path.isdir(ws):
         os.makedirs(ws)

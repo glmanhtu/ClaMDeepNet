@@ -3,10 +3,7 @@ from network.google_file import GoogleFile
 from utils.zip_utils import unzip_with_progress
 from utils.make_predictions import *
 
-google_download = DownloadGoogleDrive()
-
-set_workspace(os.path.join("workspace", "heobs_sample"))
-
+# google_download = DownloadGoogleDrive()
 # test_zip = GoogleFile('0BzL8pCLanAIAd0hBV2NUVHpmckE',
 #                        'heobs_large_dataset.zip', workspace('data/heobs_large_dataset.zip'))
 #
@@ -41,5 +38,7 @@ def test():
 
     print "\n\n-------------------------FINISH------------------------------------\n\n"
 
+
 if __name__ == '__main__':
+    set_workspace(os.path.join("workspace", "heobs_sample"))
     test()
