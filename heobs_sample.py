@@ -7,6 +7,7 @@ from utils.create_lmdb import CreateLmdb
 from utils.pycaffe import Caffe
 from utils.make_predictions import *
 from curve import *
+import heobs_sample_test
 
 google_download = DownloadGoogleDrive()
 
@@ -66,3 +67,5 @@ print "\n\n------------------------TRAINING PHRASE-----------------------------\
 run_thread_app()
 
 caffe.train(caffe_solver, caffe_log)
+
+heobs_sample_test.test()
