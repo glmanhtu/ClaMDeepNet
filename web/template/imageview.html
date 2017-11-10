@@ -6,6 +6,31 @@
 <a href="/data/result.zip" target="_blank">download data zip result</a>
 <img src="/model"/>
 <script>
+    function testImage(url, callback, timeout) {
+        timeout = timeout || 5000;
+        var timedOut = false, timer;
+        var img = new Image();
+        img.onerror = img.onabort = function() {
+            if (!timedOut) {
+                clearTimeout(timer);
+                callback(url, "error");
+            }
+        };
+        img.onload = function() {
+            if (!timedOut) {
+                clearTimeout(timer);
+                callback(url, "success");
+            }
+        };
+        img.src = url;
+        timer = setTimeout(function() {
+            timedOut = true;
+            // reset .src to invalid URL so it stops previous
+            // loading, but doesn't trigger new load
+            img.src = "//!!!!/test.jpg";
+            callback(url, "timeout");
+        }, timeout);
+    }
     function refresh(node)
 {
    var times = 3000; // gap in Milli Seconds;
@@ -17,7 +42,9 @@
        address = node.src.split('?')[0];
       else
        address = node.src;
-      node.src = address+"?time="+new Date().getTime();
+      testImage(address+"?time="+new Date().getTime(), function() {
+        node.src = address+"?time="+new Date().getTime();
+      });
 
       setTimeout(startRefresh,times);
    })();
