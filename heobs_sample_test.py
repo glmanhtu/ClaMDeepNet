@@ -2,6 +2,7 @@ from network.download_google_drive import DownloadGoogleDrive
 from network.google_file import GoogleFile
 from utils.zip_utils import unzip_with_progress
 from utils.make_predictions import *
+import shutil
 
 # google_download = DownloadGoogleDrive()
 # test_zip = GoogleFile('0BzL8pCLanAIAd0hBV2NUVHpmckE',
@@ -30,10 +31,12 @@ def test():
     mean_data = read_mean_data(mean_proto)
     net = read_model_and_weight(caffe_deploy, workspace("caffe_model/snapshot_iter_4000.caffemodel"))
     transformer = image_transformers(net, mean_data)
-    prediction = making_predictions(workspace("data/test"), transformer, net)
+    prediction = making_predictions(workspace("data/extracted/test"), transformer, net)
+
+    shutil.rmtree(workspace("result"))
 
     export_to_csv(prediction, workspace("result/test_result.csv"))
-    export_data(prediction, workspace("data/test"), workspace("result/data"))
+    export_data(prediction, workspace("data/extracted/test"), workspace("result/data"))
     show_result(classes, prediction)
 
     print "\n\n-------------------------FINISH------------------------------------\n\n"
