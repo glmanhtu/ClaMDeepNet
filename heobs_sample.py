@@ -13,8 +13,6 @@ google_download = DownloadGoogleDrive()
 
 set_workspace(os.path.join("workspace", "heobs_sample"))
 
-shutil.rmtree(workspace(""))
-
 train_zip = GoogleFile('0BzL8pCLanAIAd0hBV2NUVHpmckE',
                        'heobs_large_dataset.zip', workspace('data/heobs_large_dataset.zip'))
 
@@ -25,13 +23,13 @@ google_download.download_file_from_google_drive(train_zip)
 print "Finish"
 
 print "Extracting train zip file"
-unzip_with_progress(train_zip.file_path, workspace("data"))
+unzip_with_progress(train_zip.file_path, workspace("data/extracted"))
 print "Finish"
 
 
-train_lmdb_path = workspace("data/train_lmdb")
-validation_lmdb_path = workspace("data/validation_lmdb")
-test_path = workspace("data/test")
+train_lmdb_path = workspace("data/extracted/train_lmdb")
+validation_lmdb_path = workspace("data/extracted/validation_lmdb")
+test_path = workspace("data/extracted/test")
 
 lmdb = CreateLmdb()
 classes = ["being", "heritage", "scenery"]
@@ -64,8 +62,17 @@ caffe_log = workspace("caffe_model/caffe_train.log")
 
 print "\n\n------------------------TRAINING PHRASE-----------------------------\n\n"
 
+print "\nStarting web app to visualize the training process"
 run_thread_app()
 
+print "\nWeb app started"
+
+print "\nStarting to train"
 caffe.train(caffe_solver, caffe_log)
 
+print "\nTrain completed"
+
+print "\nStarting to test"
 heobs_sample_test.test()
+
+query_yes_no("All completed! Do you want to exit the application?")

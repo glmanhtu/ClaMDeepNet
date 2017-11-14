@@ -13,9 +13,10 @@ from shutil import copyfile, rmtree
 
 class CreateLmdb(object):
 
-    def create_lmdb(self, train_path, train_lmdb_path, validation_lmdb_path, classes, test_dir):
+    def create_lmdb(self, train_path, train_lmdb_path, validation_lmdb_path, classes, test_path):
         execute('rm -rf  ' + validation_lmdb_path)
         execute('rm -rf  ' + train_lmdb_path)
+        execute('rm -rf  ' + test_path)
         train_data = [img for img in glob.glob(train_path + "/*jpg")]
 
         # Shuffle train_data
@@ -69,7 +70,7 @@ class CreateLmdb(object):
             print '\n Total images for validate: ' + str(len(img_val))
         in_db.close()
 
-        os.makedirs(test_dir)
+        os.makedirs(test_path)
         test_img_count = 0
         for clazz in img_list:
             total_elements = len(img_list[clazz])
@@ -77,7 +78,7 @@ class CreateLmdb(object):
                 print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
                 if self.divide(in_idx, total_elements, percent_classes) != 2:
                     continue
-                copyfile(img_path, os.path.join(test_dir, os.path.basename(img_path)))
+                copyfile(img_path, os.path.join(test_path, os.path.basename(img_path)))
                 test_img_count += 1
 
         print '\n total images for test: ' + str(test_img_count)
