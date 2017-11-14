@@ -33,7 +33,7 @@ def test():
     transformer = image_transformers(net, mean_data)
     prediction = making_predictions(workspace("data/extracted/test"), transformer, net)
 
-    shutil.rmtree(workspace("result"))
+    empty_dir("result")
 
     export_to_csv(prediction, workspace("result/test_result.csv"))
     export_data(prediction, workspace("data/extracted/test"), workspace("result/data"))

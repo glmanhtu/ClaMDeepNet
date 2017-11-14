@@ -1,12 +1,12 @@
 import zipfile
 from percent_visualize import print_progress
 import shutil
+from utils import empty_dir
 import os
 
 
 def unzip_with_progress(file_path, path):
-    shutil.rmtree(path)
-    os.mkdir(path)
+    empty_dir(path)
     zf = zipfile.ZipFile(file_path)
 
     uncompress_size = sum((file.file_size for file in zf.infolist()))

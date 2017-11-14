@@ -7,6 +7,7 @@ import cv2
 from constants import Constant
 import numbers
 from subprocess import call
+import shutil
 
 constant = Constant()
 
@@ -113,6 +114,12 @@ def transform_img(img, img_width, img_height):
     img = cv2.resize(img, (img_width, img_height), interpolation=cv2.INTER_CUBIC)
 
     return img
+
+
+def empty_dir(dir):
+    if os.path.isdir(dir):
+        shutil.rmtree(dir)
+    os.makedirs(dir)
 
 
 def query_yes_no(question, default="yes"):
