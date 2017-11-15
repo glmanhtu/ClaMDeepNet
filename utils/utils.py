@@ -65,7 +65,6 @@ def human_2_bytes(s):
 
 
 def py_render_template(template_file, destination_file, **data):
-    template_file = os.path.abspath(template_file)
     template = Template(filename=template_file)
     for parameter in data:
         if not isinstance(data[parameter], numbers.Number):
