@@ -19,6 +19,7 @@ from utils import pycaffe
 import shutil
 from utils import zip_utils
 import threading
+import logging
 
 plt.style.use('ggplot')
 
@@ -180,6 +181,8 @@ def curve():
 
 
 def run_app():
+    log = logging.getLogger('werkzeug')
+    log.setLevel(logging.ERROR)
     app.run(host="0.0.0.0", port=8081, debug=False)
 
 
