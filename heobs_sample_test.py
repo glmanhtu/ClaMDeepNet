@@ -21,6 +21,8 @@ import shutil
 
 def test():
     print "\n\n------------------------TESTING PHRASE-----------------------------\n\n"
+    os.chdir(os.path.dirname(os.path.realpath(__file__)))
+
     mean_proto = workspace("data/mean.binaryproto")
 
     caffe_deploy = workspace("caffe_model/caffenet_deploy.prototxt")
