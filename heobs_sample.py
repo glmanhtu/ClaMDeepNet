@@ -9,6 +9,8 @@ from utils.make_predictions import *
 from curve import *
 import heobs_sample_test
 
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+
 google_download = DownloadGoogleDrive()
 
 set_workspace(os.path.join("workspace", "heobs_sample"))
