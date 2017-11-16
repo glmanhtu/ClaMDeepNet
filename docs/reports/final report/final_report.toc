@@ -9,3 +9,4 @@
 \contentsline {section}{\numberline {3.2}General CNN architecture}{10}{section.3.2}
 \contentsline {section}{\numberline {3.3}Libraries}{10}{section.3.3}
 \contentsline {section}{\numberline {3.4}The ImageNet Visual Recognition Challenge}{11}{section.3.4}
+\contentsline {chapter}{\numberline {4}The Dataset}{12}{chapter.4}
