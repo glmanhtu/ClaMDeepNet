@@ -35,7 +35,7 @@ test_path = workspace("data/extracted/test")
 
 lmdb = CreateLmdb()
 classes = ["being", "heritage", "scenery"]
-lmdb.create_lmdb(workspace("data/heobs_large_dataset"), train_lmdb_path, validation_lmdb_path, classes, test_path)
+lmdb.create_lmdb(workspace("data/extracted/heobs_large_dataset"), train_lmdb_path, validation_lmdb_path, classes, test_path)
 
 mean_proto = workspace("data/mean.binaryproto")
 
