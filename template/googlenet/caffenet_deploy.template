@@ -1,19 +1,22 @@
-name: "GoogleNet"
+input: "data"
+input_shape {
+  dim: 1
+  dim: 3
+  dim: ${img_height}
+  dim: ${img_width}
+}
 layer {
-  name: "data"
-  type: "Input"
-  top: "data"
-  input_param { shape: { dim: 1 dim: 3 dim: ${img_height} dim: ${img_width} } }
+  name: "conv1/7x7_s2"
   type: "Convolution"
   bottom: "data"
   top: "conv1/7x7_s2"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 64
@@ -22,11 +25,11 @@ layer {
     stride: 2
     weight_filler {
       type: "xavier"
-      std: 0.1
+      std: 0.10000000149
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -54,7 +57,7 @@ layer {
   top: "pool1/norm1"
   lrn_param {
     local_size: 5
-    alpha: 0.0001
+    alpha: 9.99999974738e-05
     beta: 0.75
   }
 }
@@ -64,23 +67,23 @@ layer {
   bottom: "pool1/norm1"
   top: "conv2/3x3_reduce"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 64
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.1
+      std: 0.10000000149
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -96,12 +99,12 @@ layer {
   bottom: "conv2/3x3_reduce"
   top: "conv2/3x3"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 192
@@ -109,11 +112,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -130,7 +133,7 @@ layer {
   top: "conv2/norm2"
   lrn_param {
     local_size: 5
-    alpha: 0.0001
+    alpha: 9.99999974738e-05
     beta: 0.75
   }
 }
@@ -151,23 +154,23 @@ layer {
   bottom: "pool2/3x3_s2"
   top: "inception_3a/1x1"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 64
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -183,23 +186,23 @@ layer {
   bottom: "pool2/3x3_s2"
   top: "inception_3a/3x3_reduce"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 96
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.09
+      std: 0.0900000035763
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -215,12 +218,12 @@ layer {
   bottom: "inception_3a/3x3_reduce"
   top: "inception_3a/3x3"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 128
@@ -228,11 +231,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -248,23 +251,23 @@ layer {
   bottom: "pool2/3x3_s2"
   top: "inception_3a/5x5_reduce"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 16
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.2
+      std: 0.20000000298
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -280,12 +283,12 @@ layer {
   bottom: "inception_3a/5x5_reduce"
   top: "inception_3a/5x5"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 32
@@ -293,11 +296,11 @@ layer {
     kernel_size: 5
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -325,23 +328,23 @@ layer {
   bottom: "inception_3a/pool"
   top: "inception_3a/pool_proj"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 32
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.1
+      std: 0.10000000149
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -366,23 +369,23 @@ layer {
   bottom: "inception_3a/output"
   top: "inception_3b/1x1"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 128
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -398,23 +401,23 @@ layer {
   bottom: "inception_3a/output"
   top: "inception_3b/3x3_reduce"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 128
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.09
+      std: 0.0900000035763
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -430,12 +433,12 @@ layer {
   bottom: "inception_3b/3x3_reduce"
   top: "inception_3b/3x3"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 192
@@ -443,11 +446,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -463,23 +466,23 @@ layer {
   bottom: "inception_3a/output"
   top: "inception_3b/5x5_reduce"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 32
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.2
+      std: 0.20000000298
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -495,12 +498,12 @@ layer {
   bottom: "inception_3b/5x5_reduce"
   top: "inception_3b/5x5"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 96
@@ -508,11 +511,11 @@ layer {
     kernel_size: 5
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -540,23 +543,23 @@ layer {
   bottom: "inception_3b/pool"
   top: "inception_3b/pool_proj"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 64
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.1
+      std: 0.10000000149
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -592,23 +595,23 @@ layer {
   bottom: "pool3/3x3_s2"
   top: "inception_4a/1x1"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 192
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -624,23 +627,23 @@ layer {
   bottom: "pool3/3x3_s2"
   top: "inception_4a/3x3_reduce"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 96
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.09
+      std: 0.0900000035763
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -656,12 +659,12 @@ layer {
   bottom: "inception_4a/3x3_reduce"
   top: "inception_4a/3x3"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 208
@@ -669,11 +672,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -689,23 +692,23 @@ layer {
   bottom: "pool3/3x3_s2"
   top: "inception_4a/5x5_reduce"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 16
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.2
+      std: 0.20000000298
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -721,12 +724,12 @@ layer {
   bottom: "inception_4a/5x5_reduce"
   top: "inception_4a/5x5"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 48
@@ -734,11 +737,11 @@ layer {
     kernel_size: 5
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -766,23 +769,23 @@ layer {
   bottom: "inception_4a/pool"
   top: "inception_4a/pool_proj"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 64
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.1
+      std: 0.10000000149
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -807,23 +810,23 @@ layer {
   bottom: "inception_4a/output"
   top: "inception_4b/1x1"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 160
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -839,23 +842,23 @@ layer {
   bottom: "inception_4a/output"
   top: "inception_4b/3x3_reduce"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 112
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.09
+      std: 0.0900000035763
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -871,12 +874,12 @@ layer {
   bottom: "inception_4b/3x3_reduce"
   top: "inception_4b/3x3"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 224
@@ -884,11 +887,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -904,23 +907,23 @@ layer {
   bottom: "inception_4a/output"
   top: "inception_4b/5x5_reduce"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 24
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.2
+      std: 0.20000000298
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -936,12 +939,12 @@ layer {
   bottom: "inception_4b/5x5_reduce"
   top: "inception_4b/5x5"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 64
@@ -949,11 +952,11 @@ layer {
     kernel_size: 5
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -981,23 +984,23 @@ layer {
   bottom: "inception_4b/pool"
   top: "inception_4b/pool_proj"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 64
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.1
+      std: 0.10000000149
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1022,23 +1025,23 @@ layer {
   bottom: "inception_4b/output"
   top: "inception_4c/1x1"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 128
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1054,23 +1057,23 @@ layer {
   bottom: "inception_4b/output"
   top: "inception_4c/3x3_reduce"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 128
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.09
+      std: 0.0900000035763
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1086,12 +1089,12 @@ layer {
   bottom: "inception_4c/3x3_reduce"
   top: "inception_4c/3x3"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 256
@@ -1099,11 +1102,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1119,23 +1122,23 @@ layer {
   bottom: "inception_4b/output"
   top: "inception_4c/5x5_reduce"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 24
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.2
+      std: 0.20000000298
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1151,12 +1154,12 @@ layer {
   bottom: "inception_4c/5x5_reduce"
   top: "inception_4c/5x5"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 64
@@ -1164,11 +1167,11 @@ layer {
     kernel_size: 5
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1196,23 +1199,23 @@ layer {
   bottom: "inception_4c/pool"
   top: "inception_4c/pool_proj"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 64
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.1
+      std: 0.10000000149
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1237,23 +1240,23 @@ layer {
   bottom: "inception_4c/output"
   top: "inception_4d/1x1"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 112
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1269,23 +1272,23 @@ layer {
   bottom: "inception_4c/output"
   top: "inception_4d/3x3_reduce"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 144
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.09
+      std: 0.0900000035763
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1301,12 +1304,12 @@ layer {
   bottom: "inception_4d/3x3_reduce"
   top: "inception_4d/3x3"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 288
@@ -1314,11 +1317,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1334,23 +1337,23 @@ layer {
   bottom: "inception_4c/output"
   top: "inception_4d/5x5_reduce"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 32
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.2
+      std: 0.20000000298
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1366,12 +1369,12 @@ layer {
   bottom: "inception_4d/5x5_reduce"
   top: "inception_4d/5x5"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 64
@@ -1379,11 +1382,11 @@ layer {
     kernel_size: 5
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1411,23 +1414,23 @@ layer {
   bottom: "inception_4d/pool"
   top: "inception_4d/pool_proj"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 64
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.1
+      std: 0.10000000149
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1452,23 +1455,23 @@ layer {
   bottom: "inception_4d/output"
   top: "inception_4e/1x1"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 256
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1484,23 +1487,23 @@ layer {
   bottom: "inception_4d/output"
   top: "inception_4e/3x3_reduce"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 160
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.09
+      std: 0.0900000035763
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1516,12 +1519,12 @@ layer {
   bottom: "inception_4e/3x3_reduce"
   top: "inception_4e/3x3"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 320
@@ -1529,11 +1532,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1549,23 +1552,23 @@ layer {
   bottom: "inception_4d/output"
   top: "inception_4e/5x5_reduce"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 32
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.2
+      std: 0.20000000298
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1581,12 +1584,12 @@ layer {
   bottom: "inception_4e/5x5_reduce"
   top: "inception_4e/5x5"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 128
@@ -1594,11 +1597,11 @@ layer {
     kernel_size: 5
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1626,23 +1629,23 @@ layer {
   bottom: "inception_4e/pool"
   top: "inception_4e/pool_proj"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 128
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.1
+      std: 0.10000000149
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1678,23 +1681,23 @@ layer {
   bottom: "pool4/3x3_s2"
   top: "inception_5a/1x1"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 256
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1710,23 +1713,23 @@ layer {
   bottom: "pool4/3x3_s2"
   top: "inception_5a/3x3_reduce"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 160
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.09
+      std: 0.0900000035763
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1742,12 +1745,12 @@ layer {
   bottom: "inception_5a/3x3_reduce"
   top: "inception_5a/3x3"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 320
@@ -1755,11 +1758,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1775,23 +1778,23 @@ layer {
   bottom: "pool4/3x3_s2"
   top: "inception_5a/5x5_reduce"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 32
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.2
+      std: 0.20000000298
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1807,12 +1810,12 @@ layer {
   bottom: "inception_5a/5x5_reduce"
   top: "inception_5a/5x5"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 128
@@ -1820,11 +1823,11 @@ layer {
     kernel_size: 5
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1852,23 +1855,23 @@ layer {
   bottom: "inception_5a/pool"
   top: "inception_5a/pool_proj"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 128
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.1
+      std: 0.10000000149
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1893,23 +1896,23 @@ layer {
   bottom: "inception_5a/output"
   top: "inception_5b/1x1"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 384
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1925,23 +1928,23 @@ layer {
   bottom: "inception_5a/output"
   top: "inception_5b/3x3_reduce"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 192
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.09
+      std: 0.0900000035763
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1957,12 +1960,12 @@ layer {
   bottom: "inception_5b/3x3_reduce"
   top: "inception_5b/3x3"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 384
@@ -1970,11 +1973,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -1990,23 +1993,23 @@ layer {
   bottom: "inception_5a/output"
   top: "inception_5b/5x5_reduce"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 48
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.2
+      std: 0.20000000298
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -2022,12 +2025,12 @@ layer {
   bottom: "inception_5b/5x5_reduce"
   top: "inception_5b/5x5"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 128
@@ -2035,11 +2038,11 @@ layer {
     kernel_size: 5
     weight_filler {
       type: "xavier"
-      std: 0.03
+      std: 0.0299999993294
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -2067,23 +2070,23 @@ layer {
   bottom: "inception_5b/pool"
   top: "inception_5b/pool_proj"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 128
     kernel_size: 1
     weight_filler {
       type: "xavier"
-      std: 0.1
+      std: 0.10000000149
     }
     bias_filler {
       type: "constant"
-      value: 0.2
+      value: 0.20000000298
     }
   }
 }
@@ -2119,7 +2122,7 @@ layer {
   bottom: "pool5/7x7_s1"
   top: "pool5/7x7_s1"
   dropout_param {
-    dropout_ratio: 0.4
+    dropout_ratio: 0.40000000596
   }
 }
 layer {
@@ -2128,12 +2131,12 @@ layer {
   bottom: "pool5/7x7_s1"
   top: "loss3/classifier"
   param {
-    lr_mult: 1
-    decay_mult: 1
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 2
-    decay_mult: 0
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   inner_product_param {
     num_output: ${num_output}
@@ -2142,13 +2145,13 @@ layer {
     }
     bias_filler {
       type: "constant"
-      value: 0
+      value: 0.0
     }
   }
 }
 layer {
-  name: "prob"
+  name: "softmax"
   type: "Softmax"
   bottom: "loss3/classifier"
-  top: "prob"
+  top: "softmax"
 }
