@@ -28,7 +28,7 @@ def test():
     caffe_deploy = workspace("caffe_model/caffenet_deploy.prototxt")
 
     py_render_template("template/" + template() + "/caffenet_deploy.template", caffe_deploy,
-           num_output=Constant.NUMBER_OUTPUT, img_width=Constant.IMAGE_WIDTH, img_heigh=Constant.IMAGE_HEIGHT)
+           num_output=Constant.NUMBER_OUTPUT, img_width=Constant.IMAGE_WIDTH, img_height=Constant.IMAGE_HEIGHT)
     classes = ["being", "heritage", "scenery"]
     mean_data = read_mean_data(mean_proto)
     net = read_model_and_weight(caffe_deploy, workspace("caffe_model/snapshot_iter_4000.caffemodel"))
