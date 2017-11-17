@@ -2150,8 +2150,8 @@ layer {
   }
 }
 layer {
-  name: "softmax"
+  name: "prob"
   type: "Softmax"
   bottom: "loss3/classifier"
-  top: "softmax"
+  top: "prob"
 }

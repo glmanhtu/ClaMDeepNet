@@ -3,7 +3,7 @@ test_iter: 67
 test_interval: 100
 base_lr: 0.00999999977648
 display: 12
-max_iter: 10000
+max_iter: 100000
 lr_policy: "step"
 gamma: 0.10000000149
 momentum: 0.899999976158
