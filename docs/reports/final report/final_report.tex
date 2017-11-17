@@ -101,7 +101,7 @@ The goal of my internship at LaBRI is research \& implement the Deep learning in
 \thispagestyle{empty}
 \clearpage
 
-\chapter{Introduction}
+\chapter*{Introduction}
 Heritage Observatory project has for aim to identify cultural and historical heritages, constitute a specific database, provide a data archive free for all. This platform allows us to receive the breaking news about cultural or historical heritage sites located in regions of the world that we are interesting. In order to do that, the platform will collect a huge of images about the cultural and historical heritage. The problem appears when we want to categorize those images into a specific classes when the image have no label and we can't looking to each of those images and categorize it by hand. We need to find a way to let the computer do it for us.
 The aim of my internship is to implement a deep-learning algorithm to classify those images.
 \\
@@ -274,6 +274,17 @@ The ImageNet Visual Recognition Challenge\footnote{\url{http://www.image-net.org
 Because they have the same kind of goal with our project, so, we will try to implement the CNN model of the winner of this challenge and also try to improve it to get the better result.
 
 \chapter{The Dataset}
+The entire image dataset described on the text file named ”photos.txt” line by line. Each line includes the image id and image description as below:
+\begin{verbatim}
+5a36f382-dbdf-11e6-95fd-d746d863c3eb | Những người ăn xin  | vie
+5a36f382-dbdf-11e6-95fd-d746d863c3eb | Mendiants  | fra
+17be8122-dbe0-11e6-860c-5fea02802d0a | Chợ Cũ (3) | vie
+17be8122-dbe0-11e6-860c-5fea02802d0a | Vieux marché (3) | fra
+400286c8-dbe1-11e6-bb4d-ff975c68de04 | Ngân hàng Đông Dương  | vie
+400286c8-dbe1-11e6-bb4d-ff975c68de04 | La Banque de l’Indochine  | fra
+\end{verbatim}
+\chapter{Unsuppervised Deep Learning}
+\chapter{Suppervised Deep Learning}
 
 \bibliographystyle{ieeetr}
 \bibliography{bibfile}
