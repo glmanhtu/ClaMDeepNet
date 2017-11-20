@@ -168,7 +168,10 @@ def curve():
     # Adding legend
     plt.legend([train_loss, test_loss, test_accuracy], ['Training Loss', 'Test Loss', 'Test Accuracy'],
                bbox_to_anchor=(1, 0.8))
-    plt.title('Net Model ' + template(), fontsize=16)
+    title = 'Net Model ' + template()
+    if constant.TRAINED_MODEL != "":
+        title += " - Finetune"
+    plt.title(title, fontsize=16)
     plt.figure(num=None, figsize=(10, 6), dpi=80, facecolor='w', edgecolor='k')
     # Saving learning curve
     plt.savefig(image_path)
