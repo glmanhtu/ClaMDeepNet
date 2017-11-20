@@ -1,7 +1,7 @@
 class Constant(object):
 
-    IMAGE_WIDTH = 200
-    IMAGE_HEIGHT = 120
+    IMAGE_WIDTH = 227
+    IMAGE_HEIGHT = 227
 
     CAFFE_TEMPLATE = "alexnet"
 
