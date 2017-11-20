@@ -150,7 +150,7 @@ def curve():
     '''
     Making learning curve
     '''
-    plt.figure(figsize=(10, 6), dpi=80)
+    plt.figure(figsize=(12, 6), dpi=120)
     fig, ax1 = plt.subplots()
 
     # Plotting training and test losses
@@ -159,16 +159,16 @@ def curve():
     ax1.set_ylim(ymin=0, ymax=1)
     ax1.set_xlabel('Iterations', fontsize=14)
     ax1.set_ylabel('Loss', fontsize=14)
-    ax1.tick_params(labelsize=12)
+    ax1.tick_params(labelsize=11)
     # Plotting test accuracy
     ax2 = ax1.twinx()
     test_accuracy, = ax2.plot(test_log['#Iters'], test_log['TestAccuracy'], linewidth=1, color='blue')
     ax2.set_ylim(ymin=0, ymax=1)
     ax2.set_ylabel('Accuracy', fontsize=14)
-    ax2.tick_params(labelsize=12)
+    ax2.tick_params(labelsize=11)
     # Adding legend
     plt.legend([train_loss, test_loss, test_accuracy], ['Training Loss', 'Test Loss', 'Test Accuracy'],
-               bbox_to_anchor=(1, 0.8))
+               bbox_to_anchor=(1, 0.9))
     title = 'Net Model ' + template()
     if constant.TRAINED_MODEL != "":
         title += " - Finetune"
