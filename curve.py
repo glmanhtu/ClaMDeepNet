@@ -172,7 +172,7 @@ def curve():
     if constant.TRAINED_MODEL != "":
         title += " - Finetune"
     plt.title(title, fontsize=16)
-    plt.figure(num=None, figsize=(10, 6), dpi=80)
+    plt.figure(figsize=(10, 6), dpi=80)
     # Saving learning curve
     plt.savefig(image_path)
 
