@@ -35,7 +35,7 @@ class Caffe(object):
                 print "Downloaded model"
             command.extend(["--weights", trained_model_path])
         if constant.CAFFE_SOLVER == "GPU":
-            command.extend(["gpu=" + gpu_id()])
+            command.extend(["-gpu=" + gpu_id()])
 
         command.extend(["2>&1 | tee", log])
         execute_command(' '.join(command))
