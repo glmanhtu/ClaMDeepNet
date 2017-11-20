@@ -25,14 +25,18 @@ class Caffe(object):
         log = os.path.abspath(log)
         caffe_bin = self.caffe_home() + "/build/tools/caffe"
 
+        command = [caffe_bin, "train", "--solver=" + solver]
+
         if constant.TRAINED_MODEL != "":
             trained_model_path = os.path.join(workspace("trained_models"), "trained_model.caffemodel")
             if not file_already_exists(trained_model_path):
                 print "Downloading trained model"
                 download_file(constant.TRAINED_MODEL, trained_model_path)
                 print "Downloaded model"
-            command = [caffe_bin, "train", "--solver=" + solver, "--weights", trained_model_path, "2>&1 | tee", log]
-        else:
-            command = [caffe_bin, "train", "--solver=" + solver, "2>&1 | tee", log]
+            command.extend(["--weights", trained_model_path])
+        if constant.CAFFE_SOLVER == "GPU":
+            command.extend(["gpu=" + gpu_id()])
+
+        command = ["2>&1 | tee", log]
         execute_command(' '.join(command))
 

@@ -33,6 +33,12 @@ def template():
     return constant.CAFFE_TEMPLATE
 
 
+def gpu_id():
+    if "GPU_ID" in os.environ:
+        return os.environ['GPU_ID']
+    return constant.GPU_ID
+
+
 def file_already_exists(file_path):
     if os.path.isfile(file_path):
         checksum_file = file_path + ".checksum"
