@@ -37,6 +37,6 @@ class Caffe(object):
         if constant.CAFFE_SOLVER == "GPU":
             command.extend(["gpu=" + gpu_id()])
 
-        command = ["2>&1 | tee", log]
+        command.extend(["2>&1 | tee", log])
         execute_command(' '.join(command))
 
