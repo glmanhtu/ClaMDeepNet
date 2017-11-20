@@ -17,7 +17,7 @@ class Constant(object):
     # You also can change this value by set environment CAFFE_SOLVER
     CAFFE_SOLVER = "GPU"
 
-    GPU_ID = 0
+    GPU_ID = "0"
 
     WORKSPACE = "workspace"
 
