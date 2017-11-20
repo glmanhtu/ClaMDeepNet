@@ -3,7 +3,7 @@ class Constant(object):
     IMAGE_WIDTH = 200
     IMAGE_HEIGHT = 120
 
-    CAFFE_TEMPLATE = "default"
+    CAFFE_TEMPLATE = "alexnet"
 
     IMAGE_NAME_SEPARATE_CHARACTER = "_"
 
