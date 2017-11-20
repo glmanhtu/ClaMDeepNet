@@ -22,6 +22,7 @@ class Constant(object):
     # If you want to fine tune from other model, specific this constant
     TRAINED_MODEL = ""
     # TRAINED_MODEL = "http://dl.caffe.berkeleyvision.org/bvlc_reference_caffenet.caffemodel"
+    # TRAINED_MODEL = "http://dl.caffe.berkeleyvision.org/bvlc_googlenet.caffemodel"
 
     def set_workspace(self, workspace):
         self.WORKSPACE = workspace
