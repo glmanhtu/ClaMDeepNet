@@ -2,13 +2,13 @@ net: "${caffe_train_model}"
 test_iter: 67
 test_interval: 100
 base_lr: 0.00999999977648
-display: 12
+display: 50
 max_iter: 20000
 lr_policy: "step"
 gamma: 0.10000000149
 momentum: 0.899999976158
 weight_decay: 9.99999974738e-05
 stepsize: 3300
-snapshot: 1000
+snapshot: 5000
 snapshot_prefix: "${snapshot_prefix}"
 solver_mode: ${solver_mode}
