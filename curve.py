@@ -154,21 +154,22 @@ def curve():
 
     # Plotting training and test losses
     train_loss, = ax1.plot(train_log['#Iters'], train_log['TrainingLoss'], color='red', alpha=.5)
-    test_loss, = ax1.plot(test_log['#Iters'], test_log['TestLoss'], linewidth=2, color='green')
+    test_loss, = ax1.plot(test_log['#Iters'], test_log['TestLoss'], linewidth=1, color='green')
     ax1.set_ylim(ymin=0, ymax=1)
-    ax1.set_xlabel('Iterations', fontsize=15)
-    ax1.set_ylabel('Loss', fontsize=15)
-    ax1.tick_params(labelsize=15)
+    ax1.set_xlabel('Iterations', fontsize=14)
+    ax1.set_ylabel('Loss', fontsize=14)
+    ax1.tick_params(labelsize=12)
     # Plotting test accuracy
     ax2 = ax1.twinx()
-    test_accuracy, = ax2.plot(test_log['#Iters'], test_log['TestAccuracy'], linewidth=2, color='blue')
+    test_accuracy, = ax2.plot(test_log['#Iters'], test_log['TestAccuracy'], linewidth=1, color='blue')
     ax2.set_ylim(ymin=0, ymax=1)
-    ax2.set_ylabel('Accuracy', fontsize=15)
-    ax2.tick_params(labelsize=15)
+    ax2.set_ylabel('Accuracy', fontsize=14)
+    ax2.tick_params(labelsize=12)
     # Adding legend
     plt.legend([train_loss, test_loss, test_accuracy], ['Training Loss', 'Test Loss', 'Test Accuracy'],
                bbox_to_anchor=(1, 0.8))
-    plt.title('Training Curve', fontsize=18)
+    plt.title('Net Model ' + template(), fontsize=16)
+    plt.figure(num=None, figsize=(10, 6), dpi=80, facecolor='w', edgecolor='k')
     # Saving learning curve
     plt.savefig(image_path)
 
