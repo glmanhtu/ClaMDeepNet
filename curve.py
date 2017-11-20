@@ -150,6 +150,7 @@ def curve():
     '''
     Making learning curve
     '''
+    plt.figure(figsize=(10, 6), dpi=80)
     fig, ax1 = plt.subplots()
 
     # Plotting training and test losses
@@ -172,7 +173,6 @@ def curve():
     if constant.TRAINED_MODEL != "":
         title += " - Finetune"
     plt.title(title, fontsize=16)
-    plt.figure(figsize=(10, 6), dpi=80)
     # Saving learning curve
     plt.savefig(image_path)
 
