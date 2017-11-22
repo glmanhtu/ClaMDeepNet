@@ -2,7 +2,7 @@
 \contentsline {section}{\numberline {1.1}Pôle Universitaire Français}{5}{section.1.1}
 \contentsline {subsection}{\numberline {1.1.1}PUF-HCM}{5}{subsection.1.1.1}
 \contentsline {section}{\numberline {1.2}Laboratoire Bordelais de Recherche en Informatique}{6}{section.1.2}
-\contentsline {section}{\numberline {1.3}The internship project: Deep Learning}{7}{section.1.3}
+\contentsline {section}{\numberline {1.3}The internship project: Deep Learning Image Classification}{7}{section.1.3}
 \contentsline {chapter}{\numberline {2}Methods to solve our problem}{9}{chapter.2}
 \contentsline {section}{\numberline {2.1}Scikit-learn algorithm cheat-sheet\cite {scikitlearn.org}}{9}{section.2.1}
 \contentsline {section}{\numberline {2.2}General CNN architecture}{10}{section.2.2}
