@@ -54,7 +54,7 @@ RUN echo "$CAFFE_ROOT/build/lib" >> /etc/ld.so.conf.d/caffe.conf && ldconfig
 RUN apt-get update
 RUN pip install mako
 RUN pip install lmdb
-RUN apt-get install -y python-opencv vim
+RUN apt-get install -y python-opencv vim htop
 
 WORKDIR /workspace
 RUN mkdir classify-images
