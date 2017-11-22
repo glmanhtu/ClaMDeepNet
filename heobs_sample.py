@@ -66,7 +66,7 @@ caffe_log = workspace("caffe_model/caffe_train.log")
 print "\n\n------------------------TRAINING PHRASE-----------------------------\n\n"
 
 print "\nStarting web app to visualize the training process"
-run_thread_app()
+thread = run_thread_app()
 
 print "\nWeb app started"
 
@@ -81,12 +81,12 @@ print "\nStarting to test"
 heobs_sample_test.test()
 end_test = time.clock()
 
-print "Train consume %d seconds" % end_train - start
-print "Test consume %d seconds" % end_test - end_train
+print "Train consume %d seconds" % (end_train - start)
+print "Test consume %d seconds" % (end_test - end_train)
 
 with open(workspace("result/time_consuming.txt"), 'w') as the_file:
     content = 'Train consume ' + str(end_train - start) + ' seconds\n'
     content += 'Test consume ' + str(end_test - end_train) + ' seconds\n'
     the_file.write(content)
 
-query_yes_no("All completed! Do you want to exit the application?")
+thread.join()

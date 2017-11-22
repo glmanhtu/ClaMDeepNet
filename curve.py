@@ -23,7 +23,6 @@ import logging
 
 plt.style.use('ggplot')
 
-
 def crossdomain(origin=None, methods=None, headers=None, max_age=21600,
                 attach_to_all=True, automatic_options=True):
     """Decorator function that allows crossdomain requests.
@@ -201,6 +200,7 @@ def run_thread_app():
     t = threading.Thread(target=run_app)
     t.setDaemon(True)
     t.start()
+    return t
 
 
 if __name__ == '__main__':
