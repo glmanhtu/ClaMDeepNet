@@ -7,6 +7,7 @@ from utils.create_lmdb import CreateLmdb
 from utils.pycaffe import Caffe
 from utils.make_predictions import *
 from curve import *
+import time
 import heobs_sample_test
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -70,11 +71,22 @@ run_thread_app()
 print "\nWeb app started"
 
 print "\nStarting to train"
+start = time.clock()
 caffe.train(caffe_solver, caffe_log)
+end_train = time.clock()
 
 print "\nTrain completed"
 
 print "\nStarting to test"
 heobs_sample_test.test()
+end_test = time.clock()
+
+print "Train consume %d seconds" % end_train - start
+print "Test consume %d seconds" % end_test - end_train
+
+with open(workspace("result/time_consuming.txt"), 'w') as the_file:
+    content = 'Train consume ' + str(end_train - start) + ' seconds\n'
+    content += 'Test consume ' + str(end_test - end_train) + ' seconds\n'
+    the_file.write(content)
 
 query_yes_no("All completed! Do you want to exit the application?")
