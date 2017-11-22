@@ -118,6 +118,13 @@ def get_data_result():
     file_name = os.path.basename(tmp_archive)
     return send_from_directory(file_dir, file_name)
 
+@app.route('/data/train.log', methods=['GET'])
+@crossdomain(origin='*')
+def get_data_result():
+    file_dir = os.path.dirname(caffe_log)
+    file_name = os.path.basename(caffe_log)
+    return send_from_directory(file_dir, file_name)
+
 
 @app.route('/model', methods=['GET'])
 @crossdomain(origin='*')
