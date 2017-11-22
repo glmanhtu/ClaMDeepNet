@@ -31,7 +31,7 @@ def test():
            num_output=Constant.NUMBER_OUTPUT, img_width=Constant.IMAGE_WIDTH, img_height=Constant.IMAGE_HEIGHT)
     classes = ["being", "heritage", "scenery"]
     mean_data = read_mean_data(mean_proto)
-    net = read_model_and_weight(caffe_deploy, workspace("caffe_model/snapshot_iter_4000.caffemodel"))
+    net = read_model_and_weight(caffe_deploy, workspace("caffe_model/snapshot_iter_20000.caffemodel"))
     transformer = image_transformers(net, mean_data)
     prediction = making_predictions(workspace("data/extracted/test"), transformer, net)
 
