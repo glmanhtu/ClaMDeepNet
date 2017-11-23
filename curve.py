@@ -193,7 +193,7 @@ def curve():
 def run_app():
     log = logging.getLogger('werkzeug')
     log.setLevel(logging.ERROR)
-    app.run(host="0.0.0.0", port=8081, debug=False)
+    app.run(host="0.0.0.0", port=8081, debug=False, threaded=True)
 
 
 def run_thread_app():
