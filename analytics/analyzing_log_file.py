@@ -1,7 +1,7 @@
-from utils import utils
 import os
 import re
-
+import sys
+import subprocess
 
 class AnalyzingLogFile:
 
@@ -9,8 +9,8 @@ class AnalyzingLogFile:
     log_train = 'train.log.train'
 
     def __init__(self):
-        utils.execute_command("chmod +x parse_log.sh")
-        utils.execute_command("chmod +x extract_seconds.py")
+        self.execute_command("chmod +x parse_log.sh")
+        self.execute_command("chmod +x extract_seconds.py")
         pass
 
     def __read_train_result_file(self):
@@ -61,16 +61,27 @@ class AnalyzingLogFile:
                 max_acc = float(test['test_accuracy'])
         return max_acc
 
+    def execute_command(self, command):
+        process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+        # Poll process for new output until finished
+        while True:
+            next_line = process.stdout.readline()
+            if next_line == '' and process.poll() is not None:
+                break
+            sys.stdout.write(next_line)
+            sys.stdout.flush()
+
     def analyzing(self, log_file_path):
-        utils.execute_command("./parse_log.sh %s" % log_file_path)
+        self.execute_command("./parse_log.sh %s" % log_file_path)
 
         train_result = self.__read_train_result_file()
         test_result = self.__read_test_result_file()
 
         over_fitting = self.__calculate_overfitting(train_result, test_result)
         total_time = self.__calculate_total_time(train_result, test_result)
-        max_accurency = self.__calculate_max_accuracy(test_result)
-        accurency_at_max_iter = float(test_result[len(test_result) - 1]['test_accuracy'])
+        max_accuracy = self.__calculate_max_accuracy(test_result)
+        accuracy_at_max_iter = float(test_result[len(test_result) - 1]['test_accuracy'])
         test_loss_at_max_iter = float(test_result[len(test_result) - 1]['test_loss'])
         train_loss_at_max_iter = float(train_result[len(train_result) - 1]['train_loss'])
 
@@ -80,9 +91,8 @@ class AnalyzingLogFile:
         return {
             "over_fitting": over_fitting,
             "total_time": total_time,
-            "max_accuracy": max_accurency,
-            
+            "max_accuracy": max_accuracy,
+            "accuracy_at_max_iter": accuracy_at_max_iter,
+            "test_loss_at_max_iter": test_loss_at_max_iter,
+            "train_loss_at_max_iter": train_loss_at_max_iter
         }
-
-analyzing = AnalyzingLogFile()
-analyzing.analyzing("/home/glmanhtu/Documents/test-result/20k-iterators-2/alexnet/0.001lr/finetune/train.log")

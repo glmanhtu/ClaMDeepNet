@@ -15,7 +15,7 @@ os.chdir(os.path.dirname(os.path.realpath(__file__)))
 google_download = DownloadGoogleDrive()
 if "CAFFE_WORKSPACE" in os.environ:
     set_workspace(os.path.join("workspace", os.environ['CAFFE_WORKSPACE']))
-else
+else:
     set_workspace(os.path.join("workspace", "heobs_sample"))
 
 train_zip = GoogleFile('0BzL8pCLanAIAd0hBV2NUVHpmckE',
@@ -91,4 +91,8 @@ with open(workspace("result/time_consuming.txt"), 'w') as the_file:
     content += 'Test consume ' + str(end_test - end_train) + ' seconds\n'
     the_file.write(content)
 
-thread.join()
+print "Press ESC to exit..."
+while True:
+    ch = sys.stdin.read(1)
+    if ch == '\x1b':
+        exit(0)
