@@ -1,3 +1,4 @@
+import os
 class Constant(object):
 
     IMAGE_WIDTH = 227
@@ -19,7 +20,7 @@ class Constant(object):
 
     GPU_ID = "0"
 
-    WORKSPACE = "workspace"
+    WORKSPACE = "heobs_sample"
 
     # If you want to fine tune from other model, specific this constant
     TRAINED_MODEL = ""
@@ -31,4 +32,6 @@ class Constant(object):
         self.WORKSPACE = workspace
 
     def get_workspace(self):
-        return self.WORKSPACE
+        if "CAFFE_WORKSPACE" in os.environ:
+            return os.path.join("workspace", os.environ['CAFFE_WORKSPACE'])
+        return os.path.join("workspace", self.WORKSPACE)

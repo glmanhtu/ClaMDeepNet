@@ -75,7 +75,6 @@ def crossdomain(origin=None, methods=None, headers=None, max_age=21600,
         return update_wrapper(wrapped_function, f)
     return decorator
 
-set_workspace(os.path.join("workspace", "heobs_sample"))
 caffe_log = os.path.realpath(workspace("caffe_model/caffe_train.log"))
 image_path = os.path.realpath(workspace("caffe_model/caffe_curve.png"))
 result_path = os.path.realpath(workspace("result/test_result.csv"))
