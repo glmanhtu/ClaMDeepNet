@@ -13,8 +13,10 @@ import heobs_sample_test
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 google_download = DownloadGoogleDrive()
-
-set_workspace(os.path.join("workspace", "heobs_sample"))
+if "CAFFE_WORKSPACE" in os.environ:
+    set_workspace(os.path.join("workspace", os.environ['CAFFE_WORKSPACE']))
+else
+    set_workspace(os.path.join("workspace", "heobs_sample"))
 
 train_zip = GoogleFile('0BzL8pCLanAIAd0hBV2NUVHpmckE',
                        'heobs_large_dataset.zip', workspace('data/heobs_large_dataset.zip'))
