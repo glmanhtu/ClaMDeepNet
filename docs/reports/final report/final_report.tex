@@ -98,6 +98,7 @@ Although it already has a lot of algorithms to solve the Image classification pr
 The goal of my internship at LaBRI is research \& implement the Deep learning in Image classification to classify images from \href{https://heobs.org}{heobs.org}. Try to do in different approach, compare them and finally, choose the one which give the best result.
 % Table content
 \tableofcontents
+\listoffigures
 \thispagestyle{empty}
 \clearpage
 
@@ -157,75 +158,34 @@ The objective of this internship is implementing a method to automatic classify 
 The method is use deep convolutional neural networks (CNNs or ConvNets) to tackle the remote sensing scene classification task.
 \newpage
 \begin{figure}[!htb]
-\minipage{0.32\textwidth}
-  \includegraphics[height=3.5cm, left]{images/sample/being_6}
-  \captionsetup{labelformat=empty}
-  \caption{Being}
-\endminipage\hfill
-\minipage{0.32\textwidth}
-  \includegraphics[height=3.5cm, center]{images/sample/being_35}
-  \captionsetup{labelformat=empty}
-  \caption{Being}
-\endminipage\hfill
-\minipage{0.32\textwidth}%
-  \includegraphics[height=3.5cm, right]{images/sample/being_45}
-  \captionsetup{labelformat=empty}
-  \caption{Being}
-\endminipage
-\end{figure}
-
-\begin{figure}[!htb]
-\minipage{0.32\textwidth}
-  \includegraphics[width=5.2cm, height=3.5cm, left]{images/sample/heritage_145}
-  \captionsetup{labelformat=empty}
-  \caption{Heritage}
-\endminipage\hfill
-\minipage{0.32\textwidth}
-  \includegraphics[height=3.5cm, center]{images/sample/heritage_147}
-  \captionsetup{labelformat=empty}
-  \caption{Heritage}
-\endminipage\hfill
-\minipage{0.32\textwidth}%
-  \includegraphics[width=5.2cm, height=3.5cm, right]{images/sample/heritage_282}
-  \captionsetup{labelformat=empty}
-  \caption{Heritage}
-\endminipage
-\end{figure}
-
-\begin{figure}[!htb]
-\minipage{0.32\textwidth}
-  \includegraphics[height=2.8cm, left]{images/sample/scenery_111}
-  \captionsetup{labelformat=empty}
-  \caption{Scenery}
-\endminipage\hfill
-\minipage{0.32\textwidth}
-  \includegraphics[height=2.8cm, center]{images/sample/scenery_102}
-  \captionsetup{labelformat=empty}
-  \caption{Scenery}
-\endminipage\hfill
-\minipage{0.32\textwidth}%
-  \includegraphics[height=2.8cm, right]{images/sample/scenery_110}
-\captionsetup{labelformat=empty}
-  \caption{Scenery}
-\endminipage
-\end{figure}
-
-\begin{figure}[!htb]
-\minipage{0.32\textwidth}
-  \includegraphics[width=5.2cm, height=3.5cm, left]{images/sample/other_129}
-  \captionsetup{labelformat=empty}
-  \caption{Other}
-\endminipage\hfill
-\minipage{0.32\textwidth}
-  \includegraphics[height=3.5cm, center]{images/sample/other_190}
-  \captionsetup{labelformat=empty}
-  \caption{Other}
-\endminipage\hfill
-\minipage{0.32\textwidth}%
-  \includegraphics[width=5.2cm, height=3.5cm, right]{images/sample/other_202}
-  \captionsetup{labelformat=empty}
-  \caption{Other}
-\endminipage
+\subfloat[]{%
+\begin{minipage}{\linewidth}
+  \includegraphics[width=5cm, height=3.5cm]{images/sample/being_6}\hfill
+  \includegraphics[height=3.5cm]{images/sample/being_35}\hfill
+  \includegraphics[width=5cm, height=3.5cm]{images/sample/being_45}%
+\end{minipage}%
+}\par
+\subfloat[]{%
+\begin{minipage}{\linewidth}
+  \includegraphics[width=5cm, height=3.5cm]{images/sample/heritage_145}\hfill
+  \includegraphics[height=3.5cm]{images/sample/heritage_147}\hfill
+  \includegraphics[width=5cm, height=3.5cm]{images/sample/heritage_282}%
+\end{minipage}%
+}\par
+\subfloat[]{%
+\begin{minipage}{\linewidth}
+  \includegraphics[height=2.8cm]{images/sample/scenery_111}\hfill
+  \includegraphics[height=2.8cm]{images/sample/scenery_102}\hfill
+  \includegraphics[height=2.8cm]{images/sample/scenery_110}%
+\end{minipage}%
+}\par
+\subfloat[]{%
+\begin{minipage}{\linewidth}
+  \includegraphics[width=5cm, height=3.5cm]{images/sample/other_129}\hfill
+  \includegraphics[height=3.5cm]{images/sample/other_190}\hfill
+  \includegraphics[width=5cm, height=3.5cm]{images/sample/other_202}%
+\end{minipage}%
+}
   \caption{Images from heobs.org}
 \end{figure}
 

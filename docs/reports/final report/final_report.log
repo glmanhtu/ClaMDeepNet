@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/Debian) (preloaded format=xelatex 2017.10.10)  21 NOV 2017 16:16
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/Debian) (preloaded format=xelatex 2017.10.10)  27 NOV 2017 14:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -895,33 +895,39 @@ Underfull \hbox (badness 10000) in paragraph at lines 89--100
 
  [3
 
+] (./final_report.lof)
+\tf@lof=\write5
+\openout5 = `final_report.lof'.
+
+ [4
+
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 105--118
+Underfull \hbox (badness 10000) in paragraph at lines 106--119
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 105--118
+Underfull \hbox (badness 10000) in paragraph at lines 106--119
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 105--118
+Underfull \hbox (badness 10000) in paragraph at lines 106--119
 
  []
 
-[4
+[5
 
 
 ]
 Chapter 1.
-LaTeX Font Info:    Try loading font information for EU1+lmtt on input line 122
+LaTeX Font Info:    Try loading font information for EU1+lmtt on input line 123
 .
 (/usr/share/texlive/texmf-dist/tex/latex/euenc/eu1lmtt.fd
 File: eu1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [5
+) [6
 
-] [6] [7]
+] [7] [8]
 File: images/sample/being_6.jpg Graphic file (type QTm)
 
 <use  "images/sample/being_6.jpg" >
@@ -954,55 +960,55 @@ File: images/sample/other_190.jpg Graphic file (type QTm)
 <use  "images/sample/other_190.jpg" >
 File: images/sample/other_202.jpg Graphic file (type QTm)
  <use  "images/sample/other_202.jpg" >
-[8]
+[9]
 Chapter 2.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 234.
+(hyperref)                removing `\@ifnextchar' on input line 194.
 
 File: images/scikit-learn.png Graphic file (type QTm)
-<use  "images/scikit-learn.png" > [9
+<use  "images/scikit-learn.png" > [10
 
 ]
 File: images/Fig-1-An-Example-CNN-architecture-for-a-handwritten-digit-recognit
 ion-task.png Graphic file (type QTm)
 
 <use  "images/Fig-1-An-Example-CNN-architecture-for-a-handwritten-digit-recogni
-tion-task.png" > [10]
-Underfull \hbox (badness 10000) in paragraph at lines 265--270
+tion-task.png" > [11]
+Underfull \hbox (badness 10000) in paragraph at lines 225--230
 
  []
 
-[11]
+[12]
 Chapter 3.
-[12
-
-]
-Chapter 4.
 [13
 
 ]
-Chapter 5.
-(./final_report.bbl [14
-
-])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 291.
- [15
+Chapter 4.
+[14
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 291.
+Chapter 5.
+(./final_report.bbl [15
+
+])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 251.
+ [16
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 251.
  (./final_report.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 291.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 291.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 291.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 251.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 251.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 251.
  ) 
 Here is how much of TeX's memory you used:
- 23878 strings out of 493638
- 422554 string characters out of 6146795
+ 23884 strings out of 493638
+ 422661 string characters out of 6146795
  443109 words of memory out of 5000000
- 27045 multiletter control sequences out of 15000+600000
+ 27048 multiletter control sequences out of 15000+600000
  15166 words of font info for 82 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
- 53i,9n,92p,10372b,459s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 53i,9n,92p,10372b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on final_report.pdf (16 pages).
+Output written on final_report.pdf (17 pages).
