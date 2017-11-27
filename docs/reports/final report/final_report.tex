@@ -199,7 +199,7 @@ Because it has many algorithms has able to classify images such as: Decision tre
 	\caption{Scikit-learn algorithm cheat-sheet}
 	\label{fig:Scikit-learn}
 \end{figure}
-This algorithm cheat-sheet(see Fig \ref{fig:Scikit-learn}) suggests to use K-mean algorithm to classify our images. However, one can note that it is mandatory to create a labeled dataset from our unlabeled images by hand and then, we can use SGD Classifier to do it.
+This algorithm cheat-sheet(see Fig \ref{fig:Scikit-learn}) suggests to use K-mean algorithm to classify our images because of unlabeled images and, the size of our dataset is less than 10K samples. However, one can note that it is mandatory to create a labeled dataset from our unlabeled images by hand and then, we can use SGD Classifier to do it.
 \\
 Finally, two ways are proposed to reach our goal: one is use Supervised Classification with SGD is our main algorithm. The other is use Unsupervised Classification with K-mean is main algorithm. Both of them can be applied by using Convolution Neural Network(CNN).
 \section{General CNN architecture}
@@ -234,6 +234,8 @@ The ImageNet Visual Recognition Challenge\footnote{\url{http://www.image-net.org
 Because they have the same kind of goal with our project, so, we will try to implement the CNN model of the winner of this challenge and also try to improve it to get the better result.
 
 \chapter{The Dataset}
+Because both Supervised and Unsupervised Classification are required dataset to train and test, this chapter describes how we obtain the dataset and optimize it.
+\section{Fetch all images}
 The entire image dataset described on the text file named ”photos.txt” line by line. Each line includes the image id and image description as below:
 \begin{verbatim}
 5a36f382-dbdf-11e6-95fd-d746d863c3eb | Những người ăn xin  | vie
@@ -243,6 +245,22 @@ The entire image dataset described on the text file named ”photos.txt” line 
 400286c8-dbe1-11e6-bb4d-ff975c68de04 | Ngân hàng Đông Dương  | vie
 400286c8-dbe1-11e6-bb4d-ff975c68de04 | La Banque de l’Indochine  | fra
 \end{verbatim}
+In order to get the image dataset, we have to fetch each image one by one by join the image id with heobs cdn url \href{https://cdn.heobs.org/photo/}{https://cdn.heobs.org/photo/}. For example, with the first line in the record above, we have the following URL: 
+\begin{verbatim}
+https://cdn.heobs.org/photo/5a36f382-dbdf-11e6-95fd-d746d863c3eb
+\end{verbatim}
+We wrote a small python script to automatic read this text file \& download images one by one.
+Totally, we have 142459 images in our dataset.
+
+\section{Remove broken images}
+After downloaded \& look around all images, we found that it has a lot of broken images, which can't be displayable. So, we write a python script to filter all of those broken images automatically. \newline
+Finally, we have 89850 images left in our dataset.
+
+\section{Labeling image dataset}
+It's mandatory to label our images for both Supervised and Unsupervised Classification because with Unsupervised Classification, we need a labeled dataset to validate if the image is classified correct or not. With Supervised Classification, we need a labeled dataset to train \& validate the Neural Network Model.\newline\newline
+Because our images have different resolution, so, to build a good dataset, we loop through all our images and find all images, which has the most common image resolution, keep all those images and reject all others.
+
+
 \chapter{Unsuppervised Deep Learning}
 \chapter{Suppervised Deep Learning}
 
