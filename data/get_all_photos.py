@@ -16,6 +16,8 @@ if __name__ == '__main__':
 
     print "Reading image name file, %s" % FILE_NAME
 
+    if not os.path.isdir(SAVE_IMAGE_PATH):
+        os.makedirs(SAVE_IMAGE_PATH)
     num_lines = sum(1 for line in open(FILE_NAME))
     images = []
     file_name_count = 0
