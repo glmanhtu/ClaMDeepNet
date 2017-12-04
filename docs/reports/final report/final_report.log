@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/Debian) (preloaded format=xelatex 2017.10.10)  27 NOV 2017 16:55
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/Debian) (preloaded format=xelatex 2017.10.10)  28 NOV 2017 17:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -835,11 +835,8 @@ LaTeX Info: Redefining \nameref on input line 32.
 \@outlinefile=\write3
 \openout3 = `final_report.out'.
 
-
-
-Package hyperref Warning: Rerun to get /PageLabels entry.
-
 LaTeX Font Info:    Try loading font information for U+msa on input line 35.
+
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
@@ -875,11 +872,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 77--84
 [1
 
 ]
-
-LaTeX Warning: Citation `o.a.b.penattik.nogueiraj.a.dossantos2015' on page 2 un
-defined on input line 95.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 89--100
 
  []
@@ -897,23 +889,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 89--100
 [2
 
 
-]
-
-Package hyperref Warning: old toc file detected, not used; run LaTeX again.
-
+] (./final_report.toc)
 \tf@toc=\write4
 \openout4 = `final_report.toc'.
 
-[3
+ [3
 
-]
-
-Package hyperref Warning: old lof file detected, not used; run LaTeX again.
-
+] (./final_report.lof)
 \tf@lof=\write5
 \openout5 = `final_report.lof'.
 
-[4
+ [4
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 106--119
@@ -977,53 +963,18 @@ File: images/sample/other_202.jpg Graphic file (type QTm)
 [9]
 Chapter 2.
 
-LaTeX Warning: Citation `scikitlearn.org' on page 10 undefined on input line 19
-4.
-
-
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\@ifnextchar' on input line 194.
 
-
-LaTeX Warning: Citation `j.r.quinlan1985' on page 10 undefined on input line 19
-5.
-
-
-LaTeX Warning: Citation `stever.gunn1998' on page 10 undefined on input line 19
-5.
-
-
-LaTeX Warning: Citation `orenanavakfiry.levy2017' on page 10 undefined on input
- line 195.
-
 File: images/scikit-learn.png Graphic file (type QTm)
-<use  "images/scikit-learn.png" >
-
-LaTeX Warning: Reference `fig:Scikit-learn' on page 10 undefined on input line 
-202.
-
-[10
+<use  "images/scikit-learn.png" > [10
 
 ]
 File: images/Fig-1-An-Example-CNN-architecture-for-a-handwritten-digit-recognit
 ion-task.png Graphic file (type QTm)
 
 <use  "images/Fig-1-An-Example-CNN-architecture-for-a-handwritten-digit-recogni
-tion-task.png" >
-
-LaTeX Warning: Reference `fig:CNN-architecture' on page 11 undefined on input l
-ine 213.
-
-[11]
-
-LaTeX Warning: Citation `placesdatabase' on page 12 undefined on input line 227
-.
-
-
-LaTeX Warning: Citation `landclassification' on page 12 undefined on input line
- 227.
-
-
+tion-task.png" > [11]
 Underfull \hbox (badness 10000) in paragraph at lines 225--230
 
  []
@@ -1046,28 +997,21 @@ Chapter 5.
 (./final_report.bbl [16
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 269.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 270.
  [17
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 269.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 270.
  (./final_report.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 269.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 269.
-
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 269.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 270.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 270.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 270.
  ) 
 Here is how much of TeX's memory you used:
- 23876 strings out of 493638
- 422556 string characters out of 6146795
- 442522 words of memory out of 5000000
- 27044 multiletter control sequences out of 15000+600000
+ 23885 strings out of 493638
+ 422672 string characters out of 6146795
+ 443109 words of memory out of 5000000
+ 27049 multiletter control sequences out of 15000+600000
  15166 words of font info for 82 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
  53i,9n,92p,10372b,467s stack positions out of 5000i,500n,10000p,200000b,80000s

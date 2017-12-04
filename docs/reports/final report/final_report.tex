@@ -258,7 +258,8 @@ Finally, we have 89850 images left in our dataset.
 
 \section{Labeling image dataset}
 It's mandatory to label our images for both Supervised and Unsupervised Classification because with Unsupervised Classification, we need a labeled dataset to validate if the image is classified correct or not. With Supervised Classification, we need a labeled dataset to train \& validate the Neural Network Model.\newline\newline
-Because our images have different resolution, so, to build a good dataset, we loop through all our images and find all images, which has the most common image resolution, keep all those images and reject all others.
+Before labeling our images by hand, we need to build a good images dataset, which has the same image resolution. We loop through all our images to filter all images, which has the most common image resolution and reject all others. 
+
 
 
 \chapter{Unsuppervised Deep Learning}
