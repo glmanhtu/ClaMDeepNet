@@ -1,8 +1,0 @@
-{
-  "run_list": [
-"role[default]"
-  ],
-  "automatic": {
-    "ipaddress": "52.77.211.149"
-  }
-}
