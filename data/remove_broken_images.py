@@ -3,13 +3,15 @@
 from get_all_photos import *
 import imghdr
 import os
+import sys
 
 if __name__ == '__main__':
-    path, dirs, files = os.walk(SAVE_IMAGE_PATH).next()
+    img_dir = sys.argv[1]
+    path, dirs, files = os.walk(img_dir).next()
     num_files = len(files)
     current_progress = 0
     deleted_count = 0
-    for root, dirs, files in os.walk(SAVE_IMAGE_PATH):
+    for root, dirs, files in os.walk(img_dir):
         for f in files:
             image = os.path.join(root, f)
             if imghdr.what(image) != 'jpeg':
