@@ -14,6 +14,8 @@ if __name__ == '__main__':
     num_files = len(files)
     random_imgs = []
 
+    if not os.path.isdir(RANDOM_IMAGES):
+        os.makedirs(RANDOM_IMAGES)
 
     def add_random_numb():
         random_numb = randint(0, num_files)
