@@ -12,7 +12,9 @@
 \usepackage{algorithmic}
 \usepackage[export]{adjustbox}
 \usepackage{caption}
-
+\usepackage{booktabs}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 
 % Hyperlinks
 \usepackage[unicode]{hyperref}
@@ -211,9 +213,9 @@ A convolutional network is a neural network that use convolutions. It is a multi
 	\label{fig:CNN-architecture}
 \end{figure}
 The network architecture of an example CNN is depicted in Fig \ref{fig:CNN-architecture}. The processing starts with feature extraction layers and is finished by fully connected classification layers. Using different layers delivers robust recognition accuracy and is invariant to small geometric transformations of the input images. The robust recognition accuracy makes that CNN are successfully used for classification tasks on real world data
-
+\newpage
 \section{Libraries}
-The fact is, we're unable to do eveything from scratch, CNN's too complex if we want to build it by our self. There have a several libraries for CNN, which developed by some companies, universities or researching labs to help us to make easy to construct and configure our model. Below is some of those libraries:
+The fact is, we're unable to do eveything from scratch, CNN's too complex if we want to build it by our self. There have a several libraries for CNN, which developed by some researching labs, universities or companies to help us to make easy to construct and configure our model. Below is some of those libraries:
 \begin{itemize}
 	\item \textbf{Caffe}\footnote{\url{http://caffe.berkeleyvision.org}} a deep learning framework made with expression, speed, and modularity in mind.
 	\item \textbf{Tensorflow}\footnote{\url{https://www.tensorflow.org}} an open source software library for numerical computation using data flow graphs.
@@ -228,13 +230,15 @@ So, after some researched, we found many papers, articles relevance with our pro
 community contributors. It’s easily customizable through configuration files, easily extendible with new layer types,
 and provides a very fast ConvNet implementation (leveraging GPUs, if present). It provides C++, Python and MATLAB APIs.
 
+\newpage
+
 \section{The ImageNet Visual Recognition Challenge}
 
 The ImageNet Visual Recognition Challenge\footnote{\url{http://www.image-net.org/challenges/LSVRC/2012}} is a competition where research teams evaluate their algorithms on the given data set, and compete to achieve higher accuracy on several visual recognition tasks such as Classification, Classification with localization or Fine-grained classification. \\
 Because they have the same kind of goal with our project, so, we will try to implement the CNN model of the winner of this challenge and also try to improve it to get the better result.
 
 \chapter{The Dataset}
-Because both Supervised and Unsupervised Classification are required dataset to train and test, this chapter describes how we obtain the dataset and optimize it.
+Because both Supervised and Unsupervised Classification are required a dataset to train and test, this chapter describes how we obtain and optimize the dataset.
 \section{Fetch all images}
 The entire image dataset described on the text file named ”photos.txt” line by line. Each line includes the image id and image description as below:
 \begin{verbatim}
@@ -249,7 +253,7 @@ In order to get the image dataset, we have to fetch each image one by one by joi
 \begin{verbatim}
 https://cdn.heobs.org/photo/5a36f382-dbdf-11e6-95fd-d746d863c3eb
 \end{verbatim}
-We wrote a small python script to automatic read this text file \& download images one by one.
+We wrote a python script to automatic read this text file \& download images one by one.
 Totally, we have 142459 images in our dataset.
 
 \section{Remove broken images}
@@ -258,11 +262,21 @@ Finally, we have 89850 images left in our dataset.
 
 \section{Labeling image dataset}
 It's mandatory to label our images for both Supervised and Unsupervised Classification because with Unsupervised Classification, we need a labeled dataset to validate if the image is classified correct or not. With Supervised Classification, we need a labeled dataset to train \& validate the Neural Network Model.\newline\newline
-Before labeling our images by hand, we need to build a good images dataset, which has the same image resolution. We loop through all our images to filter all images, which has the most common image resolution and reject all others. 
-
-
+Before labeling our images by hand, we need to build a good images dataset, which has the same image resolution. We loop through all our images to filter all images, which has the most common image resolution and reject all others. After this step, we have 55143 images left. \newline\newline
+Finally, we labeling our images by hand and completed our dataset as the table below:\newline\newline
+{\renewcommand{\arraystretch}{2}%
+\noindent\begin{tabularx}{\textwidth}{YYYY}
+  \toprule
+& Being & Heritage & Scenery\\
+N\textsuperscript{o} images & 1471 & 1832 & 942\\
+  \bottomrule
+\end{tabularx}} \quad
 
 \chapter{Unsuppervised Deep Learning}
+
+Because of when classifying images by hand, it has some special case when one image may refer to more than one class. Thus, we need the machine to help us to make decisions by comparing two images are the same class or not. We also want to separate images of one class into multi unknown sub-classes. So, by using Unsupervised Deep Learning, we want to let the machine to classify a set of images unlabeled into some unknown classes. \newline
+After some research, we found the Unsupervised Deep Embedding for Clustering Analysis\cite{dec} paper, which propose a new method that simultaneously learns feature representations and cluster assignments using deep neural networks to classify unlabeled images. 
+
 \chapter{Suppervised Deep Learning}
 
 \bibliographystyle{ieeetr}

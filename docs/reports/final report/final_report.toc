@@ -6,11 +6,11 @@
 \contentsline {chapter}{\numberline {2}Methods to solve our problem}{10}{chapter.2}
 \contentsline {section}{\numberline {2.1}Scikit-learn algorithm cheat-sheet\cite {scikitlearn.org}}{10}{section.2.1}
 \contentsline {section}{\numberline {2.2}General CNN architecture}{11}{section.2.2}
-\contentsline {section}{\numberline {2.3}Libraries}{11}{section.2.3}
-\contentsline {section}{\numberline {2.4}The ImageNet Visual Recognition Challenge}{12}{section.2.4}
-\contentsline {chapter}{\numberline {3}The Dataset}{13}{chapter.3}
-\contentsline {section}{\numberline {3.1}Fetch all images}{13}{section.3.1}
-\contentsline {section}{\numberline {3.2}Remove broken images}{13}{section.3.2}
-\contentsline {section}{\numberline {3.3}Labeling image dataset}{14}{section.3.3}
-\contentsline {chapter}{\numberline {4}Unsuppervised Deep Learning}{15}{chapter.4}
-\contentsline {chapter}{\numberline {5}Suppervised Deep Learning}{16}{chapter.5}
+\contentsline {section}{\numberline {2.3}Libraries}{12}{section.2.3}
+\contentsline {section}{\numberline {2.4}The ImageNet Visual Recognition Challenge}{13}{section.2.4}
+\contentsline {chapter}{\numberline {3}The Dataset}{14}{chapter.3}
+\contentsline {section}{\numberline {3.1}Fetch all images}{14}{section.3.1}
+\contentsline {section}{\numberline {3.2}Remove broken images}{14}{section.3.2}
+\contentsline {section}{\numberline {3.3}Labeling image dataset}{15}{section.3.3}
+\contentsline {chapter}{\numberline {4}Unsuppervised Deep Learning}{16}{chapter.4}
+\contentsline {chapter}{\numberline {5}Suppervised Deep Learning}{17}{chapter.5}

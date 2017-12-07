@@ -1,0 +1,52 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: final_report.aux
+The style file: ieeetr.bst
+Database file #1: bibfile.bib
+Warning--entry type for "scikitlearn.org" isn't style-file defined
+--line 22 of file bibfile.bib
+Warning--empty journal in j.r.quinlan1985
+Warning--empty journal in stever.gunn1998
+Warning--empty journal in orenanavakfiry.levy2017
+You've used 8 entries,
+            1876 wiz_defined-function locations,
+            512 strings with 4602 characters,
+and the built_in function-call counts, 1344 in all, are:
+= -- 109
+> -- 66
+< -- 0
++ -- 26
+- -- 18
+* -- 91
+:= -- 218
+add.period$ -- 7
+call.type$ -- 8
+change.case$ -- 8
+chr.to.int$ -- 0
+cite$ -- 11
+duplicate$ -- 76
+empty$ -- 136
+format.name$ -- 18
+if$ -- 310
+int.to.chr$ -- 0
+int.to.str$ -- 8
+missing$ -- 7
+newline$ -- 27
+num.names$ -- 8
+pop$ -- 33
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 42
+stack$ -- 0
+substring$ -- 14
+swap$ -- 18
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 3
+while$ -- 9
+width$ -- 9
+write$ -- 63
+(There were 4 warnings)
