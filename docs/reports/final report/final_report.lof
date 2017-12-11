@@ -9,4 +9,5 @@
 \contentsline {figure}{\numberline {2.2}{\ignorespaces An Example CNN architecture for a handwritten digit recognition task.\relax }}{11}{figure.caption.8}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Mnist init.caffemodel test result - correct\relax }}{19}{figure.caption.14}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Unsupervised train result\relax }}{23}{figure.caption.15}

@@ -15,6 +15,31 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{makecell}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+% color python code
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
 
 % Hyperlinks
 \usepackage[unicode]{hyperref}
@@ -22,7 +47,7 @@
 \usepackage{graphicx}
 \usepackage{subfig}
 \usepackage{float}
-\renewcommand{\arraystretch}{2.5}
+
 %----------------------------------------------------------------------------------------
 %	DOCUMENT INFORMATION
 %----------------------------------------------------------------------------------------
@@ -50,7 +75,7 @@
 %{\large Final report}\\[0.5cm]	
 	
 	\line(1,0){400}\\[0.2in]
-	\huge{\bfseries Deep Learning \\ Image Classification}\\
+	\huge{\bfseries Deep Learning \\ Heritage Image Classification}\\
 	\line(1,0){400}\\[1.5cm]
 	\noindent	
 	\begin{minipage}{0.4\textwidth}
@@ -191,7 +216,7 @@ The method is use deep convolutional neural networks (CNNs or ConvNets) to tackl
   \caption{Images from heobs.org}
 \end{figure}
 
-\chapter{Methods to solve our problem}
+\chapter{Analysis}
 In this part, we will explain how we choose the aglorithms to solve our problem and describe what is each one.
 \section{Scikit-learn algorithm cheat-sheet\cite{scikitlearn.org}}
 Because it has many algorithms has able to classify images such as: Decision tree\cite{j.r.quinlan1985}, SVM\cite{stever.gunn1998}, K-nearest neighbors\cite{orenanavakfiry.levy2017}, etc. We need to find a right one to solve our problem. The Scikit-learn had made an algorithm cheat-sheet to help us to choose the right one:
@@ -237,9 +262,12 @@ and provides a very fast ConvNet implementation (leveraging GPUs, if present). I
 The ImageNet Visual Recognition Challenge\footnote{\url{http://www.image-net.org/challenges/LSVRC/2012}} is a competition where research teams evaluate their algorithms on the given data set, and compete to achieve higher accuracy on several visual recognition tasks such as Classification, Classification with localization or Fine-grained classification. \\
 Because they have the same kind of goal with our project, so, we will try to implement the CNN model of the winner of this challenge and also try to improve it to get the better result.
 
-\chapter{The Dataset}
+\chapter{Conception}
+
+\chapter{Realization}
+\section{The Dataset}
 Because both Supervised and Unsupervised Classification are required a dataset to train and test, this chapter describes how we obtain and optimize the dataset.
-\section{Fetch all images}
+\subsection{Fetch all images}
 The entire image dataset described on the text file named ”photos.txt” line by line. Each line includes the image id and image description as below:
 \begin{verbatim}
 5a36f382-dbdf-11e6-95fd-d746d863c3eb | Những người ăn xin  | vie
@@ -256,28 +284,283 @@ https://cdn.heobs.org/photo/5a36f382-dbdf-11e6-95fd-d746d863c3eb
 We wrote a python script to automatic read this text file \& download images one by one.
 Totally, we have 142459 images in our dataset.
 
-\section{Remove broken images}
+\subsection{Remove broken images}
 After downloaded \& look around all images, we found that it has a lot of broken images, which can't be displayable. So, we write a python script to filter all of those broken images automatically. \newline
 Finally, we have 89850 images left in our dataset.
 
-\section{Labeling image dataset}
+\subsection{Labeling image dataset}
 It's mandatory to label our images for both Supervised and Unsupervised Classification because with Unsupervised Classification, we need a labeled dataset to validate if the image is classified correct or not. With Supervised Classification, we need a labeled dataset to train \& validate the Neural Network Model.\newline\newline
 Before labeling our images by hand, we need to build a good images dataset, which has the same image resolution. We loop through all our images to filter all images, which has the most common image resolution and reject all others. After this step, we have 55143 images left. \newline\newline
 Finally, we labeling our images by hand and completed our dataset as the table below:\newline\newline
 {\renewcommand{\arraystretch}{2}%
 \noindent\begin{tabularx}{\textwidth}{YYYY}
-  \toprule
+  \hline
 & Being & Heritage & Scenery\\
 N\textsuperscript{o} images & 1471 & 1832 & 942\\
-  \bottomrule
+ \hline
 \end{tabularx}} \quad
 
-\chapter{Unsuppervised Deep Learning}
+\section{Unsuppervised Deep Learning}
 
-Because of when classifying images by hand, it has some special case when one image may refer to more than one class. Thus, we need the machine to help us to make decisions by comparing two images are the same class or not. We also want to separate images of one class into multi unknown sub-classes. So, by using Unsupervised Deep Learning, we want to let the machine to classify a set of images unlabeled into some unknown classes. \newline
-After some research, we found the Unsupervised Deep Embedding for Clustering Analysis\cite{dec} paper, which propose a new method that simultaneously learns feature representations and cluster assignments using deep neural networks to classify unlabeled images. 
+Because of when classifying images by hand, it has some special case when one image may refer to more than one class. Thus, we need the machine to help us to make decisions by comparing two images are the same class or not. We also want to separate images of one class into multi unknown sub-classes. So, by using Unsupervised Deep Learning, we want to let the machine to classify a set of images unlabeled into some unknown classes. \newline\newline
+After some researches about this problem, we found the Unsupervised Deep Embedding for Clustering Analysis (DEC)\cite{dec} paper, which propose a new method that simultaneously learns feature representations and cluster assignments using deep neural networks to classify unlabeled images.\newline\newline
+The DEC has two phases:
+\begin{description}
+\item[Phase 1:]  Parameter initialization with a deep autoencoder
+\item[Phase 2:]  Parameter optimization (i.e., clustering)
+\end{description}
+We already tried to run this implement code with the latest Caffe version (Jul 2017), but it doesn't work because this Caffe model required some deprecated model parameters. However, because of the code delivery with Caffe and Docker, so, we continue to try with Docker and their 
+Caffe version.\newline\newline
+The Dockerfile in the original source code has exception but fixed by the following patch:
+\begin{verbatim}
+ -  liblmdb-dev libboost1.54-all-dev libatlas-base-de
+ +  liblmdb-dev libboost1.54-all-dev libatlas-base-dev
+\end{verbatim}
+\subsection{Trying to run DEC with MNIST dataset}
+We'll first try to test with MNIST dataset - the simplest example provided with the source code.\newline
+In parameter optimization phase, they use KMeans Cluster to try to predict the closest cluster each sample in the test image belongs to. The most important part of this phase is:
+\begin{lstlisting}
+if (Y_pred != Y_pred_last).sum() < 0.001*N:
+    print acc_list
+    return acc, nmi
+\end{lstlisting}
+This is the terminate, the application achive the goal when the current predict (Y\_pred) is not different with the last predict. The value 0.001*N is threshold.
+\subsubsection{Generate the test summary result}
+Currently, the code just show the accuracy of the whole process. We need to write we own function to calculate the accuracy of each classes.
+Because with mnist dataset, we already have the correct label of each image. So, to be able to summary the result, we add the following function to compare between predict \& actual result:
 
-\chapter{Suppervised Deep Learning}
+\begin{lstlisting}
+def show_result(predicts, actuals):
+    summary = {}
+    for idx, value in enumerate(actuals):
+        actual = str(value)
+        predict = str(predicts[idx])
+        if actual in summary:
+            if predict in summary[actual]:
+                summary[actual][predict] += 1
+            else:
+                summary[actual][predict] = 1
+        else:
+            summary[actual] = {}
+    print summary
+\end{lstlisting}
+And call this function when the application predict done
+\begin{lstlisting}
+if (Y_pred != Y_pred_last).sum() < 0.001*N:
+     classify_dataset(Y_pred, img, db)
+     show_result(Y_pred, Y)
+     print acc_list
+     return acc, nmi
+\end{lstlisting}
+
+\subsubsection{Classify image dataset into X classes}
+This feature put the images from dataset, which has the same class into one folder. This helps us to easy to verify the classification result
+
+\begin{lstlisting}
+def classify_dataset(predicts, imgs, db):
+    classes_dir = "classes_" + db
+    if not os.path.isdir(classes_dir):
+        os.makedirs(classes_dir)
+    for idex, pred in enumerate(predicts):
+        tmp_dir = os.path.join(classes_dir, str(pred))
+        if not os.path.isdir(tmp_dir):
+            os.makedirs(tmp_dir)
+        dispSingleImg(imgs, idex, os.path.join(tmp_dir, str(idex) + ".jpg"))
+\end{lstlisting}
+We call this function when the application predict done
+\begin{lstlisting}
+if (Y_pred != Y_pred_last).sum() < 0.001*N:
+     classify_dataset(Y_pred, img, db)
+     print acc_list
+     return acc, nmi
+\end{lstlisting}
+
+\subsubsection{Convert binary images into displayable images}
+Because of the images used in the application is stored in binary \& read directly into memory. So, to be able to get the classified result, we've to convert image stored in memory (RAM) to the displayable image file. 
+
+\begin{lstlisting}
+def dispSingleImg(X, n, fname=None):
+    h = X.shape[1]
+    w = X.shape[2]
+    c = X.shape[3]
+    buff = np.zeros((h, w, c), dtype=np.uint8)
+
+    buff[0:h, 0:w, :] = X[n]
+
+    if fname is None:
+        cv2.imshow('a', buff)
+        cv2.waitKey(0)
+    else:
+        cv2.imwrite(fname, buff)
+\end{lstlisting}
+\begin{description}
+\item[X:] array of image dataset
+\item[n:] index of image
+\item[fname:] destination to save
+\end{description}
+
+\subsubsection{Acquire and analytics the test result}
+After run this network model with the \textbf{init.caffemodel}, we acquire the result describe as the following table:
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{| c | c | c | c | c | c | c | c | c | c | c |}
+\hline
+ & Predict 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9\\
+\hline
+Actual 0 & 17 & 35 & 53 & 15 & 1 & 141 & 6629 & 1 & 4 & 6\\
+\hline
+1 & 7658 & 14 & 16 & 8 & 153 & 3 & 1 & 9 & 2 & 3\\
+\hline
+2 & 278 & 15 & 20 & 229 & 6094 & 42 & 73 & 29 & 112 & 87\\
+\hline
+3 & 108 & 128 & 13 & 178 & 171 & 6 & 12 & 23 & 67 & 6434\\
+\hline
+4 & 65 & 8 & 3060 & 8 & 7 & 58 & 3 & 3612 & 4 & 0\\
+\hline
+5 & 60 & 4968 & 41 & 133 & 6 & 54 & 7 & 37 & 13 & 899\\
+\hline
+6 & 233 & 268 & 2 & 37 & 14 & 6124 & 187 & 9 & 0 & 1\\
+\hline
+7 & 251 & 16 & 336 & 17 & 103 & 1 & 22 & 317 & 6226 & 3\\
+\hline
+8 & 167 & 142 & 62 & 5922 & 32 & 36 & 73 & 72 & 23 & 295\\
+\hline
+9 & 80 & 12 & 3624 & 60 & 5 & 16 & 47 & 2910 & 97 & 106\\
+
+\hline
+\end{tabular}
+\caption {Mnist init.caffemodel test result}
+\end{center}
+\end{table}
+
+Because Unsupervised Classification don't know what classes actually are. It just grouping the images, which it think there's the same into one class. So, we've to figure what these classes are.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/mnist_test_result_2}
+\caption{Mnist init.caffemodel test result - correct}
+\label{fig:samplepagoda}
+\end{figure}
+
+As the result above, we can easy to figure out that almost it can predict the images belong to which classes in high performance. Although it has a little confuse when predicting 2 and 7 but we can understand because of this two digit is similar.
+
+Now we know how to receive the result of this implement source code. However, because of Mnist dataset is too simple. It just contains images, which has 28x28 pixel and only black \& white colors while our image Dataset has both bigger and true color. So, we need to try with the more complex Dataset. 
+
+\subsection{Trying to run DEC with STL dataset}
+In the test datasets they provide us has STL dataset, which closest with our Dataset (96 x 96 pixel, true color). We're going to try with this Dataset before try with we own dataset.\\\\
+The application failure when execute \textbf{make\_stl\_data.py} python file to create STL LevelDB because of the "features.pyx" file is not delivery with the source code. 
+The author of DEC mention to this file located at pyvision project\footnote{\href{https://github.com/cvondrick/pyvision/blob/master/vision/features.pyx}{https://github.com/cvondrick/pyvision/blob/master/vision/features.pyx}}. However, when testing this file, we got another error message:
+\begin{verbatim}
+Type Error: "int" object is not iterable
+\end{verbatim}
+As the author say "It's been too long and I almost forgot about it, sorry. But you can try to refer to stackoverflow. I believe you can find your answer"\footnote{\href{https://github.com/piiswrong/dec/issues/1}{https://github.com/piiswrong/dec/issues/1}}. So, after some debug \& research, we found that the problem caused by the parameter of \textbf{function hog} in \textbf{feature.pyx} is an image object. But we provided an numpy object. So, we fixed it by replaced the following line in \textbf{features.pyx}
+\begin{verbatim}
+line 48. 		with, height = im.size
+\end{verbatim}
+by the following line:
+\begin{verbatim}
+line 48. 		with, height = im.shape[:2]
+\end{verbatim}
+Finally, it works. The accuracy result is 35.7\% (35.9\% in the paper).
+
+\subsection{Preparing we own image dataset}
+Because the program require our dataset must be on LevelDB database and in specific format. However, our dataset just contain raw images. So, we have to write we own function to convert our dataset to ther dataset format.\newline\\
+Below is the code we using to generate \& save data into LevelDB:
+\begin{lstlisting}
+import sys
+import os
+import Image
+import numpy as np
+import cv2
+import cv
+from joblib import Parallel, delayed
+import features
+import random
+import dec
+import pdb
+
+def mode():
+    if "MODE" in os.environ:
+        return os.environ['MODE']
+    return 'validate'
+
+
+def load_data(images_dir):
+    ims = [read(os.path.join(images_dir, filename)) for filename in os.listdir(images_dir)]
+    X = np.array(ims, dtype='uint8')
+    n_jobs = 10
+    cmap_size = (6, 10)
+    N = X.shape[0]
+
+    H = np.asarray(Parallel(n_jobs=n_jobs)(delayed(features.hog)(X[i]) for i in xrange(N)))
+
+    H = H.reshape((H.shape[0], H.size / N))
+
+    X_small = np.asarray(Parallel(n_jobs=n_jobs)(delayed(cv2.resize)(X[i], cmap_size) for i in xrange(N)))
+    crcb = np.asarray(Parallel(n_jobs=n_jobs)(delayed(cv2.cvtColor)(X_small[i], cv.CV_RGB2YCrCb) for i in xrange(N)))
+    crcb = crcb[:, :, :, 1:]
+    crcb = crcb.reshape((crcb.shape[0], crcb.size / N))
+
+    feature = np.concatenate(((H - 0.2) * 10.0, (crcb - 128.0) / 10.0), axis=1)
+    print feature.shape
+
+    return feature, X[:, :, :, [2, 1, 0]]
+
+
+def load_label(images_dir, classes, determine):
+    return np.array([get_label(classes, filename, determine) for filename in os.listdir(images_dir)], dtype='uint8')
+
+
+def get_label(classes, filename, determine):
+    if mode() == 'validate':
+        return classes.index(filename.split(determine)[0])
+    return 0
+
+
+def load_named_label(images_dir):
+    return np.array([filename for filename in os.listdir(images_dir)], dtype='str')
+
+if __name__ == '__main__':
+    classes = ["heritage", "being", "scenery"]
+    images_dir = sys.argv[1]
+    read = lambda imname: np.asarray(Image.open(imname).convert("RGB"))
+    if os.path.isdir(images_dir):
+        X_train, img_train = load_data(images_dir)
+        Y = load_label(images_dir, classes, "_")
+        labeled = load_named_label(images_dir)
+        p = np.random.permutation(X_train.shape[0])
+        X_total = X_train[p]
+        Y_total = Y[p]
+        labeled_total = labeled[p]
+        np.save("custom_named_label", labeled_total)
+        img_total = img_train[p]
+        dec.write_db(X_total, Y_total, 'custom_total')
+        dec.write_db(img_total, Y_total, 'custom_img')
+        N = X_total.shape[0] * 4 / 5
+        dec.write_db(X_total[:N], Y_total[:N], 'custom_train')
+        dec.write_db(X_total[N:], Y_total[N:], 'custom_test')
+    else:
+        raise Exception("Please specific image url")
+
+
+\end{lstlisting}
+The dataset must contain all images in the same root folder and each images in the dataset must have the following format :
+\begin{verbatim}
+<image class>_<index>.jpg
+\end{verbatim}
+Run the following command in the source root to create our custom dataset: 
+\begin{verbatim}
+python make_data.py <image dataset path>
+\end{verbatim}
+\subsection{Train with our dataset}
+After train with our dataset, we get accurency 68.74\%
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/unsupervised_large_dataset_result}
+\caption{Unsupervised train result}
+\end{figure}
+\section{Suppervised Deep Learning}
 
 \bibliographystyle{ieeetr}
 \bibliography{bibfile}

@@ -1,0 +1,7 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {1}{Abstraction}{2}{0}{1}
+\beamer@sectionintoc {2}{Capturing Manuscript Images with an AI Eye in Mind}{3}{0}{2}
+\beamer@sectionintoc {3}{Extracting Fragment\IeC {\textquoteright }s Physical Attributes}{5}{0}{3}
+\beamer@subsectionintoc {3}{1}{Preprocessing}{6}{0}{3}
+\beamer@subsectionintoc {3}{2}{Physical measurements}{16}{0}{3}
+\beamer@sectionintoc {4}{An Automatic System for Discovering Joins}{18}{0}{4}
