@@ -1,13 +1,13 @@
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces Images from heobs.org\relax }}{9}{figure.caption.6}
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Images from Heritage repository\relax }}{9}{figure.caption.6}
 \contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{9}{subfigure.1.1}
 \contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{9}{subfigure.1.2}
 \contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{9}{subfigure.1.3}
 \contentsline {subfigure}{\numberline {(d)}{\ignorespaces {}}}{9}{subfigure.1.4}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Scikit-learn algorithm cheat-sheet\relax }}{10}{figure.caption.7}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces An Example CNN architecture for a handwritten digit recognition task.\relax }}{11}{figure.caption.8}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Scikit-learn algorithm cheat-sheet\relax }}{12}{figure.caption.7}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces An Example CNN architecture for a handwritten digit recognition task.\relax }}{12}{figure.caption.8}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Mnist init.caffemodel test result - correct\relax }}{19}{figure.caption.14}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Unsupervised train result\relax }}{23}{figure.caption.15}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Mnist init.caffemodel test result - correct\relax }}{20}{figure.caption.14}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Unsupervised train result\relax }}{24}{figure.caption.15}

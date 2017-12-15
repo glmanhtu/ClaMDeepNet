@@ -122,7 +122,7 @@ Image classification is a field that has many applications in life. It could be 
 Although it already has a lot of algorithms to solve the Image classification problem. However, those (algorithms) are hard to implement and just specific to some domains. With the advent of deep learning, this problem become more easier and obtained a high performance result\cite{o.a.b.penattik.nogueiraj.a.dossantos2015}.
 \\
 \\
-The goal of my internship at LaBRI is research \& implement the Deep learning in Image classification to classify images from \href{https://heobs.org}{heobs.org}. Try to do in different approach, compare them and finally, choose the one which give the best result.
+The goal of my internship at LaBRI is research \& implement the Deep learning in Image classification to classify images from Heritage repository\footnote{\href{https://heobs.org}{https://heobs.org}}. Try to do in different approach, compare them and finally, choose the one which give the best result.
 % Table content
 \tableofcontents
 \listoffigures
@@ -169,21 +169,20 @@ Today the members of the laboratory are grouped in six teams, each one combining
 \end{itemize}
 Within these team, research activities are conducted in partnership with Inria. Besides that, LaBRI also collaborate with many other laboratories and companies on French, European and the international.
 \newpage
-\section{The internship project: Deep Learning Image Classification}
+\section{Heritage Observation project}
+Heritage Observatory is the project has for aim to identify cultural and historical heritages, constitute a specific database, provide a data archive free for all. This platform allows us to receive the breaking news about cultural or historical heritage sites located in regions of the world that we are interesting. In order to do that, the platform will collect a huge of images about the cultural, historical heritage and then classify them into different categories. \\\\
+The Heritage repository contain a huge set of images about vietnamese human, statue, ancient artifacts, building, landscape, etc. But all of them are completed unlabeled. So, the question is: ``How we can classify those images to the right classes and automatic classify the new image, which the machine has never seen to the right class''.\\\\
+The first attempt is to categorize those images into four different classes including:
 
-The internship is intended to be a duration to apply the knowledge to the real environment. It shows the ability synthesis, evaluation and self-research of student. Besides, the student may study the experience from the real working environment. My internship is done under the
-guidance of Mrs Marie BEURTON-AIMAR in a period of six months at LaBRI laboratory.
-The project is working on the Image Classification field. The goal of the project is using Deep Learning to classify all images from \href{https://heobs.org}{https://heobs.org} into 4 classes, include:
 \begin{description}
 \item[Heritage] \hfill \\ A place of cultural, historical, or natural significance for a group or society.
 \item[Beings] \hfill \\ Any form of life, such as a plant or a living creature, whether human or other animal.
 \item[Scenery] \hfill \\ Any form of landscapes which show little or no human activity and are created in the pursuit of a pure, unsullied depiction of nature, also known as scenery.
 \item[Other] \hfill \\ Any other type of image that doesn't represent a photograph, such as painting, illustration, any object.	
 \end{description}
-The administrator of \href{https://heobs.org}{https://heobs.org} has collected a set of 144564 images about vietnamese human, statue, ancient artifacts, building, landscape, etc. But all of them are completed unlabeled. So, the question is: ``How we can classify those images to the right classes and how to automatic classify the new image, which the machine has never seen to the right class''.\\
-The objective of this internship is implementing a method to automatic classify images.
-The method is use deep convolutional neural networks (CNNs or ConvNets) to tackle the remote sensing scene classification task.
+
 \newpage
+\begin{center}
 \begin{figure}[!htb]
 \subfloat[]{%
 \begin{minipage}{\linewidth}
@@ -213,11 +212,21 @@ The method is use deep convolutional neural networks (CNNs or ConvNets) to tackl
   \includegraphics[width=5cm, height=3.5cm]{images/sample/other_202}%
 \end{minipage}%
 }
-  \caption{Images from heobs.org}
+  \caption{Images from Heritage repository}
 \end{figure}
+\end{center}
+
+\newpage
+\section{The internship project}
+
+The internship is intended to be a duration to apply academic knowledge to professional environment. It shows the ability synthesis, evaluation and self-research of student. Besides, the student may study the experience from the real working environment. My internship is done under the guidance of Mrs Marie BEURTON-AIMAR in a period of six months at LaBRI laboratory.\\\\
+The objective of this internship is implementing a method to automatize the classification of images.\\\\
+The goal is to use deep convolutional neural networks (CNNs or ConvNets) to tackle the remote sensing scene classification task.\\\\
+\newpage
 
 \chapter{Analysis}
-In this part, we will explain how we choose the aglorithms to solve our problem and describe what is each one.
+\section{State of the art}
+Labeling an image according to a set of semantic categories is the goal of image classification. This is a very challenging problem because of the characteristic of a given class may present a large variability and the objects may appear at different position, scales, and orientations. Moreover, the same objects can be found in images belonging to different classes.
 \section{Scikit-learn algorithm cheat-sheet\cite{scikitlearn.org}}
 Because it has many algorithms has able to classify images such as: Decision tree\cite{j.r.quinlan1985}, SVM\cite{stever.gunn1998}, K-nearest neighbors\cite{orenanavakfiry.levy2017}, etc. We need to find a right one to solve our problem. The Scikit-learn had made an algorithm cheat-sheet to help us to choose the right one:
 
@@ -266,6 +275,7 @@ Because they have the same kind of goal with our project, so, we will try to imp
 
 \chapter{Realization}
 \section{The Dataset}
+\label{chap:dataset}
 Because both Supervised and Unsupervised Classification are required a dataset to train and test, this chapter describes how we obtain and optimize the dataset.
 \subsection{Fetch all images}
 The entire image dataset described on the text file named ”photos.txt” line by line. Each line includes the image id and image description as below:
@@ -560,7 +570,16 @@ After train with our dataset, we get accurency 68.74\%
 \includegraphics[width=1\textwidth]{images/unsupervised_large_dataset_result}
 \caption{Unsupervised train result}
 \end{figure}
+
+\subsection{Classify the whole images}
+..........................
 \section{Suppervised Deep Learning}
+Supervised deep learning requires us to provide a training dataset, which includes a list of images labeled. However, our images are not, and we can't classify the entire dataset by hand. So, we propose the following method, which includes three steps:
+\begin{itemize}
+\item Train a Convolution Neural Network (CNN) model with a part of images based on the original images, which we already done in \autoref{chap:dataset}
+\item Use the CNN model trained above to classify the entire original images
+\item Calculate the performance of the classification by random images in each class to review
+\end{itemize}
 
 \bibliographystyle{ieeetr}
 \bibliography{bibfile}

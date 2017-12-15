@@ -8,7 +8,7 @@
 \usepackage{subfig}
 \usepackage{float}
 
-\title[LaBRi]{Overview of paper \\Automatic Extraction of Catalog Data from Digital Images of Historical Manuscripts}
+\title[LaBRi]{Deep learning meets the old times}
 \author[Tu VU]{} % Your name
 \institute[LaBRi]{}
 \date{\today}
@@ -18,131 +18,163 @@
 %\institute{} 
 %\date{} 
 %\subject{} 
-\AtBeginSubsection[]
-{
-  \begin{frame}<beamer>{Outline}
-    \tableofcontents[currentsection,currentsubsection]
-  \end{frame}
-}
-\AtBeginSection[]
-{
-  \begin{frame}<beamer>{Outline}
-    \tableofcontents[currentsection]
-  \end{frame}
-}
 \begin{document}
-
 \begin{frame}
 \titlepage
 \end{frame}
 
-\section{Abstraction}
-
-\section{Capturing Manuscript Images with an AI Eye in Mind}
-\begin{frame}{Capturing images standardized automatic processing}
-\begin{itemize}
-\item Conservation
-\item Accessibility
-\item Manipulability
-\item Image Processing
-\item Background
-\item Ruler
-\end{itemize}
-\end{frame}
-
-\section{Extracting Fragment’s Physical Attributes}
-\subsection{Preprocessing}
-\begin{frame}{Computing image dpi}
-\begin{itemize}
-\item A reference image of the ruler was photographed independently
-\item The identification is done by employing a randomized algorithm: RANSAC
-(Fischler and Bolles, 1981), combines with scale-invariant feature transform (SIFT) keypoint matching (Lowe, 2004)
-\item For the latter task, a classical method such as the binarization method of (Sauvola and Pietikäinen, 2000) that also contains a method for identifying textual regions could be used
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Separating foreground from background}
-The goal of this step is to detect the image of the fragment itself, isolating it from the accompanying background
-\begin{itemize}
-\item an automatic classifier was first applied to identify foreground pixels (in contrast to background ones Figure \ref{fig:contrast}) based on RGB color values (or HSV values)
-\item create a region-based segmentation of the fragment(s), the connected components of the detected foreground pixels were marked
-\item the convex hull of each component calculated (connected component = a contiguous region of foreground pixels; convex hull = the smallest possible encompassing polygon with angles opening inward)
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\begin{figure}[H]
-	\subfloat[\label{fig:contrasta}]{
-       \includegraphics[width=0.35\textwidth]{images/1a.JPG}
-     }
-     \hfill
-     \subfloat[\label{fig:contrastb}]{
-       \includegraphics[width=0.35\textwidth]{images/1b.JPG}
-     }\\
-     \caption{(a) Fragment from the Strasbourg collection with label, clip and weight bags vs. (b) one from the British Library using a contrasting color}\label{fig:contrast}
+\section{Heritage Repository}
+\begin{frame}{Heritage Repository}
+Images from Heritage repository
+\begin{figure}[!htb]
+\captionsetup[subfigure]{labelformat=empty}
+\subfloat[]{%
+\begin{minipage}{\linewidth}
+  \includegraphics[height=2.5cm]{images/sample/being_6}\hfill
+  \includegraphics[height=2.5cm]{images/sample/scenery_111}\hfill
+  \includegraphics[height=2.5cm]{images/sample/being_45}%
+\end{minipage}%
+}\par
+\subfloat[]{%
+\begin{minipage}{\linewidth}
+  \includegraphics[height=2.5cm]{images/sample/heritage_145}\hfill
+  \includegraphics[height=2.5cm]{images/sample/other_202}\hfill
+  \includegraphics[height=2.5cm]{images/sample/heritage_282}%
+\end{minipage}%
+}
 \end{figure}
 \end{frame}
 
-\begin{frame}{Detecting and removing irrelevant components}
-\begin{itemize}
-\item In some collections, The system detected the binders (Figure \ref{fig:binder}) by the combination of their color and shape, and removed them from the image
-\item In other collections, images included a label (Figure \ref{fig:contrasta})
-with the fragment’s shelfmark. These labels were also detected by the
-system and ignored
-\end{itemize}
+\begin{frame}{Heritage Repository}
+Images from Heritage repository
+\begin{figure}[!htb]
+\captionsetup[subfigure]{labelformat=empty}
+
+\begin{minipage}{0.25\linewidth}
+  \includegraphics[height=2.5cm]{images/sample/being_6}\hfill
+  \caption*{Being}
+\end{minipage}
+\hfill
+\begin{minipage}{0.30\linewidth}
+  \includegraphics[height=2.5cm]{images/sample/scenery_111}\hfill
+  \caption*{Scenery}
+\end{minipage}%
+\hfill
+\begin{minipage}{0.31\linewidth}
+  \includegraphics[height=2.5cm]{images/sample/being_45}%
+  \caption*{Being}
+\end{minipage}%
+\par
+
+\begin{minipage}{0.25\linewidth}
+  \includegraphics[height=2.5cm]{images/sample/heritage_145}\hfill
+  \caption*{Heritage}
+\end{minipage}
+\hfill
+\begin{minipage}{0.30\linewidth}
+  \includegraphics[height=2.5cm]{images/sample/other_202}\hfill
+  \caption*{Other}
+\end{minipage}%
+\hfill
+\begin{minipage}{0.31\linewidth}
+  \includegraphics[height=2.5cm]{images/sample/heritage_282}%
+  \caption*{Heritage}
+\end{minipage}%
+
+\end{figure}
 \end{frame}
 
-\begin{frame}
+\section{Supervision Deep Learning}
+\subsection{Convolution Neural Networks}
+
+\begin{frame}{Convolution Neural Networks}
 \begin{figure}
-\includegraphics[width=0.8\textwidth]{images/2.JPG}
-\caption{Fragment from the JTS collection with a black binder.}\label{fig:binder}
+\includegraphics[width=\textwidth]{images/Deep-Neural-Network-What-is-Deep-Learning-Edureka}
 \end{figure}
 \end{frame}
 
-\begin{frame}{Separating multi-fragment images into components}
+\subsection{CNN Model Architecture}
+\begin{frame}{CNN Model Architecture}
 \begin{itemize}
-\item In many cases, more than one fragment was captured in a single image (Figure \ref{fig:multifragment})
-\item Each fragment (a “component” of the image) was identified and given a unique identifier (serial number) and handled independently.
-\item However, there was a need to relate the components in the recto image of a fragment to the ones in its verso image (so as to have the same identifiers for both images)
-\item This was done automatically by mirroring one image and matching the components in both images by size and shape
+	\item Googlenet Model Architecture
+	\begin{itemize}
+		\item Winner of ILSVRC 2014
+		\item Total 163 layers
+	\end{itemize}
 \end{itemize}
-\end{frame}
-
-\begin{frame}
 \begin{figure}
-\includegraphics[height=0.6\textwidth]{images/3.JPG}
-\caption{Multiple fragments in one image.}\label{fig:multifragment}
+\includegraphics[width=\textwidth]{images/googlenet_diagram}
 \end{figure}
 \end{frame}
 
-\begin{frame}{Binarization}
+\begin{frame}{CNN Model Architecture}
 \begin{itemize}
-\item The regions detected are then binarized, that is, every ink pixel is assigned a value of 1(representing black), and all other pixels are assigned a value of 0 (for white)
-\item This is done using the auto-binarization tool of the ImageXpress 9.0 package by Accusoft Pegasus
-\item ??
+	\item Alexnet Model Architecture
+	\begin{itemize}
+		\item Winner of ILSVRC 2012
+		\item Total 26 layers
+	\end{itemize}
 \end{itemize}
+\begin{figure}
+\includegraphics[width=\textwidth]{images/Figure-5-AlexNet-Architecture}
+\end{figure}
 \end{frame}
 
-\begin{frame}{Auto-alignment}
-\begin{itemize}
-\item Most cases fragments were imaged placed upright, in many other cases the fragment was tilted.
-\item The need for alignment is two-fold:
-\begin{itemize}
-\item first, to enable the correct measurement of the fragment’s various attributes
-\item second, to enable proper application of the handwriting-matching algorithm
-\end{itemize}
-\item Alignment is achieved by rotating the image until the lines of text are horizontal, using a simple method akin to those in (Baird, 1992, Srihari and Govindaraju, 1989)
-\end{itemize}
+\subsection{Transfer Learning}
+\begin{frame}{Transfer Learning}
+\begin{figure}
+\includegraphics[width=\textwidth]{images/Training_Deep_Learning_Models_with_Transfer_Learning_thumb}
+\end{figure}
 \end{frame}
 
-\subsection{Physical measurements}
-\begin{frame}{o}
-
+\begin{frame}{Transfer Learning}
+\begin{figure}
+\includegraphics[width=\textwidth]{images/when_finetune.png}
+\end{figure}
 \end{frame}
 
-\section{An Automatic System for Discovering Joins}
-\begin{frame}{o}
-
+\section{Result}
+\begin{frame}{Result}
+\begin{figure}
+\includegraphics[width=\textwidth]{images/final_result.png}
+\end{figure}
 \end{frame}
 
-\end{document}ocument}
+\section{Limitation}
+\begin{frame}{Limitation}
+\begin{figure}[!htb]
+\captionsetup[subfigure]{labelformat=empty}
+
+\begin{minipage}{0.25\linewidth}
+  \includegraphics[height=2.5cm, width=3.8cm]{images/being_heritage_0181}\hfill
+  \caption*{Being}
+\end{minipage}
+\hfill
+\begin{minipage}{0.28\linewidth}
+  \includegraphics[height=2.5cm, width=3.8cm]{images/being_heritage_1116.jpg}\hfill
+  \caption*{Being}
+\end{minipage}%
+\hfill
+\begin{minipage}{0.31\linewidth}
+  \includegraphics[height=2.5cm, width=3.8cm]{images/heritage_being_0487.jpg}%
+  \caption*{Heritage}
+\end{minipage}%
+\par
+
+\begin{minipage}{0.25\linewidth}
+  \includegraphics[height=2.5cm]{images/heritage_scenery_0215.jpg}\hfill
+  \caption*{Heritage}
+\end{minipage}
+\hfill
+\begin{minipage}{0.34\linewidth}
+  \includegraphics[height=2.5cm]{images/scenery_heritage_0073.jpg}\hfill
+  \caption*{Scenery}
+\end{minipage}%
+\end{figure}
+\end{frame}
+
+\begin{frame}{}
+  \centering \Large
+  \emph{Thank you for your attention!}
+\end{frame}
+\end{document}

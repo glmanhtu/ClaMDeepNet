@@ -1,7 +1,8 @@
 \beamer@endinputifotherversion {3.36pt}
-\beamer@sectionintoc {1}{Abstraction}{2}{0}{1}
-\beamer@sectionintoc {2}{Capturing Manuscript Images with an AI Eye in Mind}{3}{0}{2}
-\beamer@sectionintoc {3}{Extracting Fragment\IeC {\textquoteright }s Physical Attributes}{5}{0}{3}
-\beamer@subsectionintoc {3}{1}{Preprocessing}{6}{0}{3}
-\beamer@subsectionintoc {3}{2}{Physical measurements}{16}{0}{3}
-\beamer@sectionintoc {4}{An Automatic System for Discovering Joins}{18}{0}{4}
+\beamer@sectionintoc {1}{Heritage Repository}{2}{0}{1}
+\beamer@sectionintoc {2}{Supervision Deep Learning}{4}{0}{2}
+\beamer@subsectionintoc {2}{1}{Convolution Neural Networks}{4}{0}{2}
+\beamer@subsectionintoc {2}{2}{CNN Model Architecture}{5}{0}{2}
+\beamer@subsectionintoc {2}{3}{Transfer Learning}{7}{0}{2}
+\beamer@sectionintoc {3}{Result}{9}{0}{3}
+\beamer@sectionintoc {4}{Limitation}{10}{0}{4}
