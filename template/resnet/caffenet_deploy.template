@@ -2020,10 +2020,10 @@ layer {
   }
 }
 layer {
-  name: "score"
+  name: "score-ftune"
   type: "InnerProduct"
   bottom: "global_pool"
-  top: "score"
+  top: "score-ftune"
   inner_product_param {
     num_output: ${num_output}
   }
@@ -2031,6 +2031,6 @@ layer {
 layer {
   name: "prob"
   type: "Softmax"
-  bottom: "score"
+  bottom: "score-ftune"
   top: "prob"
 }
