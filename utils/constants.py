@@ -1,4 +1,9 @@
 import os
+
+from network.google_file import GoogleFile
+from utils.utils import workspace
+
+
 class Constant(object):
 
     IMAGE_WIDTH = 227
@@ -27,6 +32,7 @@ class Constant(object):
     # TRAINED_MODEL = "http://dl.caffe.berkeleyvision.org/bvlc_alexnet.caffemodel"
     # TRAINED_MODEL = "http://dl.caffe.berkeleyvision.org/bvlc_reference_caffenet.caffemodel"
     # TRAINED_MODEL = "http://dl.caffe.berkeleyvision.org/bvlc_googlenet.caffemodel"
+    # GG_TRAINED_MODEL = GoogleFile('0B6VgjAr4t_oTTDh2SVJIa2VkZVU', 'resnet50_cvgj_iter_320000.caffemodel', workspace('trained_models/resnet50_cvgj_iter_320000.caffemodel'))
 
     def set_workspace(self, workspace):
         self.WORKSPACE = workspace
