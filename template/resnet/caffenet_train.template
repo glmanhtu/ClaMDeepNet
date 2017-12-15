@@ -3336,10 +3336,10 @@ layer {
   }
 }
 layer {
-  name: "score"
+  name: "score-ftune"
   type: "InnerProduct"
   bottom: "global_pool"
-  top: "score"
+  top: "score-ftune"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -3355,14 +3355,14 @@ layer {
 layer {
   name: "loss"
   type: "SoftmaxWithLoss"
-  bottom: "score"
+  bottom: "score-ftune"
   bottom: "label"
   top: "loss"
 }
 layer {
   name: "accuracy"
   type: "Accuracy"
-  bottom: "score"
+  bottom: "score-ftune"
   bottom: "label"
   top: "accuracy"
   include {
