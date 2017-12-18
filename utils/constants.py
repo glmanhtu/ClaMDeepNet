@@ -28,6 +28,7 @@ class Constant(object):
 
     # If you want to fine tune from other model, specific this constant
     TRAINED_MODEL = ""
+    GG_TRAINED_MODEL = ""
     # TRAINED_MODEL = "http://dl.caffe.berkeleyvision.org/bvlc_alexnet.caffemodel"
     # TRAINED_MODEL = "http://dl.caffe.berkeleyvision.org/bvlc_reference_caffenet.caffemodel"
     # TRAINED_MODEL = "http://dl.caffe.berkeleyvision.org/bvlc_googlenet.caffemodel"

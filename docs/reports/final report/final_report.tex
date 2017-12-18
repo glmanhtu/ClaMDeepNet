@@ -119,7 +119,7 @@ Deep Learning is a subfield of machine learning concerned with algorithms inspir
 Image classification is a field that has many applications in life. It could be useful to categorize images, provide only images which the user are interesting, protect the children from unwanted contents such as violent or sexual. 
 \\
 \\
-Although it already has a lot of algorithms to solve the Image classification problem. However, those (algorithms) are hard to implement and just specific to some domains. With the advent of deep learning, this problem become more easier and obtained a high performance result\cite{o.a.b.penattik.nogueiraj.a.dossantos2015}.
+Although, there are lots of classifiers that exists to solve this problem but, nowadays, Neural Network and Deep Learning provide one of the best solution to many problems in Image processing, and especially in Image classification.
 \\
 \\
 The goal of my internship at LaBRI is research \& implement the Deep learning in Image classification to classify images from Heritage repository\footnote{\href{https://heobs.org}{https://heobs.org}}. Try to do in different approach, compare them and finally, choose the one which give the best result.
@@ -221,17 +221,34 @@ The first attempt is to categorize those images into four different classes incl
 
 The internship is intended to be a duration to apply academic knowledge to professional environment. It shows the ability synthesis, evaluation and self-research of student. Besides, the student may study the experience from the real working environment. My internship is done under the guidance of Mrs Marie BEURTON-AIMAR in a period of six months at LaBRI laboratory.\\\\
 The objective of this internship is implementing a method to automatize the classification of images.\\\\
-The goal is to use deep convolutional neural networks (CNNs or ConvNets) to tackle the remote sensing scene classification task.\\\\
+The goal is to use deep convolutional neural networks (CNNs or ConvNets) to tackle the image classification task.\\\\
 \newpage
 
 \chapter{Analysis}
 \section{State of the art}
-Labeling an image according to a set of semantic categories is the goal of image classification. This is a very challenging problem because of the characteristic of a given class may present a large variability and the objects may appear at different position, scales, and orientations. Moreover, the same objects can be found in images belonging to different classes.
+Labeling an image according to a set of semantic categories is the goal of image classification. This is a very challenging problem because there is usually a large amount of intra-class variability, arising from different lighting conditions, misalignment, non-rigid deformations, occlusion and corruptions. Numerous efforts have been made to counter the intra-class variability by manually designing low-level features for classification tasks. Representative examples are Gabor features and local binary patterns (LBP)\cite{Tan2007} for texture and face classification, SIFT and HOG features for object recognition\cite{6558098}. Although the low-level features can be hand crafted with great success for certain data and tasks, designing effective features for new data and tasks usually requires new domain knowledge because most hand-crafted features cannot
+simply be adapted to new conditions \cite{Hinton:2006:FLA:1161603.1161605}, \cite{DBLP:journals/corr/abs-1206-5538}.\\
 
+Learning features from data of interest is considered as a plausible method of remedying the limitations of hand-crafted features. This rapidly giving way to deep neural networks (DNNs).\\
 
+Artificial neural networks take inspiration from models of the biological brain, and try to reproduce some of its functions by using simple but massively interconnected processing units, the neurons. A typical neural network architecture comprises several layers of neurons feeding one another, by which the ``deep'' attribute. Deep learning has provided impressive results in object recognition and image classification \cite{Krizhevsky:2017:ICD:3098997.3065386} \cite{DBLP:journals/corr/SzegedyLJSRAEVR14} \cite{DBLP:journals/corr/SzegedyVISW15} \cite{DBLP:journals/corr/HeZRS15}, showing always a great potential.\\
 
-\section{Scikit-learn algorithm cheat-sheet\cite{scikitlearn.org}}
-Because it has many algorithms has able to classify images such as: Decision tree\cite{j.r.quinlan1985}, SVM\cite{stever.gunn1998}, K-nearest neighbors\cite{orenanavakfiry.levy2017}, etc. We need to find a right one to solve our problem. The Scikit-learn had made an algorithm cheat-sheet to help us to choose the right one:
+This work adds another piece of evidence in this sense. We use deep convolutional neural networks (CNNs or ConvNets) to tackle the image classification task. Four recently proposed promising architectures, AlexNet \cite{Krizhevsky:2017:ICD:3098997.3065386},  VGG \cite{DBLP:journals/corr/SimonyanZ14a}, GoogLeNet \cite{DBLP:journals/corr/SzegedyLJSRAEVR14} and ResNet \cite{DBLP:journals/corr/HeZRS15}, are considered and tested. To cope with the scarcity of training image dataset, we explore various training modalities: not only the usual training from scratch but
+also the fine-tuning of pre-trained networks. Beside that, we try to modify the CNN parameters to obtain the better result.\\
+
+In this work, we use Caffe\cite{jia2014caffe} as our main library framework since it is one of the most popular libraries for deep learning (convolutional neural networks in particular). It is developed by the Berkeley Vision and Learning Center (BVLC) and community contributors. Caffe is easily customizable through configuration files, easily extendible with new layer types, and provides a very fast ConvNet implementation (leveraging GPUs, if present). It provides C++, Python and MATLAB APIs.
+
+\subsection{General CNN architecture}
+A convolutional network is a neural network that use convolutions. It is a multiplayer network (e. g. it uses several layers). In reality, those kind of network, are dividing in two part. The first one use convolutional layers - layers that use convolution patches to compute weights used in neurons. The second part, used to connect the first part to the output, is made of fully connected layers: every output of a layer is connected to every neurons of the next one without any distinctions.
+\begin{figure}[ht]
+	\includegraphics[scale=1, center]{images/Fig-1-An-Example-CNN-architecture-for-a-handwritten-digit-recognition-task}
+	\caption{An Example CNN architecture for a handwritten digit recognition task.}
+	\label{fig:CNN-architecture}
+\end{figure}\\
+The network architecture of an example CNN is depicted in Fig \ref{fig:CNN-architecture}. The processing starts with feature extraction layers and is finished by fully connected classification layers. Using different layers delivers robust recognition accuracy and is invariant to small geometric transformations of the input images. The robust recognition accuracy makes that CNN are successfully used for classification tasks on real world data.\\
+
+\section{Scikit-learn algorithm cheat-sheet}
+Because it has many algorithms has able to classify images such as: Decision tree\cite{j.r.quinlan1985}, SVM\cite{stever.gunn1998}, K-nearest neighbors\cite{orenanavakfiry.levy2017}, etc. We need to find a right one to solve our problem. The Scikit-learn\cite{scikitlearn.org} had made an algorithm cheat-sheet to help us to choose the right one:
 
 \begin{figure}[ht]
 	\includegraphics[width=\textwidth, center]{images/scikit-learn}
@@ -240,39 +257,19 @@ Because it has many algorithms has able to classify images such as: Decision tre
 \end{figure}
 This algorithm cheat-sheet(see Fig \ref{fig:Scikit-learn}) suggests to use K-mean algorithm to classify our images because of unlabeled images and, the size of our dataset is less than 10K samples. However, one can note that it is mandatory to create a labeled dataset from our unlabeled images by hand and then, we can use SGD Classifier to do it.
 \\
-Finally, two ways are proposed to reach our goal: one is use Supervised Classification with SGD is our main algorithm. The other is use Unsupervised Classification with K-mean is main algorithm. Both of them can be applied by using Convolution Neural Network(CNN).
-\section{General CNN architecture}
-A convolutional network is a neural network that use convolutions. It is a multiplayer network (e. g. it uses several layers). In reality, those kind of network, are dividing in two part. The first one use convolutional layers - layers that use convolution patches to compute weights used in neurons. The second part, used to connect the first part to the output, is made of fully connected layers: every output of a layer is connected to every neurons of the next one without any distinctions.
+Finally, two ways are proposed to reach our goal: one is use Supervised Classification with SGD is our main algorithm. The other is use Unsupervised Classification with K-mean is main algorithm. Both of them can be applied by using Convolution Neural Network(CNN).\newpage
 
-\begin{figure}[ht]
-	\includegraphics[scale=1, center]{images/Fig-1-An-Example-CNN-architecture-for-a-handwritten-digit-recognition-task}
-	\caption{An Example CNN architecture for a handwritten digit recognition task.}
-	\label{fig:CNN-architecture}
-\end{figure}
-The network architecture of an example CNN is depicted in Fig \ref{fig:CNN-architecture}. The processing starts with feature extraction layers and is finished by fully connected classification layers. Using different layers delivers robust recognition accuracy and is invariant to small geometric transformations of the input images. The robust recognition accuracy makes that CNN are successfully used for classification tasks on real world data
-\newpage
-\section{Libraries}
-The fact is, we're unable to do eveything from scratch, CNN's too complex if we want to build it by our self. There have a several libraries for CNN, which developed by some researching labs, universities or companies to help us to make easy to construct and configure our model. Below is some of those libraries:
-\begin{itemize}
-	\item \textbf{Caffe}\footnote{\url{http://caffe.berkeleyvision.org}} a deep learning framework made with expression, speed, and modularity in mind.
-	\item \textbf{Tensorflow}\footnote{\url{https://www.tensorflow.org}} an open source software library for numerical computation using data flow graphs.
-	\item \textbf{Theano}\footnote{\url{http://deeplearning.net/software/theano}} CPU/GPU symbolic expression compiler in python (from MILA lab at University of Montreal)
-	\item \textbf{Keras}\footnote{\url{https://keras.io}} a high-level neural networks API, written in Python and capable of running on top of TensorFlow, CNTK, or Theano.
-	\item \textbf{Torch}\footnote{\url{http://torch.ch}} a scientific computing framework with wide support for machine learning algorithms that puts GPUs first. 
-\end{itemize}
-
-And much more other libraries. So, It’ll be hard to know that which one is the best. However, we all know that they will do well their job. The thing most important here is the network model and the configure parameters. \\
-\\
-So, after some researched, we found many papers, articles relevance with our problem such as: \cite{placesdatabase}, \cite{landclassification}. They implemented Caffe Library. So, we choose \textbf{Caffe} as our library to represent the CNN model since it’s one of the most popular libraries for deep learning (convolutional neural networks in particular). It's developed by the Berkeley Vision and Learning Center (BVLC) and
-community contributors. It’s easily customizable through configuration files, easily extendible with new layer types,
-and provides a very fast ConvNet implementation (leveraging GPUs, if present). It provides C++, Python and MATLAB APIs.
-
-\newpage
+\section{Dataset}
+\subsection{ImageNet}
+\subsection{Heritage Repository}
+\section{Image classification task}
+\subsection{Supervised classification}
+\subsection{Unsupervised classification}
 
 \section{The ImageNet Visual Recognition Challenge}
 
 The ImageNet Visual Recognition Challenge\footnote{\url{http://www.image-net.org/challenges/LSVRC/2012}} is a competition where research teams evaluate their algorithms on the given data set, and compete to achieve higher accuracy on several visual recognition tasks such as Classification, Classification with localization or Fine-grained classification. \\
-Because they have the same kind of goal with our project, so, we will try to implement the CNN model of the winner of this challenge and also try to improve it to get the better result.
+Because they have the same kind of goal as our project, so, we will try to implement the CNN model of the winner of this challenge and also try to improve it to get the better result.
 
 \chapter{Conception}
 
@@ -316,7 +313,7 @@ N\textsuperscript{o} images & 1471 & 1832 & 942\\
 \section{Unsuppervised Deep Learning}
 
 Because of when classifying images by hand, it has some special case when one image may refer to more than one class. Thus, we need the machine to help us to make decisions by comparing two images are the same class or not. We also want to separate images of one class into multi unknown sub-classes. So, by using Unsupervised Deep Learning, we want to let the machine to classify a set of images unlabeled into some unknown classes. \newline\newline
-After some researches about this problem, we found the Unsupervised Deep Embedding for Clustering Analysis (DEC)\cite{dec} paper, which propose a new method that simultaneously learns feature representations and cluster assignments using deep neural networks to classify unlabeled images.\newline\newline
+After some researches about this problem, we found the Unsupervised Deep Embedding for Clustering Analysis (DEC)\cite{DBLP:journals/corr/XieGF15} paper, which propose a new method that simultaneously learns feature representations and cluster assignments using deep neural networks to classify unlabeled images.\newline\newline
 The DEC has two phases:
 \begin{description}
 \item[Phase 1:]  Parameter initialization with a deep autoencoder

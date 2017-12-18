@@ -1,12 +1,52 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
-\bibitem{o.a.b.penattik.nogueiraj.a.dossantos2015}
-O.~Penatti, K.~Nogueira, and J.~dos Santos, ``Do deep features generalize from
-  everyday objects to remote sensing and aerial scenes domains?,'' {\em IEEE
-  Computer Vision and Pattern Recognition Workshops}, p.~44–51, aug 2015.
+\bibitem{Tan2007}
+X.~Tan and B.~Triggs, {\em Fusing Gabor and LBP Feature Sets for Kernel-Based
+  Face Recognition}, pp.~235--249.
+\newblock Berlin, Heidelberg: Springer Berlin Heidelberg, 2007.
 
-\bibitem{scikitlearn.org}
-scikit learn.org, ``Scikit-learn algorithm cheat-sheet.''
+\bibitem{6558098}
+S.~Nigam, M.~Khare, R.~K. Srivastava, and A.~Khare, ``An effective local
+  feature descriptor for object detection in real scenes,'' in {\em 2013 IEEE
+  Conference on Information Communication Technologies}, pp.~244--248, April
+  2013.
+
+\bibitem{Hinton:2006:FLA:1161603.1161605}
+G.~E. Hinton, S.~Osindero, and Y.-W. Teh, ``A fast learning algorithm for deep
+  belief nets,'' {\em Neural Comput.}, vol.~18, pp.~1527--1554, July 2006.
+
+\bibitem{DBLP:journals/corr/abs-1206-5538}
+Y.~Bengio, A.~C. Courville, and P.~Vincent, ``Unsupervised feature learning and
+  deep learning: {A} review and new perspectives,'' {\em CoRR},
+  vol.~abs/1206.5538, 2012.
+
+\bibitem{Krizhevsky:2017:ICD:3098997.3065386}
+A.~Krizhevsky, I.~Sutskever, and G.~E. Hinton, ``Imagenet classification with
+  deep convolutional neural networks,'' {\em Commun. ACM}, vol.~60, pp.~84--90,
+  May 2017.
+
+\bibitem{DBLP:journals/corr/SzegedyLJSRAEVR14}
+C.~Szegedy, W.~Liu, Y.~Jia, P.~Sermanet, S.~E. Reed, D.~Anguelov, D.~Erhan,
+  V.~Vanhoucke, and A.~Rabinovich, ``Going deeper with convolutions,'' {\em
+  CoRR}, vol.~abs/1409.4842, 2014.
+
+\bibitem{DBLP:journals/corr/SzegedyVISW15}
+C.~Szegedy, V.~Vanhoucke, S.~Ioffe, J.~Shlens, and Z.~Wojna, ``Rethinking the
+  inception architecture for computer vision,'' {\em CoRR},
+  vol.~abs/1512.00567, 2015.
+
+\bibitem{DBLP:journals/corr/HeZRS15}
+K.~He, X.~Zhang, S.~Ren, and J.~Sun, ``Deep residual learning for image
+  recognition,'' {\em CoRR}, vol.~abs/1512.03385, 2015.
+
+\bibitem{DBLP:journals/corr/SimonyanZ14a}
+K.~Simonyan and A.~Zisserman, ``Very deep convolutional networks for
+  large-scale image recognition,'' {\em CoRR}, vol.~abs/1409.1556, 2014.
+
+\bibitem{jia2014caffe}
+Y.~Jia, E.~Shelhamer, J.~Donahue, S.~Karayev, J.~Long, R.~Girshick,
+  S.~Guadarrama, and T.~Darrell, ``Caffe: Convolutional architecture for fast
+  feature embedding,'' {\em arXiv preprint arXiv:1408.5093}, 2014.
 
 \bibitem{j.r.quinlan1985}
 J.~QUINLAN, ``Induction of decision trees,'' aug 1985.
@@ -19,19 +59,11 @@ S.~R. Gunn, ``Support vector machines for classification and regression,'' oct
 O.~Anava and K.~Y. Levy, ``k*-nearest neighbors: From global to local,'' jan
   2017.
 
-\bibitem{placesdatabase}
-B.~Zhou, A.~Lapedriza, J.~Xiao, A.~Torralba, and A.~Oliva, ``Learning deep
-  features for scene recognition using places database,'' {\em NIPS
-  Proceedings}, 2014.
+\bibitem{scikitlearn.org}
+scikit learn.org, ``Scikit-learn algorithm cheat-sheet.''
 
-\bibitem{landclassification}
-M.~Castelluccio, G.~Poggi, C.~Sansone, and L.~Verdoliva, ``Land use
-  classification in remote sensing images by convolutional neural networks,''
-  {\em arXiv}, aug 2015.
-
-\bibitem{dec}
-A.~F. Junyuan~Xie, Ross~Girshick, ``Unsupervised deep embedding for clustering
-  analysis,'' {\em ICML'16 Proceedings of the 33rd International Conference on
-  International Conference on Machine Learning}, vol.~48, 2016.
+\bibitem{DBLP:journals/corr/XieGF15}
+J.~Xie, R.~B. Girshick, and A.~Farhadi, ``Unsupervised deep embedding for
+  clustering analysis,'' {\em CoRR}, vol.~abs/1511.06335, 2015.
 
 \end{thebibliography}
