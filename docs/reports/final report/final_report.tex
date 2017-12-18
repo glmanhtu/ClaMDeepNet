@@ -260,11 +260,28 @@ This algorithm cheat-sheet(see Fig \ref{fig:Scikit-learn}) suggests to use K-mea
 Finally, two ways are proposed to reach our goal: one is use Supervised Classification with SGD is our main algorithm. The other is use Unsupervised Classification with K-mean is main algorithm. Both of them can be applied by using Convolution Neural Network(CNN).\newpage
 
 \section{Dataset}
-\subsection{ImageNet}
 \subsection{Heritage Repository}
-\section{Image classification task}
+\label{chap:dataset}
+The Heritage repository contain a huge set of images about vietnamese human, statue, ancient artifacts, building, landscape, etc. We collected all images and build a labeled images dataset based on those images for both supervised classification and unsupervised calssification tasks.
+
+\subsection{ImageNet}
+ImageNet is a dataset of over 15 million labeled high-resolution images belonging to roughly 22,000 categories. The images were collected from the web and labeled by human labelers using Amazon’s Mechanical Turk crowd-sourcing tool. Starting in 2010, as part of the Pascal Visual Object Challenge, an annual competition called the ImageNet Large-Scale Visual Recognition Challenge (ILSVRC) has been held. ILSVRC uses a subset of ImageNet with roughly 1000 images in each of 1000 categories. In all, there are roughly 1.2 million training images, 50,000 validation images, and 150,000 testing images.\\
+
+Because of the similarities between our images (from Heritage Repository) and images from ImageNet. So, we choose to finetune our model from the pre-trained model of this dataset.
+
+\section{Image classification}
 \subsection{Supervised classification}
+Supervised deep learning requires us to provide a training dataset, which includes a list of images labeled. However, our images are not, and we can't classify the entire dataset by hand. So, we propose the following method, which includes three steps:
+\begin{itemize}
+\item Train a Convolution Neural Network (CNN) model with a part of images based on the original images, which we mention in \autoref{chap:dataset}
+\item Use the CNN model trained above to classify the entire original images
+\item Calculate the performance of the classification by random images in each class to review
+\end{itemize}
+
+
 \subsection{Unsupervised classification}
+Because of when classifying images by hand, it has some special case when one image may refer to more than one class. Thus, we need the machine to help us to make decisions by comparing two images are the same class or not. We also want to separate images of one class into multi unknown sub-classes. So, by using Unsupervised Deep Learning, we want to let the machine to classify a set of images unlabeled into some unknown classes. \newline\newline
+In this work, we use the Unsupervised Deep Embedding for Clustering Analysis (DEC)\cite{DBLP:journals/corr/XieGF15}, which propose a new method that simultaneously learns feature representations and cluster assignments using deep neural networks to classify the unlabeled images.
 
 \section{The ImageNet Visual Recognition Challenge}
 
@@ -275,7 +292,6 @@ Because they have the same kind of goal as our project, so, we will try to imple
 
 \chapter{Realization}
 \section{The Dataset}
-\label{chap:dataset}
 Because both Supervised and Unsupervised Classification are required a dataset to train and test, this chapter describes how we obtain and optimize the dataset.
 \subsection{Fetch all images}
 The entire image dataset described on the text file named ”photos.txt” line by line. Each line includes the image id and image description as below:
@@ -311,9 +327,6 @@ N\textsuperscript{o} images & 1471 & 1832 & 942\\
 \end{tabularx}} \quad
 
 \section{Unsuppervised Deep Learning}
-
-Because of when classifying images by hand, it has some special case when one image may refer to more than one class. Thus, we need the machine to help us to make decisions by comparing two images are the same class or not. We also want to separate images of one class into multi unknown sub-classes. So, by using Unsupervised Deep Learning, we want to let the machine to classify a set of images unlabeled into some unknown classes. \newline\newline
-After some researches about this problem, we found the Unsupervised Deep Embedding for Clustering Analysis (DEC)\cite{DBLP:journals/corr/XieGF15} paper, which propose a new method that simultaneously learns feature representations and cluster assignments using deep neural networks to classify unlabeled images.\newline\newline
 The DEC has two phases:
 \begin{description}
 \item[Phase 1:]  Parameter initialization with a deep autoencoder
@@ -574,12 +587,7 @@ After train with our dataset, we get accurency 68.74\%
 \subsection{Classify the whole images}
 ..........................
 \section{Suppervised Deep Learning}
-Supervised deep learning requires us to provide a training dataset, which includes a list of images labeled. However, our images are not, and we can't classify the entire dataset by hand. So, we propose the following method, which includes three steps:
-\begin{itemize}
-\item Train a Convolution Neural Network (CNN) model with a part of images based on the original images, which we already done in \autoref{chap:dataset}
-\item Use the CNN model trained above to classify the entire original images
-\item Calculate the performance of the classification by random images in each class to review
-\end{itemize}
+
 
 \bibliographystyle{ieeetr}
 \bibliography{bibfile}
