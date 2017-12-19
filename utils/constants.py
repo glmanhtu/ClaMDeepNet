@@ -33,7 +33,7 @@ class Constant(object):
     # TRAINED_MODEL = "http://dl.caffe.berkeleyvision.org/bvlc_reference_caffenet.caffemodel"
     # TRAINED_MODEL = "http://dl.caffe.berkeleyvision.org/bvlc_googlenet.caffemodel"
     # TRAINED_MODEL = "http://www.robots.ox.ac.uk/~vgg/software/very_deep/caffe/VGG_ILSVRC_19_layers.caffemodel"
-    # GG_TRAINED_MODEL = GoogleFile('1OqFQWTzYYFjT-J9N3zoQ8UtGC8M4LfxB', 'ResNet-152-model.caffemodel', '/tmp/ResNet-152-model.caffemodel')
+    # GG_TRAINED_MODEL = GoogleFile('1mmUp7vKh5nFIRFUS55EY_wTD1mYwRqG9', 'ResNet-101-model.caffemodel', '/tmp/ResNet-101-model.caffemodel')
 
     def set_workspace(self, workspace):
         self.WORKSPACE = workspace
