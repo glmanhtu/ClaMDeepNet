@@ -411,9 +411,9 @@ layer {
   }
 }
 layer {
-  name: "fc8_finetune"
+  name: "fc8_foodCAT"
   bottom: "fc7"
-  top: "fc8_finetune"
+  top: "fc8_foodCAT"
   type: "InnerProduct"
   inner_product_param {
     num_output: ${num_output}
@@ -422,14 +422,14 @@ layer {
 layer {
   name: "loss"
   type: "SoftmaxWithLoss"
-  bottom: "fc8_finetune"
+  bottom: "fc8_foodCAT"
   bottom: "label"
   top: "loss/loss"
 }
 layer {
   name: "accuracy/top1"
   type: "Accuracy"
-  bottom: "fc8_finetune"
+  bottom: "fc8_foodCAT"
   bottom: "label"
   top: "accuracy@1"
   include: { phase: TEST }
