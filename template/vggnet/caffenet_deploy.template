@@ -386,7 +386,7 @@ layer {
   name: "fc8_foodCAT"
   type: "InnerProduct"
   inner_product_param {
-    num_output: 1000
+    num_output: ${num_output}
   }
 }
 layer {
