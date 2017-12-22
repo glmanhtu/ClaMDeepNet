@@ -1,11 +1,11 @@
-name: "VGG_ILSVRC_19_layers"
+name: "VGG_ILSVRC_19_layer"
 layer {
   name: "data"
   type: "Input"
   top: "data"
   input_param { shape: { dim: 1 dim: 3 dim: ${img_height} dim: ${img_width} } }
 }
-layers {
+layer {
   bottom: "data"
   top: "conv1_1"
   name: "conv1_1"
@@ -16,13 +16,13 @@ layers {
     kernel_size: 3
   }
 }
-layers {
+layer {
   bottom: "conv1_1"
   top: "conv1_1"
   name: "relu1_1"
   type: "ReLU"
 }
-layers {
+layer {
   bottom: "conv1_1"
   top: "conv1_2"
   name: "conv1_2"
@@ -33,13 +33,13 @@ layers {
     kernel_size: 3
   }
 }
-layers {
+layer {
   bottom: "conv1_2"
   top: "conv1_2"
   name: "relu1_2"
   type: "ReLU"
 }
-layers {
+layer {
   bottom: "conv1_2"
   top: "pool1"
   name: "pool1"
@@ -50,7 +50,7 @@ layers {
     stride: 2
   }
 }
-layers {
+layer {
   bottom: "pool1"
   top: "conv2_1"
   name: "conv2_1"
@@ -61,13 +61,13 @@ layers {
     kernel_size: 3
   }
 }
-layers {
+layer {
   bottom: "conv2_1"
   top: "conv2_1"
   name: "relu2_1"
   type: "ReLU"
 }
-layers {
+layer {
   bottom: "conv2_1"
   top: "conv2_2"
   name: "conv2_2"
@@ -78,13 +78,13 @@ layers {
     kernel_size: 3
   }
 }
-layers {
+layer {
   bottom: "conv2_2"
   top: "conv2_2"
   name: "relu2_2"
   type: "ReLU"
 }
-layers {
+layer {
   bottom: "conv2_2"
   top: "pool2"
   name: "pool2"
@@ -95,7 +95,7 @@ layers {
     stride: 2
   }
 }
-layers {
+layer {
   bottom: "pool2"
   top: "conv3_1"
   name: "conv3_1"
@@ -106,13 +106,13 @@ layers {
     kernel_size: 3
   }
 }
-layers {
+layer {
   bottom: "conv3_1"
   top: "conv3_1"
   name: "relu3_1"
   type: "ReLU"
 }
-layers {
+layer {
   bottom: "conv3_1"
   top: "conv3_2"
   name: "conv3_2"
@@ -123,13 +123,13 @@ layers {
     kernel_size: 3
   }
 }
-layers {
+layer {
   bottom: "conv3_2"
   top: "conv3_2"
   name: "relu3_2"
   type: "ReLU"
 }
-layers {
+layer {
   bottom: "conv3_2"
   top: "conv3_3"
   name: "conv3_3"
@@ -140,13 +140,13 @@ layers {
     kernel_size: 3
   }
 }
-layers {
+layer {
   bottom: "conv3_3"
   top: "conv3_3"
   name: "relu3_3"
   type: "ReLU"
 }
-layers {
+layer {
   bottom: "conv3_3"
   top: "conv3_4"
   name: "conv3_4"
@@ -157,13 +157,13 @@ layers {
     kernel_size: 3
   }
 }
-layers {
+layer {
   bottom: "conv3_4"
   top: "conv3_4"
   name: "relu3_4"
   type: "ReLU"
 }
-layers {
+layer {
   bottom: "conv3_4"
   top: "pool3"
   name: "pool3"
@@ -174,7 +174,7 @@ layers {
     stride: 2
   }
 }
-layers {
+layer {
   bottom: "pool3"
   top: "conv4_1"
   name: "conv4_1"
@@ -185,13 +185,13 @@ layers {
     kernel_size: 3
   }
 }
-layers {
+layer {
   bottom: "conv4_1"
   top: "conv4_1"
   name: "relu4_1"
   type: "ReLU"
 }
-layers {
+layer {
   bottom: "conv4_1"
   top: "conv4_2"
   name: "conv4_2"
@@ -202,13 +202,13 @@ layers {
     kernel_size: 3
   }
 }
-layers {
+layer {
   bottom: "conv4_2"
   top: "conv4_2"
   name: "relu4_2"
   type: "ReLU"
 }
-layers {
+layer {
   bottom: "conv4_2"
   top: "conv4_3"
   name: "conv4_3"
@@ -219,13 +219,13 @@ layers {
     kernel_size: 3
   }
 }
-layers {
+layer {
   bottom: "conv4_3"
   top: "conv4_3"
   name: "relu4_3"
   type: "ReLU"
 }
-layers {
+layer {
   bottom: "conv4_3"
   top: "conv4_4"
   name: "conv4_4"
@@ -236,13 +236,13 @@ layers {
     kernel_size: 3
   }
 }
-layers {
+layer {
   bottom: "conv4_4"
   top: "conv4_4"
   name: "relu4_4"
   type: "ReLU"
 }
-layers {
+layer {
   bottom: "conv4_4"
   top: "pool4"
   name: "pool4"
@@ -253,7 +253,7 @@ layers {
     stride: 2
   }
 }
-layers {
+layer {
   bottom: "pool4"
   top: "conv5_1"
   name: "conv5_1"
@@ -264,13 +264,13 @@ layers {
     kernel_size: 3
   }
 }
-layers {
+layer {
   bottom: "conv5_1"
   top: "conv5_1"
   name: "relu5_1"
   type: "ReLU"
 }
-layers {
+layer {
   bottom: "conv5_1"
   top: "conv5_2"
   name: "conv5_2"
@@ -281,13 +281,13 @@ layers {
     kernel_size: 3
   }
 }
-layers {
+layer {
   bottom: "conv5_2"
   top: "conv5_2"
   name: "relu5_2"
   type: "ReLU"
 }
-layers {
+layer {
   bottom: "conv5_2"
   top: "conv5_3"
   name: "conv5_3"
@@ -298,13 +298,13 @@ layers {
     kernel_size: 3
   }
 }
-layers {
+layer {
   bottom: "conv5_3"
   top: "conv5_3"
   name: "relu5_3"
   type: "ReLU"
 }
-layers {
+layer {
   bottom: "conv5_3"
   top: "conv5_4"
   name: "conv5_4"
@@ -315,13 +315,13 @@ layers {
     kernel_size: 3
   }
 }
-layers {
+layer {
   bottom: "conv5_4"
   top: "conv5_4"
   name: "relu5_4"
   type: "ReLU"
 }
-layers {
+layer {
   bottom: "conv5_4"
   top: "pool5"
   name: "pool5"
@@ -332,7 +332,7 @@ layers {
     stride: 2
   }
 }
-layers {
+layer {
   bottom: "pool5"
   top: "fc6"
   name: "fc6"
@@ -341,13 +341,13 @@ layers {
     num_output: 4096
   }
 }
-layers {
+layer {
   bottom: "fc6"
   top: "fc6"
   name: "relu6"
   type: "ReLU"
 }
-layers {
+layer {
   bottom: "fc6"
   top: "fc6"
   name: "drop6"
@@ -356,7 +356,7 @@ layers {
     dropout_ratio: 0.5
   }
 }
-layers {
+layer {
   bottom: "fc6"
   top: "fc7"
   name: "fc7"
@@ -365,13 +365,13 @@ layers {
     num_output: 4096
   }
 }
-layers {
+layer {
   bottom: "fc7"
   top: "fc7"
   name: "relu7"
   type: "ReLU"
 }
-layers {
+layer {
   bottom: "fc7"
   top: "fc7"
   name: "drop7"
@@ -380,7 +380,7 @@ layers {
     dropout_ratio: 0.5
   }
 }
-layers {
+layer {
   bottom: "fc7"
   top: "fc8"
   name: "fc8"
@@ -389,7 +389,7 @@ layers {
     num_output: 1000
   }
 }
-layers {
+layer {
   bottom: "fc8"
   top: "prob"
   name: "prob"
