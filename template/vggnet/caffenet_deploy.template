@@ -382,15 +382,15 @@ layer {
 }
 layer {
   bottom: "fc7"
-  top: "fc8"
-  name: "fc8"
+  top: "fc8_foodCAT"
+  name: "fc8_foodCAT"
   type: "InnerProduct"
   inner_product_param {
     num_output: 1000
   }
 }
 layer {
-  bottom: "fc8"
+  bottom: "fc8_foodCAT"
   top: "prob"
   name: "prob"
   type: "Softmax"
