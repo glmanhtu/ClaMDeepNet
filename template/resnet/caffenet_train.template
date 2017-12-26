@@ -13,7 +13,7 @@ layer {
     }
     data_param {
         source: "${train_lmdb}"
-        batch_size: 32
+        batch_size: 16
         backend: LMDB
     }
 }
