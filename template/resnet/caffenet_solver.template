@@ -1,10 +1,10 @@
 net: "${caffe_train_model}"
 test_iter: 67
 test_interval: 100
-base_lr: 0.001
+base_lr: 0.01
 lr_policy: "step"
 gamma: 0.1
-stepsize: 1000
+stepsize: 3000
 display: 20
 max_iter: 20000
 momentum: 0.9
