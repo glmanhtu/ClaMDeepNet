@@ -15,7 +15,7 @@ from constants import Constant
 
 plt.style.use('ggplot')
 constant = Constant()
-caffe = pycaffe.Caffe()
+caffe = pycaffe
 
 def set_workspace(ws):
     ws = os.path.abspath(ws)

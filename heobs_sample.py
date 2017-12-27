@@ -1,6 +1,6 @@
 import matplotlib
 
-from utils.make_predictions import *
+from utils.pycaffe import Caffe
 from utils.utils import *
 
 matplotlib.use('Agg')
@@ -8,11 +8,11 @@ from network.download_file import DownloadGoogleDrive
 from network.google_file import GoogleFile
 from utils.zip_utils import unzip_with_progress
 from utils.create_lmdb import CreateLmdb
-from utils.pycaffe import Caffe
+sys.path = [pycaffe.caffe_home() + "/python"] + sys.path
+from utils.make_predictions import *
 import os
 
 caffe = Caffe()
-sys.path = [caffe.caffe_home() + "/python"] + sys.path
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
