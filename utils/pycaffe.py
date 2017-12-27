@@ -46,5 +46,9 @@ class Caffe(object):
             command.extend(["-gpu=" + gpu_id()])
 
         command.extend(["2>&1 | tee", log])
+
+        print "\nRun command: \n\n"
+        print command
+        print "\n\n\n"
         execute_command(' '.join(command))
 
