@@ -73,10 +73,10 @@ def collect_result(test_space, test_info):
     result = test_space.workspace("result")
     destination = os.path.join("result",
                                test_info['arch'],
-                               test_info['lr'] + 'lr',
-                               "stepsize-" + test_info['stepsize'],
-                               "train_batch_size-" + test_info['train_batch_size'],
-                               "test_batch_size-" + test_info['test_batch_size']
+                               str(test_info['lr']) + 'lr',
+                               "stepsize-" + str(test_info['stepsize']),
+                               "train_batch_size-" + str(test_info['train_batch_size']),
+                               "test_batch_size-" + str(test_info['test_batch_size'])
                                )
     if test_info['finetune'] != "":
         destination = os.path.join(destination, "finetune")

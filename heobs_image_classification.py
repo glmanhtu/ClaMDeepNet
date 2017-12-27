@@ -76,8 +76,6 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
 
     print "\n\n------------------------TRAINING PHRASE-----------------------------\n\n"
 
-    print "\nWeb app started"
-
     print "\nStarting to train"
     pycaffe.train(caffe_solver, caffe_log, gpu_id, trained_model, ws)
 
