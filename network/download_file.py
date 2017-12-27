@@ -1,13 +1,13 @@
 import urllib2
 import os
 
-from download_google_drive import DownloadGoogleDrive
 from google_file import GoogleFile
+from network import download_google_drive
 from utils.utils import save_checksum
 from utils.percent_visualize import print_progress
 import re
 
-google_download = DownloadGoogleDrive()
+google_download = download_google_drive.DownloadGoogleDrive()
 
 
 def download_file_strategy(url, destination_path):
