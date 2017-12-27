@@ -8,8 +8,8 @@ import numpy as np
 from caffe.proto import caffe_pb2
 import os
 
-from utils.constants import Constant
-from utils.utils import transform_img
+from constants import Constant
+from utils import transform_img
 
 
 def read_mean_data(mean_file):
