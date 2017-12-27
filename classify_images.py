@@ -39,19 +39,19 @@ def get_parallel(test_list):
 
 
 def generate_workspace(test_info):
-    workspace = [test_info['arch'],
-                 test_info['max_iter'],
-                 test_info['img_width'],
-                 test_info['img_height'],
-                 test_info['gpu_id'],
-                 test_info['lr'],
-                 test_info['stepsize'],
-                 test_info['train_batch_size'],
-                 test_info['test_batch_size']]
+    workspace_parts = [test_info['arch'],
+                       test_info['max_iter'],
+                       test_info['img_width'],
+                       test_info['img_height'],
+                       test_info['gpu_id'],
+                       test_info['lr'],
+                       test_info['stepsize'],
+                       test_info['train_batch_size'],
+                       test_info['test_batch_size']]
     if test_info['finetune'] != "":
-        workspace.append("finetune")
+        workspace_parts.append("finetune")
 
-    return os.path.join("workspace", '_'.join(workspace))
+    return os.path.join("workspace", '_'.join(workspace_parts))
 
 
 def copytree(src, dst, symlinks=False, ignore=None):
