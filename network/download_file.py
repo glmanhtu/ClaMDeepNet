@@ -1,10 +1,10 @@
+import hashlib
 import urllib2
 import os
 from sys import getsizeof
 
 from dependencies.requests.requests import sessions
 from google_file import GoogleFile
-from utils.utils import save_checksum, file_already_exists, human_2_bytes
 from utils.percent_visualize import print_progress
 import re
 
@@ -104,3 +104,47 @@ def get_confirm_token(response):
             return value
 
     return None
+
+
+def save_checksum(file_path):
+    read_size = 1024  # You can make this bigger
+    checksum1 = hashlib.md5()
+    with open(file_path, 'rb') as f:
+        data = f.read(read_size)
+        while data:
+            checksum1.update(data)
+            data = f.read(read_size)
+    checksum1 = checksum1.hexdigest()
+    with open(file_path + ".checksum", "w") as text_file:
+        text_file.write(checksum1)
+
+
+def file_already_exists(file_path):
+    if os.path.isfile(file_path):
+        checksum_file = file_path + ".checksum"
+        if os.path.isfile(checksum_file):
+            checksum_original = open(checksum_file, 'r').read()
+            checksum = hashlib.md5(open(file_path, 'rb').read()).hexdigest()
+            if checksum_original == checksum:
+                return True
+            os.remove(checksum_file)
+        os.remove(file_path)
+    return False
+
+
+def human_2_bytes(s):
+    """
+    >>> human2bytes('1M')
+    1048576
+    >>> human2bytes('1G')
+    1073741824
+    """
+    symbols = ('B', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y')
+    letter = s[-1:].strip().upper()
+    num = s[:-1]
+    assert letter in symbols
+    num = float(num)
+    prefix = {symbols[0]:1}
+    for i, s in enumerate(symbols[1:]):
+        prefix[s] = 1 << (i+1)*10
+    return int(num * prefix[letter])

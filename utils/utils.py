@@ -1,16 +1,17 @@
+import numbers
 import os
-import hashlib
+import shutil
 import subprocess
 import sys
-from mako.template import Template
-import cv2
-from constants import Constant
-import numbers
 from subprocess import call
-import shutil
-import pandas as pd
+
+import cv2
 import matplotlib.pylab as plt
+import pandas as pd
+from mako.template import Template
+
 import pycaffe
+from constants import Constant
 
 plt.style.use('ggplot')
 constant = Constant()
@@ -43,37 +44,6 @@ def gpu_id():
     return constant.GPU_ID
 
 
-def file_already_exists(file_path):
-    if os.path.isfile(file_path):
-        checksum_file = file_path + ".checksum"
-        if os.path.isfile(checksum_file):
-            checksum_original = open(checksum_file, 'r').read()
-            checksum = hashlib.md5(open(file_path, 'rb').read()).hexdigest()
-            if checksum_original == checksum:
-                return True
-            os.remove(checksum_file)
-        os.remove(file_path)
-    return False
-
-
-def human_2_bytes(s):
-    """
-    >>> human2bytes('1M')
-    1048576
-    >>> human2bytes('1G')
-    1073741824
-    """
-    symbols = ('B', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y')
-    letter = s[-1:].strip().upper()
-    num = s[:-1]
-    assert letter in symbols
-    num = float(num)
-    prefix = {symbols[0]:1}
-    for i, s in enumerate(symbols[1:]):
-        prefix[s] = 1 << (i+1)*10
-    return int(num * prefix[letter])
-
-
 def py_render_template(template_file, destination_file, **data):
     template = Template(filename=template_file)
     for parameter in data:
@@ -83,19 +53,6 @@ def py_render_template(template_file, destination_file, **data):
     result = template.render(**data)
     with open(destination_file, "w") as text_file:
         text_file.write(result)
-
-
-def save_checksum(file_path):
-    read_size = 1024  # You can make this bigger
-    checksum1 = hashlib.md5()
-    with open(file_path, 'rb') as f:
-        data = f.read(read_size)
-        while data:
-            checksum1.update(data)
-            data = f.read(read_size)
-    checksum1 = checksum1.hexdigest()
-    with open(file_path + ".checksum", "w") as text_file:
-        text_file.write(checksum1)
 
 
 def execute(command):
