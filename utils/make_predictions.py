@@ -8,8 +8,6 @@ from caffe.proto import caffe_pb2
 
 from utils import *
 
-caffe.set_mode_gpu()
-
 
 def read_mean_data(mean_file):
 
@@ -33,7 +31,7 @@ def image_transformers(net, mean_data):
     return transformer
 
 
-def making_predictions(test_img_path, transformer, net):
+def making_predictions(test_img_path, transformer, net, img_width, img_height):
     test_img_paths = [img_path for img_path in glob.glob(test_img_path + "/*jpg")]
 
     test_ids = []
@@ -42,7 +40,7 @@ def making_predictions(test_img_path, transformer, net):
     index = 0
     for img_path in test_img_paths:
         print "processing " + str(index) + "/" + str(total) + " - " + img_path
-        pred_probas = single_making_prediction(img_path, transformer, net)
+        pred_probas = single_making_prediction(img_path, transformer, net, img_width, img_height)
 
         test_ids = test_ids + [img_path.split('/')[-1][:-4]]
         if pred_probas[0][pred_probas.argmax()] < 0.5:
@@ -53,9 +51,9 @@ def making_predictions(test_img_path, transformer, net):
     return [test_ids, predictions]
 
 
-def single_making_prediction(img_path, transformer, net):
+def single_making_prediction(img_path, transformer, net, img_width, img_height):
     img = cv2.imread(img_path, cv2.IMREAD_COLOR)
-    img = transform_img(img, img_width=Constant.IMAGE_WIDTH, img_height=Constant.IMAGE_HEIGHT)
+    img = transform_img(img, img_width=img_width, img_height=img_height)
 
     net.blobs['data'].data[...] = transformer.preprocess('data', img)
     out = net.forward()

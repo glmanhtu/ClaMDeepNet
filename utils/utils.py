@@ -32,18 +32,6 @@ def workspace(path):
     return dir_path
 
 
-def template():
-    if "CAFFE_TEMPLATE" in os.environ:
-        return os.environ['CAFFE_TEMPLATE']
-    return constant.CAFFE_TEMPLATE
-
-
-def gpu_id():
-    if "GPU_ID" in os.environ:
-        return os.environ['GPU_ID']
-    return constant.GPU_ID
-
-
 def py_render_template(template_file, destination_file, **data):
     template = Template(filename=template_file)
     for parameter in data:
@@ -89,7 +77,7 @@ def empty_dir(dir):
     os.makedirs(dir)
 
 
-def draw_curve(caffe_log, image_path):
+def draw_curve(caffe_log, image_path, template):
     cwd = os.getcwd()
     os.chdir(os.path.abspath(caffe_log))
     '''
@@ -127,7 +115,7 @@ def draw_curve(caffe_log, image_path):
     # Adding legend
     plt.legend([train_loss, test_loss, test_accuracy], ['Training Loss', 'Test Loss', 'Test Accuracy'],
                bbox_to_anchor=(1, 0.9))
-    title = 'Net Model ' + template()
+    title = 'Net Model ' + template
     if constant.TRAINED_MODEL != "":
         title += " - Finetune"
     plt.title(title, fontsize=16)

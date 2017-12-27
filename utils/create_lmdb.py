@@ -11,8 +11,7 @@ from utils import *
 
 
 class CreateLmdb(object):
-
-    def create_lmdb(self, train_path, train_lmdb_path, validation_lmdb_path, classes, test_path):
+    def create_lmdb(self, train_path, train_lmdb_path, validation_lmdb_path, classes, test_path, img_width, img_height):
         execute('rm -rf  ' + validation_lmdb_path)
         execute('rm -rf  ' + train_lmdb_path)
         execute('rm -rf  ' + test_path)
@@ -47,7 +46,7 @@ class CreateLmdb(object):
                     img_train.append(img_path)
             random.shuffle(img_train)
             for idx, img in enumerate(img_train):
-                self.save_lmdb(in_txn, idx, img, classes)
+                self.save_lmdb(in_txn, idx, img, classes, img_width, img_height)
 
             print '\n Total images for train: ' + str(len(img_train))
         in_db.close()
@@ -64,7 +63,7 @@ class CreateLmdb(object):
                     img_val.append(img_path)
             random.shuffle(img_val)
             for idx, img in enumerate(img_val):
-                self.save_lmdb(in_txn, idx, img, classes)
+                self.save_lmdb(in_txn, idx, img, classes, img_width, img_height)
 
             print '\n Total images for validate: ' + str(len(img_val))
         in_db.close()
@@ -83,12 +82,12 @@ class CreateLmdb(object):
         print '\n total images for test: ' + str(test_img_count)
         print '\nFinished processing all images'
 
-    def save_lmdb(self, in_txn, in_idx, img_path, classes):
+    def save_lmdb(self, in_txn, in_idx, img_path, classes, img_width, img_height):
         img = cv2.imread(img_path, cv2.IMREAD_COLOR)
-        img = transform_img(img, img_width=Constant.IMAGE_WIDTH, img_height=Constant.IMAGE_HEIGHT)
+        img = transform_img(img, img_width=img_width, img_height=img_height)
         img_class = os.path.basename(img_path).split(Constant.IMAGE_NAME_SEPARATE_CHARACTER)[0]
         label = classes.index(img_class)
-        datum = self.make_datum(img, label)
+        datum = self.make_datum(img, label, img_width, img_height)
         in_txn.put('{:0>5d}'.format(in_idx), datum.SerializeToString())
 
     def divide(self, index, total, percent_classes):
@@ -101,12 +100,11 @@ class CreateLmdb(object):
             if index / float(total) <= percent / 100.0:
                 return idx
 
-
-    def make_datum(self, img, label):
+    def make_datum(self, img, label, img_width, img_height):
         # image is numpy.ndarray format. BGR instead of RGB
         return caffe_pb2.Datum(
             channels=3,
-            width=Constant.IMAGE_WIDTH,
-            height=Constant.IMAGE_HEIGHT,
+            width=img_width,
+            height=img_height,
             label=label,
             data=np.rollaxis(img, 2).tostring())

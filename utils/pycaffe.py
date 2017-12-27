@@ -20,7 +20,7 @@ class Caffe(object):
         execute(command)
         print ("Completed")
 
-    def train(self, solver, log):
+    def train(self, solver, log, gpu_id):
         solver = os.path.abspath(solver)
         log = os.path.abspath(log)
         caffe_bin = caffe_home() + "/build/tools/caffe"
@@ -37,7 +37,7 @@ class Caffe(object):
                 print "trained model already downloaded"
             command.extend(["--weights", trained_model_path])
         if constant.CAFFE_SOLVER == "GPU":
-            command.extend(["-gpu=" + gpu_id()])
+            command.extend(["-gpu=" + gpu_id])
 
         command.extend(["2>&1 | tee", log])
 
