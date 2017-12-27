@@ -2,6 +2,7 @@ import sys
 import threading
 import os
 import shutil
+import csv
 
 from heobs_image_classification import heobs_image_classification
 from utils.workspace import Workspace
@@ -10,22 +11,20 @@ from utils.workspace import Workspace
 def read_test_config(test_config):
     tests = []
     with open(test_config, "r") as ins:
-        for idx, line in enumerate(ins):
-            if idx == 0:
-                continue
-            content = line.strip().split(",")
+        spamreader = csv.reader(ins, delimiter=',', quotechar='"')
+        for row in spamreader:
             tests.append({
-                'arch': content[0],
-                'lr': float(content[1]),
-                'stepsize': int(content[2]),
-                'img_width': int(content[3]),
-                'img_height': int(content[4]),
-                'train_batch_size': int(content[5]),
-                'test_batch_size': int(content[6]),
-                'gpu_id': content[7],
-                'finetune': content[8],
-                'parallel': content[9],
-                'max_iter': int(content[10])
+                'arch': row[0],
+                'lr': float(row[1]),
+                'stepsize': int(row[2]),
+                'img_width': int(row[3]),
+                'img_height': int(row[4]),
+                'train_batch_size': int(row[5]),
+                'test_batch_size': int(row[6]),
+                'gpu_id': row[7],
+                'finetune': row[8],
+                'parallel': row[9],
+                'max_iter': int(row[10])
             })
     return tests
 
