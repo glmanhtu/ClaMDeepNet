@@ -17,20 +17,6 @@ plt.style.use('ggplot')
 constant = Constant()
 caffe = pycaffe
 
-def set_workspace(ws):
-    ws = os.path.abspath(ws)
-    constant.set_workspace(ws)
-    if not os.path.isdir(ws):
-        os.makedirs(ws)
-
-
-def workspace(path):
-    dir_path = constant.get_workspace() + "/" + path
-    file_dir = os.path.dirname(dir_path)
-    if not os.path.isdir(file_dir):
-        os.makedirs(file_dir)
-    return dir_path
-
 
 def py_render_template(template_file, destination_file, **data):
     template = Template(filename=template_file)
@@ -77,7 +63,7 @@ def empty_dir(dir):
     os.makedirs(dir)
 
 
-def draw_curve(caffe_log, image_path, template):
+def draw_curve(caffe_log, image_path, template, trained_model):
     cwd = os.getcwd()
     os.chdir(os.path.abspath(caffe_log))
     '''
@@ -116,7 +102,7 @@ def draw_curve(caffe_log, image_path, template):
     plt.legend([train_loss, test_loss, test_accuracy], ['Training Loss', 'Test Loss', 'Test Accuracy'],
                bbox_to_anchor=(1, 0.9))
     title = 'Net Model ' + template
-    if constant.TRAINED_MODEL != "":
+    if trained_model != "":
         title += " - Finetune"
     plt.title(title, fontsize=16)
     # Saving learning curve
