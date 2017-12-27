@@ -2,7 +2,6 @@ import errno
 import glob
 from shutil import copyfile
 import os
-os.environ['GLOG_minloglevel'] = '2'
 import caffe
 import cv2
 import numpy as np
