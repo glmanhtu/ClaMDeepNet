@@ -3,10 +3,13 @@ import glob
 from shutil import copyfile
 
 import caffe
+import cv2
 import numpy as np
 from caffe.proto import caffe_pb2
+import os
 
-from utils import *
+from utils.constants import Constant
+from utils.utils import transform_img
 
 
 def read_mean_data(mean_file):
