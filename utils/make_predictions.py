@@ -11,6 +11,7 @@ import os
 from constants import Constant
 from utils import transform_img
 
+caffe.set_mode_gpu()
 
 def read_mean_data(mean_file):
 
