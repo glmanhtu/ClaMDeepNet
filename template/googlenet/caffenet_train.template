@@ -8,7 +8,6 @@ layer {
   }
   transform_param {
     mirror: true
-    crop_size: 224
     mean_file: "${mean_file}"
   }
   data_param {
@@ -27,12 +26,11 @@ layer {
   }
   transform_param {
     mirror: false
-    crop_size: 224
     mean_file: "${mean_file}"
   }
   data_param {
     source: "${validation_lmdb}"
-    batch_size: 16
+    batch_size: 50
     backend: LMDB
   }
 }

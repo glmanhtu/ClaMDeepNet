@@ -8,9 +8,13 @@ from constants import Constant
 import numbers
 from subprocess import call
 import shutil
+import pandas as pd
+import matplotlib.pylab as plt
+import pycaffe
 
+plt.style.use('ggplot')
 constant = Constant()
-
+caffe = pycaffe.Caffe()
 
 def set_workspace(ws):
     ws = os.path.abspath(ws)
@@ -128,34 +132,54 @@ def empty_dir(dir):
     os.makedirs(dir)
 
 
-def query_yes_no(question, default="yes"):
-    """Ask a yes/no question via raw_input() and return their answer.
+def draw_curve(caffe_log, image_path):
+    cwd = os.getcwd()
+    os.chdir(os.path.abspath(caffe_log))
+    '''
+        Generating training and test logs
+        '''
+    # Parsing training/validation logs
+    command = caffe.caffe_home() + '/tools/extra/parse_log.sh ' + caffe_log
+    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
+    process.wait()
+    # Read training and test logs
+    train_log_path = caffe_log + '.train'
+    test_log_path = caffe_log + '.test'
+    train_log = pd.read_csv(train_log_path, delim_whitespace=True)
+    test_log = pd.read_csv(test_log_path, delim_whitespace=True)
 
-    "question" is a string that is presented to the user.
-    "default" is the presumed answer if the user just hits <Enter>.
-        It must be "yes" (the default), "no" or None (meaning
-        an answer is required of the user).
+    '''
+    Making learning curve
+    '''
+    plt.figure(figsize=(12, 6), dpi=120)
+    fig, ax1 = plt.subplots()
 
-    The "answer" return value is True for "yes" or False for "no".
-    """
-    valid = {"yes": True, "y": True, "ye": True,
-             "no": False, "n": False}
-    if default is None:
-        prompt = " [y/n] "
-    elif default == "yes":
-        prompt = " [Y/n] "
-    elif default == "no":
-        prompt = " [y/N] "
-    else:
-        raise ValueError("invalid default answer: '%s'" % default)
+    # Plotting training and test losses
+    train_loss, = ax1.plot(train_log['#Iters'], train_log['TrainingLoss'], color='red', alpha=.5)
+    test_loss, = ax1.plot(test_log['#Iters'], test_log['TestLoss'], linewidth=1, color='green')
+    ax1.set_ylim(ymin=0, ymax=1)
+    ax1.set_xlabel('Iterations', fontsize=14)
+    ax1.set_ylabel('Loss', fontsize=14)
+    ax1.tick_params(labelsize=11)
+    # Plotting test accuracy
+    ax2 = ax1.twinx()
+    test_accuracy, = ax2.plot(test_log['#Iters'], test_log['TestAccuracy'], linewidth=1, color='blue')
+    ax2.set_ylim(ymin=0, ymax=1)
+    ax2.set_ylabel('Accuracy', fontsize=14)
+    ax2.tick_params(labelsize=11)
+    # Adding legend
+    plt.legend([train_loss, test_loss, test_accuracy], ['Training Loss', 'Test Loss', 'Test Accuracy'],
+               bbox_to_anchor=(1, 0.9))
+    title = 'Net Model ' + template()
+    if constant.TRAINED_MODEL != "":
+        title += " - Finetune"
+    plt.title(title, fontsize=16)
+    # Saving learning curve
+    plt.savefig(image_path)
 
-    while True:
-        sys.stdout.write(question + prompt)
-        choice = raw_input().lower()
-        if default is not None and choice == '':
-            return valid[default]
-        elif choice in valid:
-            return valid[choice]
-        else:
-            sys.stdout.write("Please respond with 'yes' or 'no' "
-                             "(or 'y' or 'n').\n")
+    '''
+    Deleting training and test logs
+    '''
+    os.remove(train_log_path)
+    os.remove(test_log_path)
+    os.chdir(cwd)

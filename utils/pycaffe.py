@@ -1,6 +1,6 @@
 from network.download_google_drive import DownloadGoogleDrive
 from utils import *
-from network.download_file import download_file
+from network.download_file import download_file, download_file_strategy
 import os
 
 
@@ -28,16 +28,11 @@ class Caffe(object):
 
         command = [caffe_bin, "train", "--solver=" + solver]
 
-        if constant.GG_TRAINED_MODEL:
-            google_download = DownloadGoogleDrive()
-            google_download.download_file_from_google_drive(constant.GG_TRAINED_MODEL)
-            trained_model_path = constant.GG_TRAINED_MODEL.file_path
-            command.extend(["--weights", trained_model_path])
-        elif constant.TRAINED_MODEL != "":
+        if constant.TRAINED_MODEL != "":
             trained_model_path = os.path.join(workspace("trained_models"), "trained_model.caffemodel")
             if not file_already_exists(trained_model_path):
                 print "Downloading trained model"
-                download_file(constant.TRAINED_MODEL, trained_model_path)
+                download_file_strategy(constant.TRAINED_MODEL, trained_model_path)
                 print "Downloaded model"
             else:
                 print "trained model already downloaded"

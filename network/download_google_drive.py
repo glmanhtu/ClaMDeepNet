@@ -13,7 +13,7 @@ def get_confirm_token(response):
     return None
 
 
-def get_file_size(file_name, security_content):
+def get_file_size(security_content):
     pattern = r"<\/a>\s*\(([^)]*)\)"
     match_obj = re.search(pattern, security_content, re.M | re.UNICODE)
     if match_obj is None:
@@ -35,7 +35,7 @@ class DownloadGoogleDrive(object):
         g_session = sessions.Session()
 
         response = g_session.get(self.URL, params={'id': google_file.file_id}, stream=True)
-        file_size = get_file_size(google_file.file_name, response.content)
+        file_size = get_file_size(response.content)
         if file_size is None:
             file_size = getsizeof(response.content)
             self.save_response_content(response, google_file.file_path, file_size)

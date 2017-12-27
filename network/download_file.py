@@ -1,7 +1,22 @@
 import urllib2
 import os
+
+from network.download_google_drive import DownloadGoogleDrive
+from network.google_file import GoogleFile
 from utils.utils import save_checksum
 from utils.percent_visualize import print_progress
+import re
+
+google_download = DownloadGoogleDrive()
+
+
+def download_file_strategy(url, destination_path):
+    if "drive.google.com" in url:
+        file_id = re.findall('id=([^\/]*)', url)[0]
+        train_zip = GoogleFile(file_id, destination_path)
+        google_download.download_file_from_google_drive(train_zip)
+    else:
+        download_file(url, destination_path)
 
 
 def download_file(url, destination_path):

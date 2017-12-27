@@ -30,10 +30,9 @@ class Constant(object):
     TRAINED_MODEL = ""
     GG_TRAINED_MODEL = ""
     # TRAINED_MODEL = "http://dl.caffe.berkeleyvision.org/bvlc_alexnet.caffemodel"
-    # TRAINED_MODEL = "http://dl.caffe.berkeleyvision.org/bvlc_reference_caffenet.caffemodel"
     # TRAINED_MODEL = "http://dl.caffe.berkeleyvision.org/bvlc_googlenet.caffemodel"
     # TRAINED_MODEL = "http://www.robots.ox.ac.uk/~vgg/software/very_deep/caffe/VGG_ILSVRC_19_layers.caffemodel"
-    # GG_TRAINED_MODEL = GoogleFile('1SCZpan_gXPM-wIufyjPRuoQuZpjbbFYr', 'ResNet-50-model.caffemodel', '/tmp/ResNet-50-model.caffemodel')
+    # TRAINED_MODEL = "https://drive.google.com/open?id=1SCZpan_gXPM-wIufyjPRuoQuZpjbbFYr"
 
     def set_workspace(self, workspace):
         self.WORKSPACE = workspace
