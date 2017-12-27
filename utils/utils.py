@@ -33,7 +33,7 @@ def execute(command):
     call(command, shell=True)
 
 
-def execute_command(command):
+def execute_command(command, logger):
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
     # Poll process for new output until finished
@@ -41,8 +41,7 @@ def execute_command(command):
         next_line = process.stdout.readline()
         if next_line == '' and process.poll() is not None:
             break
-        sys.stdout.write(next_line)
-        sys.stdout.flush()
+        logger.debug(next_line)
 
 
 def transform_img(img, img_width, img_height):

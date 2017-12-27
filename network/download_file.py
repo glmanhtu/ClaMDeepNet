@@ -1,12 +1,11 @@
 import hashlib
-import urllib2
 import os
+import re
+import urllib2
 from sys import getsizeof
 
 from dependencies.requests.requests import sessions
 from google_file import GoogleFile
-from utils.percent_visualize import print_progress
-import re
 
 
 class DownloadGoogleDrive(object):
@@ -16,7 +15,6 @@ class DownloadGoogleDrive(object):
     def download_file_from_google_drive(self, google_file):
 
         if file_already_exists(google_file.file_path):
-            print ("File %s already downloaded & verified" % google_file.file_path)
             return
 
         g_session = sessions.Session()
@@ -36,15 +34,12 @@ class DownloadGoogleDrive(object):
             self.save_response_content(response, google_file.file_path, file_size)
 
     def save_response_content(self, response, destination, file_size):
-        print "Downloading %s" % destination
         dl = 0
-        total_length = file_size
         with open(destination, "wb") as f:
             for chunk in response.iter_content(self.CHUNK_SIZE):
                 dl += len(chunk)
                 if chunk:
                     f.write(chunk)
-                    print_progress(dl, total_length, "Progress:", "Complete", 2, 50)
         save_checksum(destination)
 
 
@@ -67,12 +62,8 @@ def download_file(url, destination_path):
     if not os.path.exists(destination_dir):
         os.makedirs(destination_dir)
 
-    file_name = url.split('/')[-1]
     u = urllib2.urlopen(url)
     f = open(destination_path, 'wb')
-    meta = u.info()
-    file_size = int(meta.getheaders("Content-Length")[0])
-    print "Downloading: %s Bytes: %s" % (file_name, file_size)
 
     file_size_dl = 0
     block_sz = 8192
@@ -83,7 +74,6 @@ def download_file(url, destination_path):
 
         file_size_dl += len(f_buffer)
         f.write(f_buffer)
-        print_progress(file_size_dl, file_size, "Progress:", "Complete", 2, 50)
 
     f.close()
     save_checksum(destination_path)

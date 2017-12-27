@@ -7,12 +7,21 @@ from utils.create_lmdb import CreateLmdb
 from utils.make_predictions import *
 from utils.utils import *
 import os
+import logging
 
 
 def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id, lr, stepsize, batchsize_train,
                                batchsize_test, trained_model, ws):
     # type: (str, int, int, int, str, float, int, int, int, str, Workspace) -> None
-    print "Working dir: " + ws.workspace("")
+
+    logger = logging.getLogger(__name__)
+    hdlr = logging.FileHandler(ws.workspace("result/debug.log"))
+    formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+    hdlr.setFormatter(formatter)
+    logger.addHandler(hdlr)
+    logger.setLevel(logging.DEBUG)
+
+    logger.debug("Working dir: %s", ws.workspace(""))
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
     classes = ["being", "heritage", "scenery"]
     train_zip = GoogleFile('0BzL8pCLanAIAd0hBV2NUVHpmckE', ws.workspace('data/heobs_large_dataset.zip'))
@@ -20,15 +29,15 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
     pycaffe = PyCaffe()
     google_download = DownloadGoogleDrive()
 
-    print "\n\n------------------------PREPARE PHRASE----------------------------\n\n"
+    logger.debug("\n\n------------------------PREPARE PHRASE----------------------------\n\n")
 
-    print "Starting download train file"
+    logger.debug("Starting download train file")
     google_download.download_file_from_google_drive(train_zip)
-    print "Finish"
+    logger.debug("Finish")
 
-    print "Extracting train zip file"
+    logger.debug("Extracting train zip file")
     unzip_with_progress(train_zip.file_path, ws.workspace("data/extracted"))
-    print "Finish"
+    logger.debug("Finish")
 
     train_lmdb_path = ws.workspace("data/extracted/train_lmdb")
 
@@ -74,16 +83,16 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
                        stepsize=stepsize,
                        solver_mode=solver_mode)
 
-    print "\n\n------------------------TRAINING PHRASE-----------------------------\n\n"
+    logger.debug("\n\n------------------------TRAINING PHRASE-----------------------------\n\n")
 
-    print "\nStarting to train"
+    logger.debug("\nStarting to train")
     pycaffe.train(caffe_solver, caffe_log, gpu_id, trained_model, ws)
 
-    print "\nTrain completed"
+    logger.debug("\nTrain completed")
 
-    print "\nStarting to test"
+    logger.debug("\nStarting to test")
 
-    print "\n\n------------------------TESTING PHRASE-----------------------------\n\n"
+    logger.debug("\n\n------------------------TESTING PHRASE-----------------------------\n\n")
 
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
@@ -103,9 +112,9 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
     draw_curve(caffe_log, ws.workspace("result/curve.png"), template, trained_model)
     shutil.copyfile(caffe_log, ws.workspace("result/caffe_train.log"))
 
-    print "\n\n-------------------------FINISH------------------------------------\n\n"
+    logger.debug("\n\n-------------------------FINISH------------------------------------\n\n")
 
-    print "\nTest completed"
+    logger.debug("\nTest completed")
 
 
 if __name__ == '__main__':

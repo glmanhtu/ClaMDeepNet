@@ -32,15 +32,12 @@ class CreateLmdb(object):
 
         percent_classes = (80, 10, 10)
 
-        print 'Creating train_lmdb'
-
         in_db = lmdb.open(train_lmdb_path, map_size=int(1e12))
         with in_db.begin(write=True) as in_txn:
             img_train = []
             for clazz in img_list:
                 total_elements = len(img_list[clazz])
                 for in_idx, img_path in enumerate(img_list[clazz]):
-                    print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
                     if self.divide(in_idx, total_elements, percent_classes) != 0:
                         continue
                     img_train.append(img_path)
@@ -48,7 +45,6 @@ class CreateLmdb(object):
             for idx, img in enumerate(img_train):
                 self.save_lmdb(in_txn, idx, img, classes, img_width, img_height)
 
-            print '\n Total images for train: ' + str(len(img_train))
         in_db.close()
 
         in_db = lmdb.open(validation_lmdb_path, map_size=int(1e12))
@@ -57,7 +53,6 @@ class CreateLmdb(object):
             for clazz in img_list:
                 total_elements = len(img_list[clazz])
                 for in_idx, img_path in enumerate(img_list[clazz]):
-                    print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
                     if self.divide(in_idx, total_elements, percent_classes) != 1:
                         continue
                     img_val.append(img_path)
@@ -65,7 +60,6 @@ class CreateLmdb(object):
             for idx, img in enumerate(img_val):
                 self.save_lmdb(in_txn, idx, img, classes, img_width, img_height)
 
-            print '\n Total images for validate: ' + str(len(img_val))
         in_db.close()
 
         os.makedirs(test_path)
@@ -73,14 +67,10 @@ class CreateLmdb(object):
         for clazz in img_list:
             total_elements = len(img_list[clazz])
             for in_idx, img_path in enumerate(img_list[clazz]):
-                print_progress(in_idx, total_elements, "Progress:", "Complete", 2, 50)
                 if self.divide(in_idx, total_elements, percent_classes) != 2:
                     continue
                 copyfile(img_path, os.path.join(test_path, os.path.basename(img_path)))
                 test_img_count += 1
-
-        print '\n total images for test: ' + str(test_img_count)
-        print '\nFinished processing all images'
 
     def save_lmdb(self, in_txn, in_idx, img_path, classes, img_width, img_height):
         img = cv2.imread(img_path, cv2.IMREAD_COLOR)

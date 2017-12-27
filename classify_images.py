@@ -5,6 +5,7 @@ import shutil
 import csv
 
 from heobs_image_classification import heobs_image_classification
+from utils.percent_visualize import print_progress
 from utils.workspace import Workspace
 
 
@@ -93,12 +94,12 @@ if __name__ == '__main__':
     if os.path.isfile(test_config):
         tests = read_test_config(test_config)
         parallels = get_parallel(tests)
-        for parallel in parallels:
+        for idx, parallel in enumerate(parallels):
             threads = []
             workspaces = []
+            print_progress(idx, len(parallels) - 1, "Progress:", "Complete", 2, 50)
             for test in tests:
                 if test['parallel'] == parallel:
-                    print "Starting test: ", test
                     workspace = Workspace(generate_workspace(test))
                     workspaces.append(workspace)
                     thread = threading.Thread(target=heobs_image_classification, args=[
