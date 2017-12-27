@@ -1,8 +1,8 @@
 import urllib2
 import os
 
-from network.download_google_drive import DownloadGoogleDrive
-from network.google_file import GoogleFile
+from download_google_drive import DownloadGoogleDrive
+from google_file import GoogleFile
 from utils.utils import save_checksum
 from utils.percent_visualize import print_progress
 import re
