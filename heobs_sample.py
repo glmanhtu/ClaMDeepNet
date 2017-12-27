@@ -1,7 +1,7 @@
 import matplotlib
 
 matplotlib.use('Agg')
-from network.download_google_drive import DownloadGoogleDrive
+from network.download_file import DownloadGoogleDrive
 from network.google_file import GoogleFile
 from utils.zip_utils import unzip_with_progress
 from utils.create_lmdb import CreateLmdb
