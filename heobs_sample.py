@@ -8,7 +8,6 @@ from network.download_file import DownloadGoogleDrive
 from network.google_file import GoogleFile
 from utils.zip_utils import unzip_with_progress
 from utils.create_lmdb import CreateLmdb
-sys.path = [pycaffe.caffe_home() + "/python"] + sys.path
 from utils.make_predictions import *
 import os
 
