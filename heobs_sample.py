@@ -1,12 +1,14 @@
 import matplotlib
 
+from utils.make_predictions import *
+from utils.utils import *
+
 matplotlib.use('Agg')
 from network.download_file import DownloadGoogleDrive
 from network.google_file import GoogleFile
 from utils.zip_utils import unzip_with_progress
 from utils.create_lmdb import CreateLmdb
 from utils.pycaffe import Caffe
-from curve import *
 import os
 
 caffe = Caffe()
