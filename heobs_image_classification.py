@@ -97,15 +97,26 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
     py_render_template("template/" + template + "/caffenet_deploy.template", caffe_deploy,
                        num_output=len(classes), img_width=img_width, img_height=img_height)
 
+    logger.debug("\nReading mean file")
     mean_data = read_mean_data(mean_proto)
+
+    logger.debug("\nReading neural network model")
     net = read_model_and_weight(caffe_deploy, snapshot_prefix + "_iter_" + str(max_iter) + ".caffemodel")
     transformer = image_transformers(net, mean_data)
+
+    logger.debug("Predicting...")
     prediction = making_predictions(ws.workspace("data/extracted/test"), transformer, net, img_width, img_height)
 
+    logger.debug("Exporting result to csv")
     export_to_csv(prediction, ws.workspace("result/test_result.csv"))
+
+    logger.debug("Exporting predict result to folder")
     export_data(prediction, ws.workspace("data/extracted/test"), ws.workspace("result/data"))
 
+    logger.debug("Drawing curve")
     draw_curve(caffe_log, ws.workspace("result/curve.png"), template, trained_model)
+
+    logger.debug("Moving log")
     shutil.copyfile(caffe_log, ws.workspace("result/caffe_train.log"))
 
     logger.debug("\n\n-------------------------FINISH------------------------------------\n\n")
