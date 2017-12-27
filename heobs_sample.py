@@ -6,7 +6,6 @@ from network.google_file import GoogleFile
 from utils.zip_utils import unzip_with_progress
 from utils.create_lmdb import CreateLmdb
 from utils.pycaffe import Caffe
-import shutil
 from curve import *
 import os
 

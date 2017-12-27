@@ -1,8 +1,8 @@
-import zipfile
-from percent_visualize import print_progress
-import shutil
-from utils import empty_dir
 import os
+import zipfile
+
+from percent_visualize import print_progress
+from utils import empty_dir
 
 
 def unzip_with_progress(file_path, path):

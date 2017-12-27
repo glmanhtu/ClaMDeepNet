@@ -1,12 +1,12 @@
+import errno
 import glob
-import cv2
+from shutil import copyfile
+
 import caffe
 import numpy as np
 from caffe.proto import caffe_pb2
+
 from utils import *
-from constants import Constant
-from shutil import copyfile
-import errno
 
 caffe.set_mode_gpu()
 

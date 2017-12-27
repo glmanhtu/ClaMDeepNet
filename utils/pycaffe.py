@@ -1,7 +1,5 @@
-from network.download_google_drive import DownloadGoogleDrive
+from network.download_file import download_file_strategy
 from utils import *
-from network.download_file import download_file, download_file_strategy
-import os
 
 
 class Caffe(object):

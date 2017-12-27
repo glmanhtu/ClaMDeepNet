@@ -1,10 +1,11 @@
-import numpy as np
-import re
-import click
-import glob, os
-from matplotlib import pylab as plt
+import glob
 import operator
-import ntpath
+import os
+import re
+
+import click
+import numpy as np
+from matplotlib import pylab as plt
 
 
 @click.command()

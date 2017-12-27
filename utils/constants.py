@@ -1,7 +1,5 @@
 import os
 
-from network.google_file import GoogleFile
-
 
 class Constant(object):
 

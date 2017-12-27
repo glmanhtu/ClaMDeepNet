@@ -1,14 +1,13 @@
 import glob
 import random
+from shutil import copyfile
 
-import cv2
 import lmdb
 import numpy as np
 from caffe.proto import caffe_pb2
 
 from percent_visualize import print_progress
 from utils import *
-from shutil import copyfile, rmtree
 
 
 class CreateLmdb(object):
