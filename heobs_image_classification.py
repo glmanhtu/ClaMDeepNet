@@ -94,8 +94,6 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
 
     logger.debug("\n\n------------------------TESTING PHRASE-----------------------------\n\n")
 
-    os.chdir(os.path.dirname(os.path.realpath(__file__)))
-
     py_render_template("template/" + template + "/caffenet_deploy.template", caffe_deploy,
                        num_output=len(classes), img_width=img_width, img_height=img_height)
 
@@ -103,8 +101,6 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
     net = read_model_and_weight(caffe_deploy, snapshot_prefix + "_iter_" + str(max_iter) + ".caffemodel")
     transformer = image_transformers(net, mean_data)
     prediction = making_predictions(ws.workspace("data/extracted/test"), transformer, net, img_width, img_height)
-
-    empty_dir("result")
 
     export_to_csv(prediction, ws.workspace("result/test_result.csv"))
     export_data(prediction, ws.workspace("data/extracted/test"), ws.workspace("result/data"))

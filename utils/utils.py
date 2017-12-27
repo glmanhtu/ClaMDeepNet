@@ -42,6 +42,7 @@ def execute_command(command, logger):
         if next_line == '' and process.poll() is not None:
             break
         logger.debug(next_line)
+        sys.stdout.flush()
 
 
 def transform_img(img, img_width, img_height):
