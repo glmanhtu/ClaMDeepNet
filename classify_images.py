@@ -11,8 +11,9 @@ from utils.workspace import Workspace
 def read_test_config(test_config):
     tests = []
     with open(test_config, "r") as ins:
-        spamreader = csv.reader(ins, delimiter=',', quotechar='"')
-        for row in spamreader:
+        csv_reader = csv.reader(ins, delimiter=',', quotechar='"')
+        next(csv_reader)
+        for row in csv_reader:
             tests.append({
                 'arch': row[0],
                 'lr': float(row[1]),
