@@ -13,7 +13,9 @@ from mako.template import Template
 import pycaffe
 from constants import Constant
 
-plt.style.use('ggplot')
+import matplotlib
+matplotlib.use('Agg')
+
 constant = Constant()
 caffe = pycaffe
 
