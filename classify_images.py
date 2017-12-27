@@ -98,7 +98,7 @@ if __name__ == '__main__':
             workspaces = []
             for test in tests:
                 if test['parallel'] == parallel:
-                    print "Starting test: " + test
+                    print "Starting test: ", test
                     workspace = Workspace(generate_workspace(test))
                     workspaces.append(workspace)
                     thread = threading.Thread(target=heobs_image_classification, args=[
