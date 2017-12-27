@@ -4,7 +4,8 @@ import shutil
 import subprocess
 import sys
 from subprocess import call
-
+import matplotlib
+matplotlib.use('Agg')
 import cv2
 import matplotlib.pylab as plt
 import pandas as pd
@@ -12,9 +13,6 @@ from mako.template import Template
 
 import pycaffe
 from constants import Constant
-
-import matplotlib
-matplotlib.use('Agg')
 
 constant = Constant()
 caffe = pycaffe
