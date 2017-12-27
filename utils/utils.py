@@ -65,7 +65,7 @@ def empty_dir(dir):
 
 def draw_curve(caffe_log, image_path, template, trained_model):
     cwd = os.getcwd()
-    os.chdir(os.path.abspath(caffe_log))
+    os.chdir(os.path.dirname(caffe_log))
     '''
         Generating training and test logs
         '''
