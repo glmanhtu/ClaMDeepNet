@@ -111,5 +111,5 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
 
 if __name__ == '__main__':
 
-    heobs_image_classification("googlenet", 4000, 224, 224, "0", 0.01, 3000, 32, 50, "",
+    heobs_image_classification("googlenet", 1000, 224, 224, "0", 0.01, 3000, 32, 50, "",
                                Workspace(os.path.dirname(os.path.realpath(__file__))))
