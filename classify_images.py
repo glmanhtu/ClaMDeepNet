@@ -40,14 +40,14 @@ def get_parallel(test_list):
 
 def generate_workspace(test_info):
     workspace_parts = [test_info['arch'],
-                       test_info['max_iter'],
-                       test_info['img_width'],
-                       test_info['img_height'],
+                       str(test_info['max_iter']),
+                       str(test_info['img_width']),
+                       str(test_info['img_height']),
                        test_info['gpu_id'],
-                       test_info['lr'],
-                       test_info['stepsize'],
-                       test_info['train_batch_size'],
-                       test_info['test_batch_size']]
+                       str(test_info['lr']),
+                       str(test_info['stepsize']),
+                       str(test_info['train_batch_size']),
+                       str(test_info['test_batch_size'])]
     if test_info['finetune'] != "":
         workspace_parts.append("finetune")
 
