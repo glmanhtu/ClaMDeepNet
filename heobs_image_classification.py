@@ -63,8 +63,8 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
 
     mean_proto = ws.workspace("data/mean.binaryproto")
 
-    pycaffe.compute_image_mean("lmdb", train_lmdb_path, mean_proto)
-    pycaffe.compute_image_mean("lmdb", validation_lmdb_path, mean_proto)
+    pycaffe.compute_image_mean("lmdb", train_lmdb_path, mean_proto, logger)
+    pycaffe.compute_image_mean("lmdb", validation_lmdb_path, mean_proto, logger)
 
     solver_mode = constant.CAFFE_SOLVER
     if "CAFFE_SOLVER" in os.environ:
@@ -86,7 +86,7 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
     logger.debug("\n\n------------------------TRAINING PHRASE-----------------------------\n\n")
 
     logger.debug("\nStarting to train")
-    pycaffe.train(caffe_solver, caffe_log, gpu_id, trained_model, ws)
+    pycaffe.train(caffe_solver, caffe_log, gpu_id, trained_model, ws, logger)
 
     logger.debug("\nTrain completed")
 

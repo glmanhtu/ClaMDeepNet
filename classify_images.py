@@ -100,6 +100,7 @@ if __name__ == '__main__':
             print_progress(idx, len(parallels) - 1, "Progress:", "Complete", 2, 50)
             for test in tests:
                 if test['parallel'] == parallel:
+                    print "Starting test: ", test
                     workspace = Workspace(generate_workspace(test))
                     workspaces.append(workspace)
                     thread = threading.Thread(target=heobs_image_classification, args=[

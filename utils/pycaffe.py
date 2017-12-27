@@ -10,13 +10,13 @@ def caffe_home():
 
 class PyCaffe(object):
 
-    def compute_image_mean(self, backend, lmdb_path, binary_proto_path):
+    def compute_image_mean(self, backend, lmdb_path, binary_proto_path, logger):
         image_mean_bin = caffe_home() + "/build/tools/compute_image_mean"
         lmdb_path = os.path.abspath(lmdb_path)
         binary_proto_path = os.path.abspath(binary_proto_path)
         command = [image_mean_bin, "-backend=" + backend, lmdb_path, binary_proto_path]
         command = ' '.join(command)
-        execute(command)
+        execute_command(command, logger)
 
     def train(self, solver, log, gpu_id, trained_model, ws, logger):
         solver = os.path.abspath(solver)
