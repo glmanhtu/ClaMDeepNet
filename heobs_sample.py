@@ -9,6 +9,9 @@ from utils.pycaffe import Caffe
 from curve import *
 import os
 
+caffe = Caffe()
+sys.path = [caffe.caffe_home() + "/python"] + sys.path
+
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 classes = ["being", "heritage", "scenery"]
@@ -50,7 +53,6 @@ lmdb.create_lmdb(workspace("data/extracted/heobs_large_dataset"), train_lmdb_pat
 
 mean_proto = workspace("data/mean.binaryproto")
 
-caffe = Caffe()
 caffe.compute_image_mean("lmdb", train_lmdb_path, mean_proto)
 caffe.compute_image_mean("lmdb", validation_lmdb_path, mean_proto)
 
