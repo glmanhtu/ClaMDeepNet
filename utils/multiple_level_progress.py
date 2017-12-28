@@ -1,6 +1,6 @@
 import sys
 
-from utils.percent_visualize import print_progress
+from percent_visualize import print_progress
 
 
 class MultipleLevelProgress:
