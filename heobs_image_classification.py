@@ -4,12 +4,14 @@ from utils.hidden_print import HiddenPrints
 from utils.pycaffe import PyCaffe
 from network.download_file import DownloadGoogleDrive
 from network.google_file import GoogleFile
+from utils.stdout_redirector import stdout_redirector
 from utils.zip_utils import unzip_with_progress
 from utils.workspace import Workspace
 from utils.create_lmdb import CreateLmdb
 from utils.make_predictions import *
 from utils.utils import *
 import os
+import io
 import logging
 
 
@@ -112,12 +114,16 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
 
     logger.debug("\nReading neural network model")
 
-    with HiddenPrints():
+    f = io.BytesIO()
+
+    with stdout_redirector(f):
         net = read_model_and_weight(caffe_deploy, snapshot_prefix + "_iter_" + str(max_iter) + ".caffemodel")
         transformer = image_transformers(net, mean_data)
 
         logger.debug("Predicting...")
         prediction = making_predictions(ws.workspace("data/extracted/test"), transformer, net, img_width, img_height)
+
+    logger.debug(f.getvalue().decode('utf-8'))
 
     queue.put(("update", test_id, 100, 100, "exporting data..."))
     logger.debug("Exporting result to csv")
