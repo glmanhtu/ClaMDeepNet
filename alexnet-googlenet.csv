@@ -1,6 +1,6 @@
 Model Architecture,LearningRate,Stepsize,ImageWidth,ImageHeight,TrainBatchSize,TestBatchSize,GPU,FineTune,Parallel,Iterators
 alexnet,0.01,500,227,227,256,50,0,,0,20000
-alexnet,0.01,500,227,227,256,50,1,http://dl.caffe.berkeleyvision.org/bvlc_alexnet.caffemodel,0,1000
+alexnet,0.01,500,227,227,256,50,1,http://dl.caffe.berkeleyvision.org/bvlc_alexnet.caffemodel,0,20000
 alexnet,0.01,1000,227,227,256,50,2,,0,20000
 alexnet,0.01,1000,227,227,256,50,0,http://dl.caffe.berkeleyvision.org/bvlc_alexnet.caffemodel,1,20000
 alexnet,0.01,2000,227,227,256,50,1,,1,20000

@@ -106,7 +106,7 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
     py_render_template("template/" + template + "/caffenet_deploy.template", caffe_deploy,
                        num_output=len(classes), img_width=img_width, img_height=img_height)
 
-    with Silence(stdout=ws.workspace("tmp/output.txt"), mode='w'):
+    with Silence(stderr=ws.workspace("tmp/output.txt"), mode='w'):
         logger.debug("\nReading mean file")
         mean_data = read_mean_data(mean_proto)
 
