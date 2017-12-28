@@ -36,7 +36,7 @@ class MultipleLevelProgress:
         else:
             for i in range(abs(change_pos)):
                 MultipleLevelProgress.up()
-        prefix = "Processing (" + str(progress_index) + "/" + str(self.num_progress) + ") "
-        print_progress(val, self.max_val, prefix, message, bar_length=50)
+        prefix = "|--> (" + str(progress_index) + "/" + str(self.num_progress) + ") "
+        print_progress(val, self.max_val, prefix, message, bar_length=40)
         self.current_pos = progress_index
 
