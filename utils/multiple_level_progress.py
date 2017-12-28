@@ -29,7 +29,7 @@ class MultipleLevelProgress:
     def update(self, progress_index, val, message):
         for i in range(self.num_progress - progress_index):
             MultipleLevelProgress.up()
-        prefix = "Processing (" + progress_index + "/" + self.num_progress + ") "
+        prefix = "Processing (" + str(progress_index) + "/" + str(self.num_progress) + ") "
         print_progress(val, self.max_val, prefix, message, bar_length=50)
         for i in range(self.num_progress - progress_index):
             MultipleLevelProgress.down()
