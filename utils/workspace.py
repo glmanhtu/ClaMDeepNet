@@ -9,7 +9,7 @@ class Workspace:
         pass
 
     def workspace(self, path):
-        dir_path = self.curr_workspace + "/" + path
+        dir_path = os.path.join(self.curr_workspace, path)
         if os.path.isdir(dir_path):
             return dir_path
         file_dir = os.path.dirname(dir_path)

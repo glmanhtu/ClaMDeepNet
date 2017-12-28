@@ -26,7 +26,7 @@ class PyCaffe(object):
         command = [caffe_bin, "train", "--solver=" + solver]
 
         if trained_model != "":
-            trained_model_path = os.path.join(ws.workspace("trained_models"), "trained_model.caffemodel")
+            trained_model_path = ws.workspace("trained_models/trained_model.caffemodel")
             if not file_already_exists(trained_model_path):
                 download_file_strategy(trained_model, trained_model_path)
             command.extend(["--weights", trained_model_path])
