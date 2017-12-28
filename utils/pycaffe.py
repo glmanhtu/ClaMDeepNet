@@ -1,11 +1,13 @@
 from network.download_file import download_file_strategy, file_already_exists
-from utils import *
+import utils
+import os
+from constants import Constant
 
 
 def caffe_home():
     if "CAFFE_ROOT" in os.environ:
         return os.environ['CAFFE_ROOT']
-    return constant.CAFFE_ROOT
+    return Constant.CAFFE_ROOT
 
 
 class PyCaffe(object):
@@ -16,7 +18,7 @@ class PyCaffe(object):
         binary_proto_path = os.path.abspath(binary_proto_path)
         command = [image_mean_bin, "-backend=" + backend, lmdb_path, binary_proto_path]
         command = ' '.join(command)
-        execute_command(command, logger)
+        utils.execute_command(command, logger)
 
     def train(self, solver, log, gpu_id, trained_model, ws, logger, queue, test_id, total_iter):
         solver = os.path.abspath(solver)
@@ -30,9 +32,9 @@ class PyCaffe(object):
             if not file_already_exists(trained_model_path):
                 download_file_strategy(trained_model, trained_model_path)
             command.extend(["--weights", trained_model_path])
-        if constant.CAFFE_SOLVER == "GPU":
+        if Constant.CAFFE_SOLVER == "GPU":
             command.extend(["-gpu=" + gpu_id])
 
         command.extend(["2>&1 | tee", log])
-        execute_train_command(' '.join(command), logger, queue, test_id, total_iter)
+        utils.execute_train_command(' '.join(command), logger, queue, test_id, total_iter)
 
