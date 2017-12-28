@@ -1,11 +1,12 @@
-import sys
-import threading
+import csv
 import os
 import shutil
-import csv
+import sys
+import threading
+import Queue
 
 from heobs_image_classification import heobs_image_classification
-from utils.percent_visualize import print_progress
+from utils.multiple_level_progress import MultipleLevelProgress
 from utils.workspace import Workspace
 
 
@@ -65,6 +66,17 @@ def copytree(src, dst, symlinks=False, ignore=None):
             shutil.copy2(s, d)
 
 
+def reporter(q, nworkers):
+    multiple_level_progress = MultipleLevelProgress(nworkers, 8)
+    while nworkers > 0:
+        msg = q.get()
+        if msg[0] == "update":
+            test_id, current, total, message = msg[1:]
+            multiple_level_progress.update(test_id, current)
+        elif msg[0] == "done":
+            nworkers = nworkers - 1
+
+
 def collect_result(test_space, test_info):
     """
 
@@ -92,15 +104,17 @@ def collect_result(test_space, test_info):
 if __name__ == '__main__':
     test_config = sys.argv[1]
     if os.path.isfile(test_config):
+        queue = Queue.Queue()
         tests = read_test_config(test_config)
         parallels = get_parallel(tests)
+        test_id = 0
+        monitor = threading.Thread(target=reporter, args=(queue, len(tests)))
+        monitor.start()
         for idx, parallel in enumerate(parallels):
             threads = []
             workspaces = []
-            print_progress(idx, len(parallels) - 1, "Progress:", "Complete", 2, 50)
             for test in tests:
                 if test['parallel'] == parallel:
-                    print "Starting test: ", test
                     workspace = Workspace(generate_workspace(test))
                     workspaces.append(workspace)
                     thread = threading.Thread(target=heobs_image_classification, args=[
@@ -114,16 +128,20 @@ if __name__ == '__main__':
                         test['train_batch_size'],
                         test['test_batch_size'],
                         test['finetune'],
-                        workspace
+                        workspace,
+                        queue,
+                        test_id
                     ])
                     thread.start()
                     threads.append(thread)
+                    test_id += 1
             for thread in threads:
                 thread.join()
             for test in tests:
                 if test['parallel'] == parallel:
                     workspace = Workspace(generate_workspace(test))
                     collect_result(workspace, test)
+        monitor.join()
 
     else:
         raise Exception("Please specific test config file")

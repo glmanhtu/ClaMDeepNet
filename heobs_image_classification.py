@@ -1,3 +1,5 @@
+import Queue
+
 from utils.hidden_print import HiddenPrints
 from utils.pycaffe import PyCaffe
 from network.download_file import DownloadGoogleDrive
@@ -12,9 +14,9 @@ import logging
 
 
 def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id, lr, stepsize, batchsize_train,
-                               batchsize_test, trained_model, ws):
-    # type: (str, int, int, int, str, float, int, int, int, str, Workspace) -> None
-
+                               batchsize_test, trained_model, ws, queue, test_id):
+    # type: (str, int, int, int, str, float, int, int, int, str, Workspace, Queue.Queue, int) -> None
+    queue.put(("update", test_id, 1, 8, "starting..."))
     logger = logging.getLogger(__name__)
     hdlr = logging.FileHandler(ws.workspace("result/debug.log"))
     formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
@@ -28,6 +30,7 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
     train_zip = GoogleFile('0BzL8pCLanAIAd0hBV2NUVHpmckE', ws.workspace('data/heobs_large_dataset.zip'))
 
     pycaffe = PyCaffe()
+    queue.put(("update", test_id, 2, 8, "downloading dataset..."))
     google_download = DownloadGoogleDrive()
 
     logger.debug("\n\n------------------------PREPARE PHRASE----------------------------\n\n")
@@ -37,6 +40,7 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
     logger.debug("Finish")
 
     logger.debug("Extracting train zip file")
+    queue.put(("update", test_id, 3, 8, "extracting dataset..."))
     unzip_with_progress(train_zip.file_path, ws.workspace("data/extracted"))
     logger.debug("Finish")
 
@@ -58,12 +62,14 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
 
     snapshot_prefix = ws.workspace("caffe_model/snapshot")
 
+    queue.put(("update", test_id, 4, 8, "creating lmdb..."))
     lmdb = CreateLmdb()
     lmdb.create_lmdb(ws.workspace("data/extracted/heobs_large_dataset"), train_lmdb_path, validation_lmdb_path, classes,
                      test_path, img_width, img_height)
 
     mean_proto = ws.workspace("data/mean.binaryproto")
 
+    queue.put(("update", test_id, 5, 8, "computing image mean..."))
     pycaffe.compute_image_mean("lmdb", train_lmdb_path, mean_proto, logger)
     pycaffe.compute_image_mean("lmdb", validation_lmdb_path, mean_proto, logger)
 
@@ -87,6 +93,7 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
     logger.debug("\n\n------------------------TRAINING PHRASE-----------------------------\n\n")
 
     logger.debug("\nStarting to train")
+    queue.put(("update", test_id, 6, 8, "starting to train..."))
     pycaffe.train(caffe_solver, caffe_log, gpu_id, trained_model, ws, logger)
 
     logger.debug("\nTrain completed")
@@ -95,6 +102,7 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
 
     logger.debug("\n\n------------------------TESTING PHRASE-----------------------------\n\n")
 
+    queue.put(("update", test_id, 7, 8, "starting to test..."))
     py_render_template("template/" + template + "/caffenet_deploy.template", caffe_deploy,
                        num_output=len(classes), img_width=img_width, img_height=img_height)
 
@@ -110,6 +118,7 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
         logger.debug("Predicting...")
         prediction = making_predictions(ws.workspace("data/extracted/test"), transformer, net, img_width, img_height)
 
+    queue.put(("update", test_id, 8, 8, "exporting data..."))
     logger.debug("Exporting result to csv")
     export_to_csv(prediction, ws.workspace("result/test_result.csv"))
 
@@ -122,6 +131,7 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
     logger.debug("\n\n-------------------------FINISH------------------------------------\n\n")
 
     logger.debug("\nTest completed")
+    queue.put(("done", test_id))
 
 
 if __name__ == '__main__':
