@@ -1,18 +1,15 @@
 import Queue
+import logging
 
-from utils.hidden_print import HiddenPrints
-from utils.pycaffe import PyCaffe
 from network.download_file import DownloadGoogleDrive
 from network.google_file import GoogleFile
-from utils.stdout_redirector import stdout_redirector
-from utils.zip_utils import unzip_with_progress
-from utils.workspace import Workspace
 from utils.create_lmdb import CreateLmdb
 from utils.make_predictions import *
+from utils.pycaffe import PyCaffe
+from utils.silence import Silence
 from utils.utils import *
-import os
-import io
-import logging
+from utils.workspace import Workspace
+from utils.zip_utils import unzip_with_progress
 
 
 def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id, lr, stepsize, batchsize_train,
@@ -109,21 +106,19 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
     py_render_template("template/" + template + "/caffenet_deploy.template", caffe_deploy,
                        num_output=len(classes), img_width=img_width, img_height=img_height)
 
-    logger.debug("\nReading mean file")
-    mean_data = read_mean_data(mean_proto)
+    with Silence(stdout=ws.workspace("tmp/output.txt"), mode='w'):
+        logger.debug("\nReading mean file")
+        mean_data = read_mean_data(mean_proto)
 
-    logger.debug("\nReading neural network model")
-
-    f = io.BytesIO()
-
-    with stdout_redirector(f):
+        logger.debug("\nReading neural network model")
         net = read_model_and_weight(caffe_deploy, snapshot_prefix + "_iter_" + str(max_iter) + ".caffemodel")
         transformer = image_transformers(net, mean_data)
 
         logger.debug("Predicting...")
         prediction = making_predictions(ws.workspace("data/extracted/test"), transformer, net, img_width, img_height)
 
-    logger.debug(f.getvalue().decode('utf-8'))
+    with open(ws.workspace("tmp/output.txt"), 'r') as f:
+        logger.debug(f.read())
 
     queue.put(("update", test_id, 100, 100, "exporting data..."))
     logger.debug("Exporting result to csv")
