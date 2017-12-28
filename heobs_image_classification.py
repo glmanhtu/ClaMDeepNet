@@ -113,8 +113,8 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
     logger.debug("Exporting predict result to folder")
     export_data(prediction, ws.workspace("data/extracted/test"), ws.workspace("result/data"))
 
-    logger.debug("Drawing curve")
-    draw_curve(caffe_log, ws.workspace("result/curve.png"), template, trained_model)
+    #logger.debug("Drawing curve")
+    #draw_curve(caffe_log, ws.workspace("result/curve.png"), template, trained_model)
 
     logger.debug("Moving log")
     shutil.copyfile(caffe_log, ws.workspace("result/caffe_train.log"))
