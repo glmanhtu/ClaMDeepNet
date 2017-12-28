@@ -6,7 +6,7 @@ from percent_visualize import print_progress
 class MultipleLevelProgress:
     num_progress = 0
     max_val = 0
-    current_pos = 0
+    max_pos = 0
 
     @staticmethod
     def up():
@@ -28,15 +28,21 @@ class MultipleLevelProgress:
         pass
 
     def update(self, progress_index, val, message):
-        change_pos = progress_index - self.current_pos
 
-        if change_pos > 0:
-            for i in range(abs(change_pos)):
+        if progress_index > self.max_pos:
+            for i in range(progress_index - self.max_pos):
                 MultipleLevelProgress.down()
         else:
-            for i in range(abs(change_pos)):
+            for i in range(self.max_pos - progress_index):
                 MultipleLevelProgress.up()
-        prefix = "Test ID: " + str(progress_index) + " |--> (" + str(progress_index) + "/" + str(self.num_progress) + ") "
+
+        if progress_index >= self.max_pos:
+            self.max_pos = progress_index + 1
+
+        prefix = "ID: " + str(progress_index) + " |--> (" + str(progress_index) + "/" + str(
+            self.num_progress) + ") "
         print_progress(val, self.max_val, prefix, message, bar_length=30)
-        self.current_pos = progress_index
+
+        for i in range(self.max_pos - progress_index):
+            MultipleLevelProgress.down()
 
