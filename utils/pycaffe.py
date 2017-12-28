@@ -18,7 +18,7 @@ class PyCaffe(object):
         command = ' '.join(command)
         execute_command(command, logger)
 
-    def train(self, solver, log, gpu_id, trained_model, ws, logger, queue, total_iter, test_id):
+    def train(self, solver, log, gpu_id, trained_model, ws, logger, queue, test_id, total_iter):
         solver = os.path.abspath(solver)
         log = os.path.abspath(log)
         caffe_bin = caffe_home() + "/build/tools/caffe"
