@@ -1,10 +1,11 @@
-import progressbar
 import sys
+
+from utils.percent_visualize import print_progress
 
 
 class MultipleLevelProgress:
     num_progress = 0
-    progressbars = []
+    max_val = 0
 
     @staticmethod
     def up():
@@ -22,15 +23,14 @@ class MultipleLevelProgress:
         self.num_progress = num_progress
         for progress in range(num_progress):
             MultipleLevelProgress.down()
-            current_progress = progressbar.ProgressBar(maxval=max_val)
-            current_progress.start()
-            self.progressbars.append(current_progress)
+            print_progress(0, max_val, "Processing", "Starting...", bar_length=50)
+            self.max_val = max_val
         pass
 
-    def update(self, progress_index, val):
+    def update(self, progress_index, val, message):
         for i in range(self.num_progress - progress_index):
             MultipleLevelProgress.up()
-        self.progressbars[progress_index].update(val)
+        print_progress(val, self.max_val, "Processing", message, bar_length=50)
         for i in range(self.num_progress - progress_index):
             MultipleLevelProgress.down()
 
