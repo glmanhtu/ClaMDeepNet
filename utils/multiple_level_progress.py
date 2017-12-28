@@ -22,8 +22,8 @@ class MultipleLevelProgress:
     def __init__(self, num_progress, max_val):
         self.num_progress = num_progress
         for progress in range(num_progress):
-            MultipleLevelProgress.down()
             self.max_val = max_val
+        MultipleLevelProgress.down()
         pass
 
     def update(self, progress_index, val, message):
