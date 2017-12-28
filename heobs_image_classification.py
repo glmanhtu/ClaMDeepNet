@@ -16,7 +16,7 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
                                batchsize_test, trained_model, ws, queue, test_id):
     # type: (str, int, int, int, str, float, int, int, int, str, Workspace, Queue.Queue, int) -> None
     queue.put(("update", test_id, 1, 100, "starting..."))
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger(__name__ + str(test_id))
     hdlr = logging.FileHandler(ws.workspace("result/debug.log"))
     formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
     hdlr.setFormatter(formatter)
