@@ -13,6 +13,7 @@ from mako.template import Template
 
 import pycaffe
 from constants import Constant
+import re
 
 constant = Constant()
 caffe = pycaffe
@@ -41,6 +42,34 @@ def execute_command(command, logger):
         next_line = process.stdout.readline()
         if next_line == '' and process.poll() is not None:
             break
+        logger.debug(next_line)
+        sys.stdout.flush()
+
+
+def extract_number_iter_from_log(line):
+    match = re.findall('Iteration\s*(\d+),\s*Testing', line)
+    if len(match) > 0:
+        return int(match[0])
+    return -1
+
+
+def execute_train_command(command, logger, queue, test_id, total_iter):
+    """
+
+    :type logger: Logger
+    :type queue: Queue.Queue
+    """
+    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+    # Poll process for new output until finished
+    while True:
+        next_line = process.stdout.readline()
+        if next_line == '' and process.poll() is not None:
+            break
+        curr_iter = extract_number_iter_from_log(next_line)
+        if curr_iter > -1:
+            queue.put(("update", test_id, 30 + (curr_iter * 60) / total_iter, 100,
+                       "training iter " + str(curr_iter) + "..."))
         logger.debug(next_line)
         sys.stdout.flush()
 

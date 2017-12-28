@@ -18,7 +18,7 @@ class PyCaffe(object):
         command = ' '.join(command)
         execute_command(command, logger)
 
-    def train(self, solver, log, gpu_id, trained_model, ws, logger):
+    def train(self, solver, log, gpu_id, trained_model, ws, logger, queue, total_iter, test_id):
         solver = os.path.abspath(solver)
         log = os.path.abspath(log)
         caffe_bin = caffe_home() + "/build/tools/caffe"
@@ -34,5 +34,5 @@ class PyCaffe(object):
             command.extend(["-gpu=" + gpu_id])
 
         command.extend(["2>&1 | tee", log])
-        execute_command(' '.join(command), logger)
+        execute_train_command(' '.join(command), logger, queue, test_id, total_iter)
 

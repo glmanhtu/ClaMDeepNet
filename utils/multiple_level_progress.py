@@ -23,14 +23,14 @@ class MultipleLevelProgress:
         self.num_progress = num_progress
         for progress in range(num_progress):
             MultipleLevelProgress.down()
-            print_progress(0, max_val, "Processing", "Starting...", bar_length=50)
             self.max_val = max_val
         pass
 
     def update(self, progress_index, val, message):
         for i in range(self.num_progress - progress_index):
             MultipleLevelProgress.up()
-        print_progress(val, self.max_val, "Processing", message, bar_length=50)
+        prefix = "Processing (" + progress_index + "/" + self.num_progress + ") "
+        print_progress(val, self.max_val, prefix, message, bar_length=50)
         for i in range(self.num_progress - progress_index):
             MultipleLevelProgress.down()
 
