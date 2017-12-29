@@ -74,6 +74,8 @@ def reporter(q, nworkers):
             test_id, current, total, message = msg[1:]
             multiple_level_progress.update(test_id, current, message)
         elif msg[0] == "done":
+            test_id = msg[1:]
+            multiple_level_progress.update(test_id, 100, "done")
             nworkers = nworkers - 1
 
 
