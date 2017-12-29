@@ -1,0 +1,14 @@
+net: "${caffe_train_model}"
+test_iter: 67
+test_interval: 100
+base_lr: ${learning_rate}
+display: 50
+max_iter: ${max_iter}
+lr_policy: "step"
+gamma: 0.96
+momentum: 0.9
+weight_decay: 0.0002
+stepsize: ${stepsize}
+snapshot: 1000
+snapshot_prefix: "${snapshot_prefix}"
+solver_mode: ${solver_mode}

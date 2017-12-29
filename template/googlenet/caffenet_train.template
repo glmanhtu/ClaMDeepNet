@@ -2430,16 +2430,18 @@ layer {
     }
   }
 }
+
 layer {
-  name: "loss3/loss"
+  name: "loss"
   type: "SoftmaxWithLoss"
   bottom: "loss3/classifier-ftune"
   bottom: "label"
   top: "loss"
   loss_weight: 1.0
 }
+
 layer {
-  name: "loss3/top-1"
+  name: "accuracy"
   type: "Accuracy"
   bottom: "loss3/classifier-ftune"
   bottom: "label"

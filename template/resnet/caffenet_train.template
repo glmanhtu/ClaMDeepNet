@@ -2628,8 +2628,8 @@ layer {
 layer {
     bottom: "fc1000-ftune"
     bottom: "label"
-    top: "acc/top-1"
-    name: "acc/top-1"
+    top: "accuracy"
+    name: "accuracy"
     type: "Accuracy"
     include {
         phase: TEST
