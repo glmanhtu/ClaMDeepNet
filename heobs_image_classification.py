@@ -6,7 +6,7 @@ from network.google_file import GoogleFile
 from utils.create_lmdb import CreateLmdb
 from utils.make_predictions import *
 from utils.pycaffe import PyCaffe
-from utils.silence import Silence
+from utils.stdout_redirected import stdout_redirected
 from utils.utils import *
 from utils.workspace import Workspace
 from utils.zip_utils import unzip_with_progress
@@ -106,7 +106,7 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
     py_render_template("template/" + template + "/caffenet_deploy.template", caffe_deploy,
                        num_output=len(classes), img_width=img_width, img_height=img_height)
 
-    with Silence(stderr=ws.workspace("tmp/output.txt"), mode='w'):
+    with stdout_redirected(to=ws.workspace("tmp/output.txt")):
         set_caffe_gpu(gpu_id)
         logger.debug("\nReading mean file")
         queue.put(("update", test_id, 91, 100, "reading mean file..."))
