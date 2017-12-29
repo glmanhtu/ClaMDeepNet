@@ -140,7 +140,7 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
         logger.debug("\n\n-------------------------FINISH------------------------------------\n\n")
 
         logger.debug("\nTest completed")
-        queue.put(("done", test_id, ))
+        queue.put(("done", test_id, "completed"))
     except KeyboardInterrupt:
         return
     except:
