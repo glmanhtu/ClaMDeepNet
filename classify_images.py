@@ -110,7 +110,13 @@ if __name__ == '__main__':
         tests = read_test_config(test_config)
         parallels = get_parallel(tests)
         test_id = 0
+
+        print "Starting..."
+        print "Total tests: %d" % len(tests)
+        print "Total parallel: %d" % len(parallels)
+
         monitor = threading.Thread(target=reporter, args=(queue, len(tests)))
+        monitor.setDaemon(True)
         monitor.start()
         for idx, parallel in enumerate(parallels):
             threads = []
@@ -143,7 +149,6 @@ if __name__ == '__main__':
                 if test['parallel'] == parallel:
                     workspace = Workspace(generate_workspace(test))
                     collect_result(workspace, test)
-        monitor.join()
 
     else:
         raise Exception("Please specific test config file")
