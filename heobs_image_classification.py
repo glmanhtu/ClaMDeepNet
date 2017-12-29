@@ -107,14 +107,18 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
                        num_output=len(classes), img_width=img_width, img_height=img_height)
 
     with Silence(stderr=ws.workspace("tmp/output.txt"), mode='w'):
+        set_caffe_gpu(gpu_id)
         logger.debug("\nReading mean file")
+        queue.put(("update", test_id, 91, 100, "reading mean file..."))
         mean_data = read_mean_data(mean_proto)
 
         logger.debug("\nReading neural network model")
+        queue.put(("update", test_id, 92, 100, "reading cnn model..."))
         net = read_model_and_weight(caffe_deploy, snapshot_prefix + "_iter_" + str(max_iter) + ".caffemodel")
         transformer = image_transformers(net, mean_data)
 
         logger.debug("Predicting...")
+        queue.put(("update", test_id, 95, 100, "predicting..."))
         prediction = making_predictions(ws.workspace("data/extracted/test"), transformer, net, img_width, img_height)
 
     with open(ws.workspace("tmp/output.txt"), 'r') as f:
