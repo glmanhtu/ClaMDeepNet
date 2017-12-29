@@ -129,7 +129,9 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
 
     logger.debug("Moving log")
     shutil.copyfile(caffe_log, ws.workspace("result/caffe_train.log"))
-
+    shutil.copyfile(caffe_train_model, ws.workspace("result/model/train_val.prototxt"))
+    shutil.copyfile(caffe_deploy, ws.workspace("result/deploy.prototxt"))
+    shutil.copyfile(caffe_solver, ws.workspace("result/slover.prototxt"))
     logger.debug("\n\n-------------------------FINISH------------------------------------\n\n")
 
     logger.debug("\nTest completed")
