@@ -118,37 +118,43 @@ if __name__ == '__main__':
         monitor = threading.Thread(target=reporter, args=(queue, len(tests)))
         monitor.setDaemon(True)
         monitor.start()
-        for idx, parallel in enumerate(parallels):
-            threads = []
-            workspaces = []
-            for test in tests:
-                if test['parallel'] == parallel:
-                    workspace = Workspace(generate_workspace(test))
-                    workspaces.append(workspace)
-                    thread = threading.Thread(target=heobs_image_classification, args=[
-                        test['arch'],
-                        test['max_iter'],
-                        test['img_width'],
-                        test['img_height'],
-                        test['gpu_id'],
-                        test['lr'],
-                        test['stepsize'],
-                        test['train_batch_size'],
-                        test['test_batch_size'],
-                        test['finetune'],
-                        workspace,
-                        queue,
-                        test_id
-                    ])
-                    thread.start()
-                    threads.append(thread)
-                    test_id += 1
+        threads = []
+        try:
+            for idx, parallel in enumerate(parallels):
+                threads = []
+                workspaces = []
+                for test in tests:
+                    if test['parallel'] == parallel:
+                        workspace = Workspace(generate_workspace(test))
+                        workspaces.append(workspace)
+                        thread = threading.Thread(target=heobs_image_classification, args=[
+                            test['arch'],
+                            test['max_iter'],
+                            test['img_width'],
+                            test['img_height'],
+                            test['gpu_id'],
+                            test['lr'],
+                            test['stepsize'],
+                            test['train_batch_size'],
+                            test['test_batch_size'],
+                            test['finetune'],
+                            workspace,
+                            queue,
+                            test_id
+                        ])
+                        thread.start()
+                        threads.append(thread)
+                        test_id += 1
+                for thread in threads:
+                    thread.join()
+                for test in tests:
+                    if test['parallel'] == parallel:
+                        workspace = Workspace(generate_workspace(test))
+                        collect_result(workspace, test)
+        except (KeyboardInterrupt, SystemExit):
             for thread in threads:
-                thread.join()
-            for test in tests:
-                if test['parallel'] == parallel:
-                    workspace = Workspace(generate_workspace(test))
-                    collect_result(workspace, test)
+                thread.exit()
+            sys.exit()
 
     else:
         raise Exception("Please specific test config file")
