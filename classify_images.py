@@ -6,6 +6,8 @@ import shutil
 import sys
 import threading
 
+import signal
+
 os.environ['GLOG_minloglevel'] = '2'
 from heobs_image_classification import heobs_image_classification
 from utils import pycaffe
@@ -108,9 +110,17 @@ def collect_result(test_space, test_info):
     copytree(result, destination)
 
 
+threads = []
+
+
+def signal_term_handler(signal, frame):
+    for thread, test in threads:
+        thread.exit()
+
 if __name__ == '__main__':
 
     test_config = sys.argv[1]
+    signal.signal(signal.SIGTERM, signal_term_handler)
     if os.path.isfile(test_config):
         tests = read_test_config(test_config)
         parallels = get_parallel(tests)
@@ -128,7 +138,6 @@ if __name__ == '__main__':
         monitor = threading.Thread(target=reporter, args=(utils.get_queue(), len(tests)))
         monitor.setDaemon(True)
         monitor.start()
-        threads = []
         try:
             for idx, parallel in enumerate(parallels):
                 threads = []
