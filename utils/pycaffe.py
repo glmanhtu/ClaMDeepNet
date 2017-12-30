@@ -1,7 +1,10 @@
 from network.download_file import download_file_strategy, file_already_exists
 import utils
 import os
+from os import listdir
+from os.path import isfile, join
 from constants import Constant
+import re
 
 
 def caffe_home():
@@ -20,11 +23,25 @@ class PyCaffe(object):
         command = ' '.join(command)
         utils.execute_command(command, logger)
 
-    def train(self, solver, log, gpu_id, trained_model, ws, logger, queue, test_id, total_iter):
+    def get_resume_sloverstate(self, ws, snapshot_prefix):
+        snapshot_path = os.path.dirname(snapshot_prefix)
+        max_iter = 0
+        sloverstate = ""
+        for file in listdir(snapshot_path):
+            file_path = join(snapshot_path, file)
+            if isfile(file_path):
+                if "sloverstate" in file_path:
+                    curr_iter = int(re.findall('snapshot_iter_(\d+)\.solverstate', file_path)[0])
+                    if max_iter < curr_iter:
+                        max_iter = curr_iter
+                        sloverstate = file_path
+        return sloverstate
+
+    def train(self, solver, log, gpu_id, trained_model, ws, logger, queue, test_id, total_iter, snapshot_prefix):
         solver = os.path.abspath(solver)
         log = os.path.abspath(log)
         caffe_bin = caffe_home() + "/build/tools/caffe"
-
+        resume_sloverstate = self.get_resume_sloverstate(ws, snapshot_prefix)
         command = [caffe_bin, "train", "--solver=" + solver]
 
         if trained_model != "":
@@ -32,6 +49,8 @@ class PyCaffe(object):
             if not file_already_exists(trained_model_path):
                 download_file_strategy(trained_model, trained_model_path)
             command.extend(["--weights", trained_model_path])
+        if resume_sloverstate != "":
+            command.extend(["-snapshot", resume_sloverstate])
         if Constant.CAFFE_SOLVER == "GPU":
             command.extend(["-gpu=" + gpu_id])
 
