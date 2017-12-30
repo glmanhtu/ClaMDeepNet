@@ -10,9 +10,23 @@ from mako.template import Template
 import pycaffe
 from constants import Constant
 import re
+import Queue
 
 constant = Constant()
 caffe = pycaffe
+queue = Queue.Queue()
+
+
+def get_queue():
+    return queue
+
+
+def put_log(test_id, message):
+    queue.put(("log", test_id, message))
+
+
+def put_message(message):
+    queue.put(message)
 
 
 def py_render_template(template_file, destination_file, **data):
@@ -30,7 +44,7 @@ def execute(command):
     call(command, shell=True)
 
 
-def execute_command(command):
+def execute_command(test_id, command):
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
     # Poll process for new output until finished
@@ -38,7 +52,8 @@ def execute_command(command):
         next_line = process.stdout.readline()
         if next_line == '' and process.poll() is not None:
             break
-        sys.stdout.flush()
+        elif next_line != '':
+            put_message(("log", test_id, next_line))
 
 
 def extract_number_iter_from_log(line):
@@ -48,7 +63,7 @@ def extract_number_iter_from_log(line):
     return -1
 
 
-def execute_train_command(command, queue, test_id, total_iter):
+def execute_train_command(command, test_id, total_iter):
     """
 
     :type queue: Queue.Queue
@@ -64,8 +79,9 @@ def execute_train_command(command, queue, test_id, total_iter):
         if next_line != '':
             curr_iter = extract_number_iter_from_log(next_line)
             if curr_iter > -1:
-                queue.put(("update", test_id, 30 + (curr_iter * 60) / total_iter, 100,
-                           "training iter " + str(curr_iter) + "..."))
+                message = "training iter " + str(curr_iter) + "..."
+                put_message(("update", test_id, 30 + (curr_iter * 60) / total_iter, 100, message))
+                put_message(("log", test_id, next_line))
 
 
 def transform_img(img, img_width, img_height):

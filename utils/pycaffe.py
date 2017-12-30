@@ -20,13 +20,13 @@ def check_caffe_root():
 
 class PyCaffe(object):
 
-    def compute_image_mean(self, backend, lmdb_path, binary_proto_path):
+    def compute_image_mean(self, test_id, backend, lmdb_path, binary_proto_path):
         image_mean_bin = caffe_home() + "/build/tools/compute_image_mean"
         lmdb_path = os.path.abspath(lmdb_path)
         binary_proto_path = os.path.abspath(binary_proto_path)
         command = [image_mean_bin, "-backend=" + backend, lmdb_path, binary_proto_path]
         command = ' '.join(command)
-        utils.execute_command(command)
+        utils.execute_command(test_id, command)
 
     def get_resume_sloverstate(self, ws, snapshot_prefix):
         snapshot_path = os.path.dirname(snapshot_prefix)
@@ -42,7 +42,7 @@ class PyCaffe(object):
                         sloverstate = file_path
         return sloverstate
 
-    def train(self, solver, log, gpu_id, trained_model, ws, queue, test_id, total_iter, snapshot_prefix):
+    def train(self, solver, log, gpu_id, trained_model, ws, test_id, total_iter, snapshot_prefix):
         solver = os.path.abspath(solver)
         log = os.path.abspath(log)
         caffe_bin = caffe_home() + "/build/tools/caffe"
@@ -62,5 +62,5 @@ class PyCaffe(object):
             command.extend(["-gpu=" + gpu_id])
 
         command.extend(["2>&1 | tee -a", log])
-        utils.execute_train_command(' '.join(command), queue, test_id, total_iter)
+        utils.execute_train_command(' '.join(command), test_id, total_iter)
 

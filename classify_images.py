@@ -2,17 +2,16 @@ import csv
 import logging
 import os
 import traceback
-
-os.environ['GLOG_minloglevel'] = '2'
 import shutil
 import sys
 import threading
-import Queue
 
+os.environ['GLOG_minloglevel'] = '2'
 from heobs_image_classification import heobs_image_classification
 from utils import pycaffe
 from utils.multiple_level_progress import MultipleLevelProgress
 from utils.workspace import Workspace
+from utils import utils
 
 logger = logging.getLogger(__name__)
 hdlr = logging.FileHandler("debug.log")
@@ -21,6 +20,7 @@ hdlr.setFormatter(formatter)
 logger.addHandler(hdlr)
 logger.setLevel(logging.DEBUG)
 
+
 def read_test_config(test_config):
     tests = []
     with open(test_config, "r") as ins:
@@ -28,17 +28,18 @@ def read_test_config(test_config):
         next(csv_reader)
         for row in csv_reader:
             tests.append({
-                'arch': row[0],
-                'lr': float(row[1]),
-                'stepsize': int(row[2]),
-                'img_width': int(row[3]),
-                'img_height': int(row[4]),
-                'train_batch_size': int(row[5]),
-                'test_batch_size': int(row[6]),
-                'gpu_id': row[7],
-                'finetune': row[8],
-                'parallel': row[9],
-                'max_iter': int(row[10])
+                'test_id': int(row[0]),
+                'arch': row[1],
+                'lr': float(row[2]),
+                'stepsize': int(row[3]),
+                'img_width': int(row[4]),
+                'img_height': int(row[5]),
+                'train_batch_size': int(row[6]),
+                'test_batch_size': int(row[7]),
+                'gpu_id': row[8],
+                'finetune': row[9],
+                'parallel': row[10],
+                'max_iter': int(row[11])
             })
     return tests
 
@@ -111,10 +112,8 @@ if __name__ == '__main__':
 
     test_config = sys.argv[1]
     if os.path.isfile(test_config):
-        queue = Queue.Queue()
         tests = read_test_config(test_config)
         parallels = get_parallel(tests)
-        test_id = 0
 
         if not pycaffe.check_caffe_root():
             print "Caffe root incorrect"
@@ -126,7 +125,7 @@ if __name__ == '__main__':
         print "Total tests: %d" % len(tests)
         print "Total parallel: %d" % len(parallels)
 
-        monitor = threading.Thread(target=reporter, args=(queue, len(tests)))
+        monitor = threading.Thread(target=reporter, args=(utils.get_queue(), len(tests)))
         monitor.setDaemon(True)
         monitor.start()
         threads = []
@@ -136,7 +135,7 @@ if __name__ == '__main__':
                 workspaces = []
                 for test in tests:
                     if test['parallel'] == parallel:
-                        workspace = Workspace(generate_workspace(test_id))
+                        workspace = Workspace(generate_workspace(test['test_id']))
                         workspaces.append(workspace)
                         thread = threading.Thread(target=heobs_image_classification, args=[
                             test['arch'],
@@ -150,17 +149,15 @@ if __name__ == '__main__':
                             test['test_batch_size'],
                             test['finetune'],
                             workspace,
-                            queue,
-                            test_id
+                            test['test_id']
                         ])
                         thread.start()
-                        threads.append((thread, test_id, test))
-                        test_id += 1
-                for thread, test_id, test in threads:
+                        threads.append((thread, test))
+                for thread, test in threads:
                     thread.join()
 
-                for thread, test_id, test in threads:
-                    workspace = Workspace(generate_workspace(test_id))
+                for thread, test in threads:
+                    workspace = Workspace(generate_workspace(test['test_id']))
                     collect_result(workspace, test)
 
         except KeyboardInterrupt:
