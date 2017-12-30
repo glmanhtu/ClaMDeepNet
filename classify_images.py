@@ -155,7 +155,7 @@ if __name__ == '__main__':
                         workspace = Workspace(generate_workspace(test))
                         collect_result(workspace, test)
         except:
-            traceback.format_exc()
+            print traceback.format_exc()
             for thread in threads:
                 thread.exit()
             sys.exit()
