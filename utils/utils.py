@@ -30,7 +30,7 @@ def execute(command):
     call(command, shell=True)
 
 
-def execute_command(command, logger):
+def execute_command(command):
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
     # Poll process for new output until finished
@@ -38,8 +38,6 @@ def execute_command(command, logger):
         next_line = process.stdout.readline()
         if next_line == '' and process.poll() is not None:
             break
-        if next_line != '':
-            logger.debug(next_line)
         sys.stdout.flush()
 
 
@@ -50,10 +48,9 @@ def extract_number_iter_from_log(line):
     return -1
 
 
-def execute_train_command(command, logger, queue, test_id, total_iter):
+def execute_train_command(command, queue, test_id, total_iter):
     """
 
-    :type logger: Logger
     :type queue: Queue.Queue
     """
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)

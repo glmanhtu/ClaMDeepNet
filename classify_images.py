@@ -1,5 +1,8 @@
 import csv
+import logging
 import os
+import traceback
+
 os.environ['GLOG_minloglevel'] = '2'
 import shutil
 import sys
@@ -11,6 +14,12 @@ from utils import pycaffe
 from utils.multiple_level_progress import MultipleLevelProgress
 from utils.workspace import Workspace
 
+logger = logging.getLogger(__name__)
+hdlr = logging.FileHandler("debug.log")
+formatter = logging.Formatter('%(message)s')
+hdlr.setFormatter(formatter)
+logger.addHandler(hdlr)
+logger.setLevel(logging.DEBUG)
 
 def read_test_config(test_config):
     tests = []
@@ -67,6 +76,9 @@ def reporter(q, nworkers):
             test_id, message = msg[1:]
             multiple_level_progress.update(test_id, 100, message)
             nworkers = nworkers - 1
+        else:
+            test_id, log_message = msg[1:]
+            logger.debug("[test:%d] %s" % (test_id, log_message))
 
 
 def collect_result(test_space, test_info):
@@ -151,10 +163,13 @@ if __name__ == '__main__':
                     workspace = Workspace(generate_workspace(test_id))
                     collect_result(workspace, test)
 
-        except (KeyboardInterrupt, SystemExit):
+        except KeyboardInterrupt:
             for thread in threads:
                 thread.exit()
-            sys.exit()
+        except:
+            for thread in threads:
+                thread.exit()
+            logger.error(traceback.format_exc())
 
     else:
         raise Exception("Please specific test config file")
