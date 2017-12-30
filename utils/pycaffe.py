@@ -13,6 +13,11 @@ def caffe_home():
     return Constant.CAFFE_ROOT
 
 
+def check_caffe_root():
+    if os.path.isfile(caffe_home() + "/build/tools/caffe"):
+        return True
+    return False
+
 class PyCaffe(object):
 
     def compute_image_mean(self, backend, lmdb_path, binary_proto_path, logger):

@@ -7,6 +7,7 @@ import Queue
 import traceback
 
 from heobs_image_classification import heobs_image_classification
+from utils import pycaffe
 from utils.multiple_level_progress import MultipleLevelProgress
 from utils.workspace import Workspace
 
@@ -102,6 +103,12 @@ if __name__ == '__main__':
         parallels = get_parallel(tests)
         test_id = 0
 
+        if not pycaffe.check_caffe_root():
+            print "Caffe root incorrect"
+            print "Please specific caffe root directory by command: "
+            print "\texport CAFFE_ROOT=/path/to/caffe"
+            sys.exit()
+
         print "Starting..."
         print "Total tests: %d" % len(tests)
         print "Total parallel: %d" % len(parallels)
@@ -140,7 +147,7 @@ if __name__ == '__main__':
                     thread.join()
                 for test in tests:
                     if test['parallel'] == parallel:
-                        workspace = Workspace(generate_workspace(test))
+                        workspace = Workspace(generate_workspace(test_id))
                         collect_result(workspace, test)
 
         except (KeyboardInterrupt, SystemExit):
