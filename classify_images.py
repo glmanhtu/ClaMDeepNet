@@ -141,14 +141,14 @@ if __name__ == '__main__':
                             test_id
                         ])
                         thread.start()
-                        threads.append(thread)
+                        threads.append((thread, test_id, test))
                         test_id += 1
-                for thread in threads:
+                for thread, test_id, test in threads:
                     thread.join()
-                for test in tests:
-                    if test['parallel'] == parallel:
-                        workspace = Workspace(generate_workspace(test_id))
-                        collect_result(workspace, test)
+
+                for thread, test_id, test in threads:
+                    workspace = Workspace(generate_workspace(test_id))
+                    collect_result(workspace, test)
 
         except (KeyboardInterrupt, SystemExit):
             for thread in threads:
