@@ -1,6 +1,5 @@
 import Queue
 import logging
-import traceback
 
 from network.download_file import DownloadGoogleDrive
 from network.google_file import GoogleFile
@@ -50,9 +49,8 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
 
     pycaffe = PyCaffe()
 
-    if os.path.isfile(caffe_log):
-        queue.put(("update", test_id, 2, 100, "resuming"))
-    else:
+    if not os.path.isfile(caffe_log):
+
         train_zip = GoogleFile('0BzL8pCLanAIAd0hBV2NUVHpmckE', ws.workspace('data/heobs_large_dataset.zip'))
 
         queue.put(("update", test_id, 2, 100, "downloading dataset..."))
@@ -113,23 +111,19 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
         py_render_template("template/" + template + "/caffenet_deploy.template", caffe_deploy,
                            num_output=len(classes), img_width=img_width, img_height=img_height)
 
-        with Silence(stderr=ws.workspace("tmp/output.txt"), mode='w'):
-            set_caffe_gpu(gpu_id)
-            logger.debug("\nReading mean file")
-            queue.put(("update", test_id, 91, 100, "reading mean file..."))
-            mean_data = read_mean_data(mean_proto)
+        set_caffe_gpu(gpu_id)
+        logger.debug("\nReading mean file")
+        queue.put(("update", test_id, 91, 100, "reading mean file..."))
+        mean_data = read_mean_data(mean_proto)
 
-            logger.debug("\nReading neural network model")
-            queue.put(("update", test_id, 92, 100, "reading cnn model..."))
-            net = read_model_and_weight(caffe_deploy, snapshot_prefix + "_iter_" + str(max_iter) + ".caffemodel")
-            transformer = image_transformers(net, mean_data)
+        logger.debug("\nReading neural network model")
+        queue.put(("update", test_id, 92, 100, "reading cnn model..."))
+        net = read_model_and_weight(caffe_deploy, snapshot_prefix + "_iter_" + str(max_iter) + ".caffemodel")
+        transformer = image_transformers(net, mean_data)
 
-            logger.debug("Predicting...")
-            queue.put(("update", test_id, 95, 100, "predicting..."))
-            prediction = making_predictions(ws.workspace("data/extracted/test"), transformer, net, img_width, img_height)
-
-        with open(ws.workspace("tmp/output.txt"), 'r') as f:
-            logger.debug(f.read())
+        logger.debug("Predicting...")
+        queue.put(("update", test_id, 95, 100, "predicting..."))
+        prediction = making_predictions(ws.workspace("data/extracted/test"), transformer, net, img_width, img_height)
 
         queue.put(("update", test_id, 99, 100, "exporting data..."))
         logger.debug("Exporting result to csv")
@@ -147,8 +141,3 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
 
         logger.debug("\nTest completed")
         queue.put(("done", test_id, "completed"))
-
-if __name__ == '__main__':
-
-    heobs_image_classification("googlenet", 1000, 224, 224, "0", 0.01, 3000, 32, 50, "",
-                               Workspace(os.path.dirname(os.path.realpath(__file__))))

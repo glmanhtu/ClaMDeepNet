@@ -1,10 +1,10 @@
 import csv
 import os
+os.environ['GLOG_minloglevel'] = '2'
 import shutil
 import sys
 import threading
 import Queue
-import traceback
 
 from heobs_image_classification import heobs_image_classification
 from utils import pycaffe
@@ -96,6 +96,7 @@ def collect_result(test_space, test_info):
 
 
 if __name__ == '__main__':
+
     test_config = sys.argv[1]
     if os.path.isfile(test_config):
         queue = Queue.Queue()

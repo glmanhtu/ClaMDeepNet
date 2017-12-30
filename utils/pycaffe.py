@@ -47,7 +47,7 @@ class PyCaffe(object):
         log = os.path.abspath(log)
         caffe_bin = caffe_home() + "/build/tools/caffe"
         resume_sloverstate = self.get_resume_sloverstate(ws, snapshot_prefix)
-        command = [caffe_bin, "train", "--solver=" + solver]
+        command = ["GLOG_minloglevel=0", caffe_bin, "train", "--solver=" + solver]
 
         if trained_model != "":
             trained_model_path = ws.workspace("trained_models/trained_model.caffemodel")
@@ -55,10 +55,12 @@ class PyCaffe(object):
                 download_file_strategy(trained_model, trained_model_path)
             command.extend(["--weights", trained_model_path])
         if resume_sloverstate != "":
-            command.extend(["-snapshot", resume_sloverstate])
+            if str(total_iter) + ".sloverstate" in resume_sloverstate:
+                return
+            command.extend(["--snapshot", resume_sloverstate])
         if Constant.CAFFE_SOLVER == "GPU":
             command.extend(["-gpu=" + gpu_id])
 
-        command.extend(["2>&1 | tee", log])
+        command.extend(["2>&1 | tee -a", log])
         utils.execute_train_command(' '.join(command), logger, queue, test_id, total_iter)
 
