@@ -100,6 +100,8 @@ def collect_result(test_space, test_info):
 
     if not os.path.isdir(destination):
         os.makedirs(destination)
+    else:
+        return
     copytree(result, destination)
 
 
