@@ -131,7 +131,7 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
             with open(ws.workspace("tmp/output.txt"), 'r') as f:
                 logger.debug(f.read())
 
-            queue.put(("update", test_id, 100, 100, "exporting data..."))
+            queue.put(("update", test_id, 99, 100, "exporting data..."))
             logger.debug("Exporting result to csv")
             export_to_csv(prediction, ws.workspace("result/test_result.csv"))
 
@@ -150,7 +150,7 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
     except KeyboardInterrupt:
         return
     except:
-        queue.put(("update", test_id, 0, 100, "err, please check log"))
+        queue.put(("update", test_id, 0, 100, "err, log: " + ws.workspace("result/debug.log")))
 
 if __name__ == '__main__':
 

@@ -41,20 +41,8 @@ def get_parallel(test_list):
     return parallel_list
 
 
-def generate_workspace(test_info):
-    workspace_parts = [test_info['arch'],
-                       str(test_info['max_iter']),
-                       str(test_info['img_width']),
-                       str(test_info['img_height']),
-                       test_info['gpu_id'],
-                       str(test_info['lr']),
-                       str(test_info['stepsize']),
-                       str(test_info['train_batch_size']),
-                       str(test_info['test_batch_size'])]
-    if test_info['finetune'] != "":
-        workspace_parts.append("finetune")
-
-    return os.path.join("workspace", '_'.join(workspace_parts))
+def generate_workspace(test_id):
+    return os.path.join("workspace", str(test_id))
 
 
 def copytree(src, dst, symlinks=False, ignore=None):
@@ -128,7 +116,7 @@ if __name__ == '__main__':
                 workspaces = []
                 for test in tests:
                     if test['parallel'] == parallel:
-                        workspace = Workspace(generate_workspace(test))
+                        workspace = Workspace(generate_workspace(test_id))
                         workspaces.append(workspace)
                         thread = threading.Thread(target=heobs_image_classification, args=[
                             test['arch'],
@@ -154,8 +142,8 @@ if __name__ == '__main__':
                     if test['parallel'] == parallel:
                         workspace = Workspace(generate_workspace(test))
                         collect_result(workspace, test)
-        except:
-            print "Error occurred, log: ", traceback.format_exc()
+
+        except (KeyboardInterrupt, SystemExit):
             for thread in threads:
                 thread.exit()
             sys.exit()

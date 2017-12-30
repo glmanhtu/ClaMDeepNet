@@ -69,8 +69,6 @@ def execute_train_command(command, logger, queue, test_id, total_iter):
             if curr_iter > -1:
                 queue.put(("update", test_id, 30 + (curr_iter * 60) / total_iter, 100,
                            "training iter " + str(curr_iter) + "..."))
-            logger.debug(next_line)
-        sys.stdout.flush()
 
 
 def transform_img(img, img_width, img_height):
