@@ -4,6 +4,7 @@ import shutil
 import sys
 import threading
 import Queue
+import traceback
 
 from heobs_image_classification import heobs_image_classification
 from utils.multiple_level_progress import MultipleLevelProgress
@@ -153,7 +154,8 @@ if __name__ == '__main__':
                     if test['parallel'] == parallel:
                         workspace = Workspace(generate_workspace(test))
                         collect_result(workspace, test)
-        except (KeyboardInterrupt, SystemExit):
+        except:
+            traceback.format_exc()
             for thread in threads:
                 thread.exit()
             sys.exit()
