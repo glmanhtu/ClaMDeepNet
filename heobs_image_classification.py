@@ -46,6 +46,8 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
 
         snapshot_prefix = ws.workspace("caffe_model/snapshot")
 
+        mean_proto = ws.workspace("data/mean.binaryproto")
+
         pycaffe = PyCaffe()
 
         if os.path.isfile(caffe_log):
@@ -71,8 +73,6 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
             lmdb = CreateLmdb()
             lmdb.create_lmdb(ws.workspace("data/extracted/heobs_large_dataset"), train_lmdb_path, validation_lmdb_path, classes,
                              test_path, img_width, img_height)
-
-            mean_proto = ws.workspace("data/mean.binaryproto")
 
             queue.put(("update", test_id, 20, 100, "computing train image mean..."))
             pycaffe.compute_image_mean("lmdb", train_lmdb_path, mean_proto, logger)
@@ -100,7 +100,7 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
 
         logger.debug("\nStarting to train")
         queue.put(("update", test_id, 30, 100, "starting to train..."))
-        pycaffe.train(caffe_solver, caffe_log, gpu_id, trained_model, ws, logger, queue, test_id, max_iter)
+        pycaffe.train(caffe_solver, caffe_log, gpu_id, trained_model, ws, logger, queue, test_id, max_iter, snapshot_prefix)
 
         logger.debug("\nTrain completed")
 
