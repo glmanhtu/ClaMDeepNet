@@ -151,8 +151,6 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
         return
     except:
         queue.put(("update", test_id, 0, 100, "err, please check log"))
-        logger.error(traceback.format_exc())
-
 
 if __name__ == '__main__':
 
