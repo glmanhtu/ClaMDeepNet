@@ -36,7 +36,7 @@ class PyCaffe(object):
 
         for root, dirs, files in os.walk(snapshot_path):
             for file in files:
-                if file.endswith(".sloverstate"):
+                if file.endswith(".solverstate"):
                     file_path = os.path.join(root, file)
                     utils.put_message(("log", test_id, "found snapshot: %s" % file))
                     curr_iter = int(re.findall('_(\d+)\.solverstate', file)[0])
@@ -60,7 +60,7 @@ class PyCaffe(object):
                 download_file_strategy(trained_model, trained_model_path)
             command.extend(["--weights", trained_model_path])
         if resume_sloverstate != "":
-            if str(total_iter) + ".sloverstate" in resume_sloverstate:
+            if str(total_iter) + ".solverstate" in resume_sloverstate:
                 return
             command.extend(["--snapshot", resume_sloverstate])
         if Constant.CAFFE_SOLVER == "GPU":

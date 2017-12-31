@@ -91,6 +91,9 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
         put_message(("update", test_id, 30, 100, "starting to train..."))
         pycaffe.train(caffe_solver, caffe_log, gpu_id, trained_model, ws, test_id, max_iter, snapshot_prefix)
 
+        if get_sig_kill():
+            return
+
         put_message(("log", test_id, "Train completed"))
 
         put_message(("log", test_id, "Starting to test"))
@@ -114,7 +117,8 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
             put_message(("update", test_id, 95, 100, "predicting..."))
             prediction = making_predictions(ws.workspace("data/extracted/test"), transformer, net, img_width,
                                             img_height)
-
+            if get_sig_kill():
+                return
             put_message(("update", test_id, 99, 100, "exporting data..."))
             put_message(("log", test_id, "Exporting result to csv"))
             export_to_csv(prediction, ws.workspace("result/test_result.csv"))

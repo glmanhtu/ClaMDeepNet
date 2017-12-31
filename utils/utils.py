@@ -6,6 +6,8 @@ import sys
 from subprocess import call
 import cv2
 import time
+
+import signal
 from mako.template import Template
 
 import pycaffe
@@ -16,7 +18,13 @@ import Queue
 constant = Constant()
 caffe = pycaffe
 queue = Queue.Queue()
+sig_kill = False
 
+def get_sig_kill():
+    return sig_kill
+
+def set_sig_kill(sig):
+    sig_kill = sig
 
 def get_queue():
     return queue
@@ -46,10 +54,13 @@ def execute(command):
 
 
 def execute_command(test_id, command):
-    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, preexec_fn=os.setsid)
 
     # Poll process for new output until finished
     while True:
+        if get_sig_kill():
+            os.killpg(os.getpgid(process.pid), signal.SIGTERM)
+            return
         next_line = process.stdout.readline()
         time.sleep(0.1)
         if next_line == '' and process.poll() is not None:
@@ -76,6 +87,9 @@ def execute_train_command(command, test_id, total_iter):
 
     # Poll process for new output until finished
     while True:
+        if get_sig_kill():
+            os.killpg(os.getpgid(process.pid), signal.SIGTERM)
+            return
         next_line = process.stdout.readline()
         time.sleep(0.1)
         if next_line == '' and process.poll() is not None:

@@ -73,6 +73,8 @@ def copytree(src, dst, symlinks=False, ignore=None):
 def reporter(q, nworkers):
     multiple_level_progress = MultipleLevelProgress(nworkers, 100)
     while nworkers > 0:
+        if utils.get_sig_kill():
+            return
         msg = q.get()
         if msg[0] == "update":
             test_id, current, total, message = msg[1:]
@@ -117,8 +119,7 @@ threads = []
 
 
 def signal_term_handler(signal, frame):
-    for thread, test in threads:
-        thread.exit()
+    utils.set_sig_kill(True)
     logger.error("Killed")
 
 if __name__ == '__main__':
@@ -174,12 +175,10 @@ if __name__ == '__main__':
                     collect_result(workspace, test)
 
         except KeyboardInterrupt:
-            for thread in threads:
-                thread.exit()
+            utils.set_sig_kill(True)
             logger.error("User exit")
         except:
-            for thread in threads:
-                thread.exit()
+            utils.set_sig_kill(True)
             logger.error(traceback.format_exc())
 
     else:
