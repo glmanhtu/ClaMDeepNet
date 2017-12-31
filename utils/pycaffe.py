@@ -31,7 +31,6 @@ class PyCaffe(object):
     def get_resume_sloverstate(self, ws, snapshot_prefix):
         snapshot_path = os.path.dirname(snapshot_prefix)
         max_iter = 0
-        sloverstate = ""
         for file in listdir(snapshot_path):
             file_path = join(snapshot_path, file)
             if isfile(file_path):
@@ -39,8 +38,7 @@ class PyCaffe(object):
                     curr_iter = int(re.findall('snapshot_iter_(\d+)\.solverstate', file_path)[0])
                     if max_iter < curr_iter:
                         max_iter = curr_iter
-                        sloverstate = file_path
-        return sloverstate
+        return max_iter
 
     def train(self, solver, log, gpu_id, trained_model, ws, test_id, total_iter, snapshot_prefix):
         solver = os.path.abspath(solver)
@@ -54,10 +52,9 @@ class PyCaffe(object):
             if not file_already_exists(trained_model_path):
                 download_file_strategy(trained_model, trained_model_path)
             command.extend(["--weights", trained_model_path])
-        if resume_sloverstate != "":
-            if str(total_iter) + ".sloverstate" in resume_sloverstate:
+        if resume_sloverstate != 0:
+            if resume_sloverstate == total_iter:
                 return
-            command.extend(["--snapshot", resume_sloverstate])
         if Constant.CAFFE_SOLVER == "GPU":
             command.extend(["-gpu=" + gpu_id])
 

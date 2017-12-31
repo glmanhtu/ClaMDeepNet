@@ -128,7 +128,7 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
             shutil.copyfile(caffe_deploy, ws.workspace("result/deploy.prototxt"))
             shutil.copyfile(caffe_solver, ws.workspace("result/slover.prototxt"))
 
-            put_message(("log", test_id, "Test completed"))
-            put_message(("done", test_id, "completed"))
+        put_message(("log", test_id, "Test completed"))
+        put_message(("done", test_id, "completed"))
     except:
         put_message(("log", test_id, traceback.format_exc()))

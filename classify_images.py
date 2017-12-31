@@ -116,6 +116,7 @@ threads = []
 def signal_term_handler(signal, frame):
     for thread, test in threads:
         thread.exit()
+    logger.error("Killed")
 
 if __name__ == '__main__':
 
@@ -172,6 +173,7 @@ if __name__ == '__main__':
         except KeyboardInterrupt:
             for thread in threads:
                 thread.exit()
+            logger.error("User exit")
         except:
             for thread in threads:
                 thread.exit()
