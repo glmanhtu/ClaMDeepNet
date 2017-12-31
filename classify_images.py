@@ -8,6 +8,8 @@ import threading
 
 import signal
 
+import time
+
 os.environ['GLOG_minloglevel'] = '2'
 from heobs_image_classification import heobs_image_classification
 from utils import pycaffe
@@ -82,6 +84,7 @@ def reporter(q, nworkers):
         else:
             test_id, log_message = msg[1:]
             logger.debug("[test:%d] %s" % (test_id, log_message))
+        time.sleep(0.01)
 
 
 def collect_result(test_space, test_info):

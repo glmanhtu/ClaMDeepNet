@@ -5,6 +5,7 @@ import subprocess
 import sys
 from subprocess import call
 import cv2
+import time
 from mako.template import Template
 
 import pycaffe
@@ -50,6 +51,7 @@ def execute_command(test_id, command):
     # Poll process for new output until finished
     while True:
         next_line = process.stdout.readline()
+        time.sleep(0.1)
         if next_line == '' and process.poll() is not None:
             break
         elif next_line != '':
@@ -75,6 +77,7 @@ def execute_train_command(command, test_id, total_iter):
     # Poll process for new output until finished
     while True:
         next_line = process.stdout.readline()
+        time.sleep(0.1)
         if next_line == '' and process.poll() is not None:
             break
 
