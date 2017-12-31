@@ -46,14 +46,14 @@ def execute(command):
 
 
 def execute_command(test_id, command):
-    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, preexec_fn=os.setsid)
+    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, preexec_fn=os.setsid)
 
     # Poll process for new output until finished
     while True:
         if sig_kill:
             os.killpg(os.getpgid(process.pid), signal.SIGTERM)
             return
-        next_line = process.stdout.readline(1024)
+        next_line = process.stdout.read(1)
         if next_line == '' and process.poll() is not None:
             break
         elif next_line != '':
@@ -74,14 +74,14 @@ def execute_train_command(command, test_id, total_iter):
 
     :type queue: Queue.Queue
     """
-    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, preexec_fn=os.setsid)
+    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, preexec_fn=os.setsid)
 
     # Poll process for new output until finished
     while True:
         if sig_kill:
             os.killpg(os.getpgid(process.pid), signal.SIGTERM)
             return
-        next_line = process.stdout.readline(1024)
+        next_line = process.stdout.read(1)
         if next_line == '' and process.poll() is not None:
             break
 
