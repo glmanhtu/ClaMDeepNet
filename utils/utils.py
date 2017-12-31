@@ -54,6 +54,8 @@ def execute_command(test_id, command):
             break
         elif next_line != '':
             put_message(("log", test_id, next_line))
+    process.stdout.close()
+    process.wait()
 
 
 def extract_number_iter_from_log(line):
@@ -82,6 +84,8 @@ def execute_train_command(command, test_id, total_iter):
                 message = "training iter " + str(curr_iter) + "..."
                 put_message(("update", test_id, 30 + (curr_iter * 60) / total_iter, 100, message))
                 put_message(("log", test_id, next_line))
+    process.stdout.close()
+    process.wait()
 
 
 def transform_img(img, img_width, img_height):

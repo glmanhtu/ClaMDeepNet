@@ -28,7 +28,7 @@ class PyCaffe(object):
         command = ' '.join(command)
         utils.execute_command(test_id, command)
 
-    def get_resume_sloverstate(self, test_id, ws, snapshot_prefix):
+    def get_resume_sloverstate(self, test_id, ws):
         snapshot_path = os.path.abspath(ws.workspace("caffe_model"))
         utils.put_message(("log", test_id, "checking for resume, path: %s" % snapshot_path))
         max_iter = 0
@@ -51,7 +51,7 @@ class PyCaffe(object):
         solver = os.path.abspath(solver)
         log = os.path.abspath(log)
         caffe_bin = caffe_home() + "/build/tools/caffe"
-        resume_sloverstate = self.get_resume_sloverstate(test_id, ws, snapshot_prefix)
+        resume_sloverstate = self.get_resume_sloverstate(test_id, ws)
         command = ["GLOG_minloglevel=0", caffe_bin, "train", "--solver=" + solver]
 
         if trained_model != "":
