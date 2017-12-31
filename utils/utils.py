@@ -53,7 +53,7 @@ def execute_command(test_id, command):
         if sig_kill:
             os.killpg(os.getpgid(process.pid), signal.SIGTERM)
             return
-        next_line = process.stdout.read(1)
+        next_line = process.stdout.readline()
         if next_line == '' and process.poll() is not None:
             break
         elif next_line != '':
@@ -81,7 +81,7 @@ def execute_train_command(command, test_id, total_iter):
         if sig_kill:
             os.killpg(os.getpgid(process.pid), signal.SIGTERM)
             return
-        next_line = process.stdout.read(1)
+        next_line = process.stdout.readline()
         if next_line == '' and process.poll() is not None:
             break
 
