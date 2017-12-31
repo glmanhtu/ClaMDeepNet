@@ -47,7 +47,7 @@ class PyCaffe(object):
         utils.put_message(("log", test_id, "current iter: %d" % max_iter))
         return sloverstate
 
-    def train(self, solver, log, gpu_id, trained_model, ws, test_id, total_iter, snapshot_prefix):
+    def train(self, solver, log, gpu_id, trained_model, ws, test_id, total_iter):
         solver = os.path.abspath(solver)
         log = os.path.abspath(log)
         caffe_bin = caffe_home() + "/build/tools/caffe"
@@ -60,12 +60,12 @@ class PyCaffe(object):
                 download_file_strategy(trained_model, trained_model_path)
             command.extend(["--weights", trained_model_path])
         if resume_sloverstate != "":
-            if str(total_iter) + ".solverstate" in resume_sloverstate:
-                return
             command.extend(["--snapshot", resume_sloverstate])
         if Constant.CAFFE_SOLVER == "GPU":
             command.extend(["-gpu=" + gpu_id])
 
         command.extend(["2>&1 | tee -a", log])
+        utils.put_message(("log", test_id, "Train command: %s" % ' '.join(command)))
+
         utils.execute_train_command(' '.join(command), test_id, total_iter)
 

@@ -89,13 +89,13 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
 
         put_message(("log", test_id, "Starting to train"))
         put_message(("update", test_id, 30, 100, "starting to train..."))
-        pycaffe.train(caffe_solver, caffe_log, gpu_id, trained_model, ws, test_id, max_iter, snapshot_prefix)
-
-        if get_sig_kill():
-            return
+        pycaffe.train(caffe_solver, caffe_log, gpu_id, trained_model, ws, test_id, max_iter)
 
         put_message(("log", test_id, "Train completed"))
         put_message(("log", test_id, "Starting to test"))
+
+        if get_sig_kill():
+            return
 
         if not os.path.isfile(ws.workspace("result/slover.prototxt")):
             put_message(("update", test_id, 90, 100, "starting to test..."))
