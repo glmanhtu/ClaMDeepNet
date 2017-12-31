@@ -20,11 +20,10 @@ caffe = pycaffe
 queue = Queue.Queue()
 sig_kill = False
 
+
 def get_sig_kill():
     return sig_kill
 
-def set_sig_kill(sig):
-    sig_kill = sig
 
 def get_queue():
     return queue

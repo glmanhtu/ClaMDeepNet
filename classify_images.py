@@ -115,11 +115,8 @@ def collect_result(test_space, test_info):
     copytree(result, destination)
 
 
-threads = []
-
-
 def signal_term_handler(signal, frame):
-    utils.set_sig_kill(True)
+    utils.sig_kill = True
     logger.error("Killed")
 
 if __name__ == '__main__':
@@ -175,10 +172,10 @@ if __name__ == '__main__':
                     collect_result(workspace, test)
 
         except KeyboardInterrupt:
-            utils.set_sig_kill(True)
+            utils.sig_kill = True
             logger.error("User exit")
         except:
-            utils.set_sig_kill(True)
+            utils.sig_kill = True
             logger.error(traceback.format_exc())
 
     else:

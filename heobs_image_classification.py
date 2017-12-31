@@ -95,7 +95,6 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
             return
 
         put_message(("log", test_id, "Train completed"))
-
         put_message(("log", test_id, "Starting to test"))
 
         if not os.path.isfile(ws.workspace("result/slover.prototxt")):
