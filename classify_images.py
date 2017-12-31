@@ -73,7 +73,7 @@ def copytree(src, dst, symlinks=False, ignore=None):
 def reporter(q, nworkers):
     multiple_level_progress = MultipleLevelProgress(nworkers, 100)
     while nworkers > 0:
-        if utils.get_sig_kill():
+        if utils.sig_kill:
             return
         msg = q.get()
         if msg[0] == "update":

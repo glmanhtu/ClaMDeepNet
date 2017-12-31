@@ -20,11 +20,6 @@ caffe = pycaffe
 queue = Queue.Queue()
 sig_kill = False
 
-
-def get_sig_kill():
-    return sig_kill
-
-
 def get_queue():
     return queue
 
@@ -57,7 +52,7 @@ def execute_command(test_id, command):
 
     # Poll process for new output until finished
     while True:
-        if get_sig_kill():
+        if sig_kill:
             os.killpg(os.getpgid(process.pid), signal.SIGTERM)
             return
         next_line = process.stdout.readline()
@@ -86,7 +81,7 @@ def execute_train_command(command, test_id, total_iter):
 
     # Poll process for new output until finished
     while True:
-        if get_sig_kill():
+        if sig_kill:
             os.killpg(os.getpgid(process.pid), signal.SIGTERM)
             return
         next_line = process.stdout.readline()

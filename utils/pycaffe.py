@@ -28,30 +28,27 @@ class PyCaffe(object):
         command = ' '.join(command)
         utils.execute_command(test_id, command)
 
-    def get_resume_sloverstate(self, test_id, ws):
+    def get_curent_train_iter(self, test_id, ws):
         snapshot_path = os.path.abspath(ws.workspace("caffe_model"))
         utils.put_message(("log", test_id, "checking for resume, path: %s" % snapshot_path))
         max_iter = 0
-        sloverstate = ""
 
         for root, dirs, files in os.walk(snapshot_path):
             for file in files:
                 if file.endswith(".solverstate"):
-                    file_path = os.path.join(root, file)
                     utils.put_message(("log", test_id, "found snapshot: %s" % file))
                     curr_iter = int(re.findall('_(\d+)\.solverstate', file)[0])
                     if max_iter < curr_iter:
                         max_iter = curr_iter
-                        sloverstate = file_path
 
         utils.put_message(("log", test_id, "current iter: %d" % max_iter))
-        return sloverstate
+        return max_iter
 
     def train(self, solver, log, gpu_id, trained_model, ws, test_id, total_iter):
         solver = os.path.abspath(solver)
         log = os.path.abspath(log)
         caffe_bin = caffe_home() + "/build/tools/caffe"
-        resume_sloverstate = self.get_resume_sloverstate(test_id, ws)
+        resume_sloverstate = self.get_curent_train_iter(test_id, ws)
         command = ["GLOG_minloglevel=0", caffe_bin, "train", "--solver=" + solver]
 
         if trained_model != "":
@@ -59,12 +56,12 @@ class PyCaffe(object):
             if not file_already_exists(trained_model_path):
                 download_file_strategy(trained_model, trained_model_path)
             command.extend(["--weights", trained_model_path])
-        if resume_sloverstate != "":
-            command.extend(["--snapshot", resume_sloverstate])
+        if resume_sloverstate == total_iter:
+            return
         if Constant.CAFFE_SOLVER == "GPU":
             command.extend(["-gpu=" + gpu_id])
 
-        command.extend(["2>&1 | tee -a", log])
+        command.extend(["2>&1 | tee", log])
         utils.put_message(("log", test_id, "Train command: %s" % ' '.join(command)))
 
         utils.execute_train_command(' '.join(command), test_id, total_iter)

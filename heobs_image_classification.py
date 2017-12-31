@@ -94,7 +94,7 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
         put_message(("log", test_id, "Train completed"))
         put_message(("log", test_id, "Starting to test"))
 
-        if get_sig_kill():
+        if sig_kill:
             return
 
         if not os.path.isfile(ws.workspace("result/slover.prototxt")):
@@ -116,7 +116,7 @@ def heobs_image_classification(template, max_iter, img_width, img_height, gpu_id
             put_message(("update", test_id, 95, 100, "predicting..."))
             prediction = making_predictions(ws.workspace("data/extracted/test"), transformer, net, img_width,
                                             img_height)
-            if get_sig_kill():
+            if sig_kill:
                 return
             put_message(("update", test_id, 99, 100, "exporting data..."))
             put_message(("log", test_id, "Exporting result to csv"))
