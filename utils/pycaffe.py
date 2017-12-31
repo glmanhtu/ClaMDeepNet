@@ -33,15 +33,17 @@ class PyCaffe(object):
         utils.put_message(("log", test_id, "checking for resume, path: %s" % snapshot_path))
         max_iter = 0
         sloverstate = ""
-        for file in listdir(snapshot_path):
-            file_path = join(snapshot_path, file)
-            if isfile(file_path):
-                if "sloverstate" in file:
+
+        for root, dirs, files in os.walk(snapshot_path):
+            for file in files:
+                if file.endswith(".sloverstate"):
+                    file_path = os.path.join(root, file)
                     utils.put_message(("log", test_id, "found snapshot: %s" % file))
                     curr_iter = int(re.findall('_(\d+)\.solverstate', file)[0])
                     if max_iter < curr_iter:
                         max_iter = curr_iter
                         sloverstate = file_path
+
         utils.put_message(("log", test_id, "current iter: %d" % max_iter))
         return sloverstate
 
