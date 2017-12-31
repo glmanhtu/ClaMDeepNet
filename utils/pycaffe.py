@@ -29,15 +29,16 @@ class PyCaffe(object):
         utils.execute_command(test_id, command)
 
     def get_resume_sloverstate(self, test_id, ws, snapshot_prefix):
-        utils.put_message(("log", test_id, "checking for resume"))
-        snapshot_path = ws.workspace("caffe_model")
+        snapshot_path = os.path.abspath(ws.workspace("caffe_model"))
+        utils.put_message(("log", test_id, "checking for resume, path: %s" % snapshot_path))
         max_iter = 0
         sloverstate = ""
         for file in listdir(snapshot_path):
             file_path = join(snapshot_path, file)
             if isfile(file_path):
                 if "sloverstate" in file:
-                    curr_iter = int(re.findall('snapshot_iter_(\d+)\.solverstate', file)[0])
+                    utils.put_message(("log", test_id, "found snapshot: %s" % file))
+                    curr_iter = int(re.findall('_(\d+)\.solverstate', file)[0])
                     if max_iter < curr_iter:
                         max_iter = curr_iter
                         sloverstate = file_path
