@@ -86,7 +86,6 @@ def reporter(q, nworkers):
         else:
             test_id, log_message = msg[1:]
             logger.debug("[test:%d] %s" % (test_id, log_message))
-        time.sleep(0.01)
 
 
 def collect_result(test_space, test_info):
