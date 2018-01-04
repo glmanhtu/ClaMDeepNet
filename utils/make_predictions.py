@@ -18,7 +18,8 @@ def set_caffe_gpu(gpu_id):
     caffe.set_mode_gpu()
     if "," in gpu_id:
         caffe.set_device(int(gpu_id.split(',')[0]))
-    caffe.set_device(int(gpu_id))
+    else:
+        caffe.set_device(int(gpu_id))
 
 def read_mean_data(mean_file):
 
