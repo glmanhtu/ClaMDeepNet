@@ -5,8 +5,8 @@ import subprocess
 
 class AnalyzingLogFile:
 
-    log_test = 'train.log.test'
-    log_train = 'train.log.train'
+    log_test = 'caffe_train.log.test'
+    log_train = 'caffe_train.log.train'
 
     def __init__(self):
         self.execute_command("chmod +x parse_log.sh")

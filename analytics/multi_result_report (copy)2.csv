@@ -1,0 +1,7 @@
+CNN, design, test_accuracy,accuracy_at_max_iter, Slover Parameter
+resnet, from scratch,0.875,0.853545, base_lr: 0.001 stepsize: 2000
+alexnet, from scratch,0.9080188679,0.869851, base_lr: 0.001 stepsize: 2000
+googlenet, from scratch,0.9245283019,0.931641, base_lr: 0.001 stepsize: 2000
+googlenet, fine-tuning,0.9740566038,0.97403, base_lr: 0.001 stepsize: 500
+alexnet, fine-tuning,0.983490566,0.968955, base_lr: 0.001 stepsize: 3000
+resnet, fine-tuning,0.9858490566,0.955224, base_lr: 0.001 stepsize: 1000
