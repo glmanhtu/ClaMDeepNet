@@ -2,13 +2,10 @@ import csv
 import logging
 import os
 import traceback
-import shutil
 import sys
 import threading
 
 import signal
-
-import time
 
 os.environ['GLOG_minloglevel'] = '2'
 from heobs_image_classification import heobs_image_classification
@@ -60,25 +57,6 @@ def generate_workspace(test_id):
     return os.path.join("workspace", str(test_id))
 
 
-def copytree(src, dst, symlinks=False, ignore=None):
-    for the_file in os.listdir(dst):
-        file_path = os.path.join(dst, the_file)
-        try:
-            if os.path.isfile(file_path):
-                os.unlink(file_path)
-            elif os.path.isdir(file_path):
-                shutil.rmtree(file_path)
-        except Exception as e:
-            print(e)
-    for item in os.listdir(src):
-        s = os.path.join(src, item)
-        d = os.path.join(dst, item)
-        if os.path.isdir(s):
-            shutil.copytree(s, d, symlinks, ignore)
-        else:
-            shutil.copy2(s, d)
-
-
 def reporter(q, nworkers):
     multiple_level_progress = MultipleLevelProgress(nworkers, 100)
     while nworkers > 0:
@@ -118,12 +96,13 @@ def collect_result(test_space, test_info):
 
     if not os.path.isdir(destination):
         os.makedirs(destination)
-    copytree(result, destination)
+    utils.copytree(result, destination)
 
 
 def signal_term_handler(signal, frame):
     utils.sig_kill = True
     logger.error("Killed")
+
 
 if __name__ == '__main__':
 

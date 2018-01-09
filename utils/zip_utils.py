@@ -1,7 +1,6 @@
 import os
 import zipfile
 
-from percent_visualize import print_progress
 from utils import empty_dir
 
 

@@ -107,7 +107,24 @@ def transform_img(img, img_width, img_height):
     return img
 
 
-def empty_dir(dir):
-    if os.path.isdir(dir):
-        shutil.rmtree(dir)
-    os.makedirs(dir)
+def empty_dir(dst):
+    for the_file in os.listdir(dst):
+        file_path = os.path.join(dst, the_file)
+        try:
+            if os.path.isfile(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print(e)
+
+
+def copytree(src, dst, symlinks=False, ignore=None):
+    empty_dir(dst)
+    for item in os.listdir(src):
+        s = os.path.join(src, item)
+        d = os.path.join(dst, item)
+        if os.path.isdir(s):
+            shutil.copytree(s, d, symlinks, ignore)
+        else:
+            shutil.copy2(s, d)

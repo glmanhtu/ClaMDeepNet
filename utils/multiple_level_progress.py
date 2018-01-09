@@ -7,6 +7,7 @@ class MultipleLevelProgress:
     num_progress = 0
     max_val = 0
     max_pos = 0
+    progresses = []
 
     @staticmethod
     def up():
@@ -27,7 +28,13 @@ class MultipleLevelProgress:
         MultipleLevelProgress.down()
         pass
 
-    def update(self, progress_index, val, message):
+    def get_progress_index(self, test_id):
+        if test_id not in self.progresses:
+            self.progresses.append(test_id)
+        return self.progresses.index(test_id) + 1
+
+    def update(self, test_id, val, message):
+        progress_index = self.get_progress_index(test_id)
 
         if progress_index > self.max_pos:
             for i in range(progress_index - self.max_pos):
@@ -39,8 +46,7 @@ class MultipleLevelProgress:
         if progress_index >= self.max_pos:
             self.max_pos = progress_index + 1
 
-        prefix = "ID: " + str(progress_index) + " |--> (" + str(progress_index) + "/" + str(
-            self.num_progress) + ") "
+        prefix = "ID: " + str(test_id) + " |--> (" + str(progress_index) + "/" + str(self.num_progress) + ") "
         print_progress(val, self.max_val, prefix, message, bar_length=30)
 
         for i in range(self.max_pos - progress_index):

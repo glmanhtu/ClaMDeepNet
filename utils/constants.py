@@ -1,6 +1,3 @@
-import os
-
-
 class Constant(object):
 
     IMAGE_NAME_SEPARATE_CHARACTER = "_"
@@ -12,3 +9,5 @@ class Constant(object):
     # CPU or GPU
     # You also can change this value by set environment CAFFE_SOLVER
     CAFFE_SOLVER = "GPU"
+
+    IMAGE_TRAIN_VAL_TEST = (80, 10, 10)

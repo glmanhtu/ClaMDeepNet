@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/Debian) (preloaded format=xelatex 2017.10.10)  22 DEC 2017 11:10
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/Debian) (preloaded format=xelatex 2017.10.10)  9 JAN 2018 12:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1181,17 +1181,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 497--499
 
 [22] [23]
 File: images/unsupervised_large_dataset_result.png Graphic file (type QTm)
- <use  "images/unsupervised_large_dataset_result.png" > [24]
-(./final_report.bbl [25])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 601.
- [26
+ <use  "images/unsupervised_large_dataset_result.png" > [24] [25]
+(./final_report.bbl [26])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 617.
+ [27
 
-] [27]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 601.
+] [28]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 617.
  (./final_report.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 601.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 601.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 601.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 617.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 617.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 617.
  ) 
 Here is how much of TeX's memory you used:
  25704 strings out of 493638
@@ -1202,4 +1202,4 @@ Here is how much of TeX's memory you used:
  1328 hyphenation exceptions out of 8191
  53i,13n,92p,10372b,1857s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on final_report.pdf (28 pages).
+Output written on final_report.pdf (29 pages).

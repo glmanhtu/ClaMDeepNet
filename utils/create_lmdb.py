@@ -6,15 +6,14 @@ import lmdb
 import numpy as np
 from caffe.proto import caffe_pb2
 
-from percent_visualize import print_progress
 from utils import *
 
 
 class CreateLmdb(object):
     def create_lmdb(self, train_path, train_lmdb_path, validation_lmdb_path, classes, test_path, img_width, img_height):
-        execute('rm -rf  ' + validation_lmdb_path)
-        execute('rm -rf  ' + train_lmdb_path)
-        execute('rm -rf  ' + test_path)
+        empty_dir(validation_lmdb_path)
+        empty_dir(train_lmdb_path)
+        empty_dir(test_path)
         train_data = [img for img in glob.glob(train_path + "/*jpg")]
 
         # Shuffle train_data
@@ -30,7 +29,7 @@ class CreateLmdb(object):
                     img_list[clazz].append(img)
                     break
 
-        percent_classes = (80, 10, 10)
+        percent_classes = Constant.IMAGE_TRAIN_VAL_TEST
 
         in_db = lmdb.open(train_lmdb_path, map_size=int(1e12))
         with in_db.begin(write=True) as in_txn:
