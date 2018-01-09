@@ -1,9 +1,0 @@
-Defines: 
-	+ Scenery 
-		Any form of landscapes which show little or no human activity and are created in the pursuit of a pure, unsullied depiction of nature, also known as scenery.
-	+ Being(s)
-		Any form of life, such as a plant or a living creature, whether human or other animal.
-	+ Heritage
-		A place of cultural, historical, or natural significance for a group or society.
-	+ Other
-		Any other type of image that doesn't represent a photograph, such as painting, illustration, any object.	
