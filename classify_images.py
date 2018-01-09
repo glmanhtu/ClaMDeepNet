@@ -61,8 +61,15 @@ def generate_workspace(test_id):
 
 
 def copytree(src, dst, symlinks=False, ignore=None):
-    if os.path.exists(dst):
-        shutil.rmtree(dst)
+    for the_file in os.listdir(dst):
+        file_path = os.path.join(dst, the_file)
+        try:
+            if os.path.isfile(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print(e)
     for item in os.listdir(src):
         s = os.path.join(src, item)
         d = os.path.join(dst, item)
