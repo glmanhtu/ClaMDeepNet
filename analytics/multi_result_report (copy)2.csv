@@ -1,7 +1,0 @@
-CNN, design,train_loss_at_max_iter,val_loss_at_max_iter,over_fitting, Slover Parameter
-alexnet, from scratch,0.0387995,0.463493,0.4146445353, base_lr: 0.001 stepsize: 2000
-resnet, from scratch,0.00353015,0.458518,0.4459962225, base_lr: 0.001 stepsize: 2000
-resnet, fine-tuning,0.00149349,0.121705,0.1130302864, base_lr: 0.001 stepsize: 1000
-googlenet, from scratch,0.000274695,0.354815,0.3284061355, base_lr: 0.001 stepsize: 2000
-googlenet, fine-tuning,5.47166E-05,0.134216,0.1318279229, base_lr: 0.001 stepsize: 500
-alexnet, fine-tuning,1.71319E-05,0.170327,0.1688760263, base_lr: 0.001 stepsize: 3000

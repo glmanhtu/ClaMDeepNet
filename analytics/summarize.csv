@@ -1,0 +1,9 @@
+CNN,Design,Test Accuracy,Train Loss,Validate Loss,Train Accuracy,Overfitting,Total Time
+SE-ResNet-50,from scratch,43.16,7096.100,4945.27,43.38,816.44,4849
+ResNet-50,from scratch,87.50,0.353,45.85,85.35,44.60,5525
+AlexNet,from scratch,90.80,3.880,46.35,86.99,41.46,968
+GoogLeNet,from scratch,92.45,0.027,35.48,93.16,32.84,2331
+GoogLeNet,fine-tuning,97.41,0.005,13.42,97.40,13.18,2327
+AlexNet,fine-tuning,98.35,0.002,17.03,96.90,16.89,929
+ResNet-50,fine-tuning,98.58,0.149,12.17,95.52,11.30,5560
+SE-ResNet-50,fine-tuning,98.82,0.007,25.87,97.39,21.93,5066
